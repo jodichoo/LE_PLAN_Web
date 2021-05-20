@@ -1,0 +1,32 @@
+.App {
+  text-align: center;
+  padding: 20px;
+}
+
+.signup-login {
+  display: block;
+  padding: 10px;
+}
+
+.signup-login-field {
+  margin: 15px;
+}
+
+.enter-button {
+  padding: 20px 32px;
+}
+
+.nav-bar {
+  position: fixed;
+  background-color: blue;
+  color: white;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  text-align: right;
+}
+
+nav li {
+  display: inline;
+  padding: 20px;
+}
