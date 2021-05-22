@@ -4,7 +4,6 @@ import RightDashboard from './RightDashboard';
 
 function Dashboard() {
     return (
-        <>
         <div>
             {/* Left */}
             <LeftDashboard /> 
@@ -13,8 +12,7 @@ function Dashboard() {
             {/* Right */}
             <RightDashboard /> 
         </div>
-        </>
     )
 }
 
-export default Dashboard(); 
+export default Dashboard; 
