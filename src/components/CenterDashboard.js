@@ -1,6 +1,10 @@
+import TaskManager from './TaskManager'; 
+
 function CenterDashboard() {
     return (
-        <div></div>
+        <div>
+            <TaskManager />
+        </div>
     )
 }
 
