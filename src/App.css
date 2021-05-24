@@ -4,6 +4,7 @@
   text-align: center;
   padding: 20px;
   font-family: Roboto;
+  margin: auto;
 }
 
 .signup-login {
@@ -34,6 +35,10 @@
   margin: auto;
 }
 
+.task-table {
+  margin: auto;
+  empty-cells: show; 
+}
 nav li {
   display: inline;
   padding: 20px;

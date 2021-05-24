@@ -2,15 +2,13 @@ import { useState } from 'react';
 
 
 function TaskForm(props) {
-    // const [addWorkClicked, setAddWorkClicked] = useState(false); 
-    // const [addLifeClicked, setAddLifeClicked] = useState(false); 
     const currDate = new Date().toISOString().substring(0, 10);
     const [taskName, setTaskName] = useState(''); 
     const [taskDesc, setTaskDesc] = useState(''); 
     const [taskDate, setTaskDate] = useState(currDate); 
     const [taskHrs, setTaskHrs] = useState(0); 
     const [taskMins, setTaskMins] = useState(0); 
-    const [taskDur, setTaskDur] = useState(0); 
+    const [taskDur, setTaskDur] = useState(); 
     const [isWork, setIsWork] = useState(true); 
     const [check, setCheck] = useState(true);
     const [tasks, setTasks] = useState([]); 
@@ -40,6 +38,7 @@ function TaskForm(props) {
         console.log(t); 
         // update tasks here
         const newTask = {
+                isWork: isWork, 
                 name: taskName,
                 desc: taskDesc,
                 time: t,
@@ -72,12 +71,12 @@ function TaskForm(props) {
             }}>
                 <div className="task-form">
                 <label>Task Name: </label>
-                <input type="text" onChange={e => setTaskName(e.target.value)} required></input>
+                <input id='test' type="text" defaultValue={taskName} onChange={e => setTaskName(e.target.value)} required></input>
                 </div>
                 
                 <div className="task-form">
                 <label>Task Description: </label>
-                <input type="text" onChange={e => setTaskDesc(e.target.value)}></input>
+                <input type="text" defaultValue={taskDesc} onChange={e => setTaskDesc(e.target.value)}></input>
                 </div>
                 
                 <div className="task-form">
@@ -94,7 +93,7 @@ function TaskForm(props) {
                 
                 <div className="task-form">
                 <label>Duration: </label>
-                <input type="number" id="task-duration" step='0.25' min="0" placeholder='E.g. 2.25' required></input>
+                <input type="number" id="task-duration" defaultValue={taskDur} step='0.25' min="0" placeholder='E.g. 2.25' required></input>
                 </div>
                 
                 <div className="task-form">
