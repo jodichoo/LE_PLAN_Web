@@ -38,7 +38,7 @@ function TaskForm(props) {
     function handleAddTask(e) {
         e.preventDefault();
         const t = parseInt(taskHrs) + parseFloat(taskMins/100); 
-        console.log(addWorkClicked); 
+        console.log(taskDur); 
         //create a new doc within the relevant collection 
         const ref = userTasks.collection(taskDate).doc()
         // update tasks here
@@ -48,7 +48,7 @@ function TaskForm(props) {
                 name: taskName,
                 desc: taskDesc,
                 time: t,
-                dur: taskDur
+                dur: parseFloat(taskDur)
         };
         //write to database here
         ref.set(newTask)
@@ -100,7 +100,7 @@ function TaskForm(props) {
                 
                 <div className="task-form">
                 <label>Duration: </label>
-                <input type="number" id="task-duration" step='0.25' min="0" placeholder='E.g. 2.25' required></input>
+                <input type="number" id="task-duration" step='0.25' min="0" placeholder='E.g. 2.25' onChange={e => setTaskDur(e.target.value)} required></input>
                 </div>
                 
                 <div className="task-form">
