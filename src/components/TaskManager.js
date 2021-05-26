@@ -1,20 +1,28 @@
-import React, { useState } from 'react'; 
+import React, { useEffect, useState } from 'react'; 
+import { useAuth } from '../contexts/AuthContexts';
+import { db } from '../firebase'; 
 
 
 function TaskManager() {
-    const tasks = [{
-        isWork: true, 
-        name: 'lmaolmaolmao',
-        desc: 'lololoolol',
-        time: 12.30,
-        dur: 2
-    },{
-        isWork: false, 
-        name: 'sfsdfsdfsdf',
-        desc: 'sdfd',
-        time: 16.40,
-        dur: 3
-    }]; 
+    const currDate = new Date().toISOString().substring(0, 10);
+    const [tasks, setTasks] = useState([]); 
+    const { currentUser } = useAuth(); 
+    const userTasks = db.collection('users').doc(currentUser.uid);
+    
+    useEffect(() => {
+        //get collection of tasks to be displayed 
+        const today = userTasks.collection(currDate); 
+        //order collection by time, then push each item in collection into array 
+        const unsubscribe = today.orderBy('time').onSnapshot((querySnapshot) => {
+            const t = []; 
+            querySnapshot.forEach(doc => {
+                t.push(doc.data());
+            })
+            //set local tasks variable to array t 
+            setTasks(t); 
+        })
+        return unsubscribe;
+    }, [])
 
     function toggleTaskDesc(e, index, toggle) {
         e.preventDefault(); 
@@ -30,13 +38,15 @@ function TaskManager() {
     function deleteTask(e, index) {
         e.preventDefault(); 
         //delete task from database
-        //update current task variable 
+        userTasks.collection(currDate).doc(tasks[index].id).delete(); 
+        //update local task variable 
+        const first = tasks.slice(0, index); 
+        const last = tasks.slice(index + 1, tasks.length); 
+        const newTasks = [...first, ...last]; 
     }
 
     return (
         <div>
-            {/* some header using username */}
-            <h1>header</h1>
         <table className='task-table'>
             <tbody>
                 {tasks.map((task, index) => (

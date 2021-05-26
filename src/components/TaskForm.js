@@ -1,4 +1,6 @@
 import { useState } from 'react'; 
+import { useAuth } from '../contexts/AuthContexts';
+import { db } from '../firebase'; 
 
 
 function TaskForm(props) {
@@ -8,11 +10,12 @@ function TaskForm(props) {
     const [taskDate, setTaskDate] = useState(currDate); 
     const [taskHrs, setTaskHrs] = useState(0); 
     const [taskMins, setTaskMins] = useState(0); 
-    const [taskDur, setTaskDur] = useState(); 
+    const [taskDur, setTaskDur] = useState(0); 
     const [isWork, setIsWork] = useState(true); 
     const [check, setCheck] = useState(true);
-    const [tasks, setTasks] = useState([]); 
     const { addWorkClicked, setAddWorkClicked, setAddLifeClicked, addLifeClicked } = props;
+    const { currentUser } = useAuth(); 
+    const userTasks = db.collection('users').doc(currentUser.uid); 
 
     function removeTaskForm(e) {
         e.preventDefault(); 
@@ -35,16 +38,20 @@ function TaskForm(props) {
     function handleAddTask(e) {
         e.preventDefault();
         const t = parseInt(taskHrs) + parseFloat(taskMins/100); 
-        console.log(t); 
+        console.log(addWorkClicked); 
+        //create a new doc within the relevant collection 
+        const ref = userTasks.collection(taskDate).doc()
         // update tasks here
         const newTask = {
-                isWork: isWork, 
+                id: ref.id, //id field necessary to delete task later 
+                isWork: addWorkClicked, 
                 name: taskName,
                 desc: taskDesc,
                 time: t,
                 dur: taskDur
         };
         //write to database here
+        ref.set(newTask)
         initStates();
     }
 
@@ -93,7 +100,7 @@ function TaskForm(props) {
                 
                 <div className="task-form">
                 <label>Duration: </label>
-                <input type="number" id="task-duration" defaultValue={taskDur} step='0.25' min="0" placeholder='E.g. 2.25' required></input>
+                <input type="number" id="task-duration" step='0.25' min="0" placeholder='E.g. 2.25' required></input>
                 </div>
                 
                 <div className="task-form">
