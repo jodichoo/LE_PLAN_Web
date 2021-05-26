@@ -12,16 +12,19 @@ export function useAuth() {
 export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState();
     const [loading, setLoading] = useState(true); 
+    const [username, setUsername] = useState('Bob'); 
     
     //values that is passed down and used throughout all child components 
     const value = {
         currentUser,
+        username,
         signup,
         login,
         logout
     }
 
-    function signup(email, password) {
+    function signup(email, password, un) {
+        setUsername(un); 
         return auth.createUserWithEmailAndPassword(email, password); 
     }
 

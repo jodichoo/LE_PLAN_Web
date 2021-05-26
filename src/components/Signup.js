@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContexts';
 
 
 function Signup() {
+    const usernameRef = useRef(); 
     const emailRef = useRef(); 
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
@@ -24,7 +25,7 @@ function Signup() {
         try {
             setError(""); 
             setLoading(true); 
-            await signup(emailRef.current.value, passwordRef.current.value); 
+            await signup(emailRef.current.value, passwordRef.current.value,usernameRef.current.value); 
             history.push('/dashboard'); 
         } catch {
             setError("Failed to create an account")
@@ -40,7 +41,7 @@ function Signup() {
                 <div className='signup-login-field'>
                     <label id='username-label' for="username">Username</label>
                     {' '}
-                    <input type='text' placeholder='Enter username'></input>
+                    <input type='text' ref={usernameRef} placeholder='Enter username'></input>
                 </div>
                 <div className='signup-login-field'>
                     <label id='email-label' for="email">Email</label>
