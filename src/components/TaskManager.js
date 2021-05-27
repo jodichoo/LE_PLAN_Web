@@ -69,10 +69,10 @@ function TaskManager() {
             <tbody>
                 {tasks.map((task, index) => (
                 <>
-                <tr onMouseEnter={e => toggleTaskDesc(e, index, true)} onMouseLeave={e => toggleTaskDesc(e, index, false)} onClick={e => handleEditTask(e, index)}>
-                    <td><input type="checkbox" /></td>
+                <tr onMouseEnter={e => toggleTaskDesc(e, index, true)} onMouseLeave={e => toggleTaskDesc(e, index, false)}>
+                    <td><input type="checkbox" onClick={e => deleteTask(e, index)}/></td>
                     <td>{convertTime(task.time)}</td>
-                    <td>{task.name}</td>
+                    <td onClick={e => handleEditTask(e, index)}>{task.name}</td>
                     <td>{task.isWork ? 'WORK' : 'LIFE'}</td>
                 </tr>
                 <tr>
