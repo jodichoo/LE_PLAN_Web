@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'; 
 import { useAuth } from '../contexts/AuthContexts';
 import { db } from '../firebase'; 
+import TaskForm from './TaskForm'; 
 
 
 function TaskManager() {
@@ -8,6 +9,8 @@ function TaskManager() {
     const [tasks, setTasks] = useState([]); 
     const { currentUser } = useAuth(); 
     const userTasks = db.collection('users').doc(currentUser.uid);
+    const [editTask, setEditTask] = useState({});
+    const [edit, setEdit] = useState(false); 
     
     useEffect(() => {
         //get collection of tasks to be displayed 
@@ -44,6 +47,21 @@ function TaskManager() {
         const last = tasks.slice(index + 1, tasks.length); 
         const newTasks = [...first, ...last]; 
     }
+    function handleEditTask(e, index) {
+        e.preventDefault(); 
+        setEdit(true); 
+        setEditTask(tasks[index]); 
+    }
+
+    function convertTime(num) {
+        // console.log(num);
+        // const hour = Math.floor(num); 
+        // const min = (num - hour) * 100; 
+        // return '' + hour + ' : ' + min;
+        const s = num.toString(); 
+        const split = s.split('.'); 
+        return split[0] + ':' + split[1]; 
+    }
 
     return (
         <div>
@@ -51,12 +69,14 @@ function TaskManager() {
             <tbody>
                 {tasks.map((task, index) => (
                 <>
-                <tr onMouseEnter={e => toggleTaskDesc(e, index, true)} onMouseLeave={e => toggleTaskDesc(e, index, false)} onClick={e => deleteTask(e, index)}>
+                <tr onMouseEnter={e => toggleTaskDesc(e, index, true)} onMouseLeave={e => toggleTaskDesc(e, index, false)} onClick={e => handleEditTask(e, index)}>
                     <td><input type="checkbox" /></td>
-                    <td>{task.time}{' '}{task.name}</td>
+                    <td>{convertTime(task.time)}</td>
+                    <td>{task.name}</td>
                     <td>{task.isWork ? 'WORK' : 'LIFE'}</td>
                 </tr>
                 <tr>
+                    <td></td>
                     <td></td>
                     <td className='mouse-desc' id={index} style={{display: 'none'}}>{task.desc}</td>
                     <td></td>
@@ -65,6 +85,8 @@ function TaskManager() {
                 ))}
             </tbody>
         </table>
+        {edit && <TaskForm editTask={editTask} edit={edit} setEdit={setEdit} />}
+        
         </div>
     )
 }

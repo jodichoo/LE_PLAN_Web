@@ -31,9 +31,9 @@ function RightDashboard() {
                 <button id="work-button" onClick={showWorkTaskForm}>Work</button>
                 <button id="life-button" onClick={showLifeTaskForm}>Life</button>
                 {addWorkClicked && <TaskForm addWorkClicked={addWorkClicked} setAddWorkClicked={setAddWorkClicked} 
-                    addLifeClicked={addLifeClicked} setAddLifeClicked={setAddLifeClicked} />}
+                    setAddLifeClicked={setAddLifeClicked} />}
                 {addLifeClicked && <TaskForm  addWorkClicked={addWorkClicked} setAddWorkClicked={setAddWorkClicked} 
-                    addLifeClicked={addLifeClicked} setAddLifeClicked={setAddLifeClicked}/>}
+                    setAddLifeClicked={setAddLifeClicked}/>}
                 
         </div>
         </>
