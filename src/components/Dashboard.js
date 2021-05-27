@@ -6,12 +6,35 @@ import { useHistory } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContexts'; 
 import { db } from '../firebase'; 
 
+
 function Dashboard() {
     const { currentUser, logout, username } = useAuth();
-    const [error, setError] = useState('');  
+    const [error, setError] = useState('');
     const history = useHistory();
     const userTasks = db.collection('users').doc(currentUser.uid);
     const [greetName, setGreetName] = useState('empty'); 
+    const [date,setDate] = useState(new Date());
+        
+    useEffect(() => {
+        var timer = setInterval(() => setDate(new Date()), 1000 )
+            return function cleanup() {
+                clearInterval(timer)
+            }
+    }, []);
+
+    function convertGreet(num) {
+        const time = parseInt(num.toLocaleTimeString('en-GB').split(':')[0]);
+        console.log(time);
+        if (time < 12) {
+            return 'Good Morning';
+        } else if (time < 17) {
+            return "Good Afternoon";
+        } else if (time < 24) {
+            return 'Good Evening';
+        } else {
+            return "HAHAHAHAHAAH"
+        }
+    }
 
     async function handleLogOut() {
         setError(""); 
@@ -41,7 +64,7 @@ function Dashboard() {
 
     return (
         <div>
-            <h1>Hello, {greetName}!</h1>
+            <h1>{date.toLocaleTimeString()} {convertGreet(date)}, {greetName}!</h1>
             {/* logout button  */}
             {error && <p>{error}</p>}
             <button onClick={handleLogOut}>Log Out</button>
