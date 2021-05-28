@@ -10,7 +10,7 @@ function TaskForm(props) {
     const [taskDate, setTaskDate] = useState(currDate); 
     const [taskHrs, setTaskHrs] = useState(0); 
     const [taskMins, setTaskMins] = useState(0); 
-    const [taskDur, setTaskDur] = useState(0); 
+    const [taskDur, setTaskDur] = useState(); 
     const [isWork, setIsWork] = useState(true); 
     const [check, setCheck] = useState(true);
     const { addWorkClicked, setAddWorkClicked, setAddLifeClicked, editTask, edit, setEdit } = props; 
@@ -76,7 +76,6 @@ function TaskForm(props) {
     function handleAddTask(e) {
         e.preventDefault();
         const t = parseInt(taskHrs) + parseFloat(taskMins/100); 
-        // console.log(taskDur); 
         //create a new doc within the relevant collection 
         const ref = userTasks.collection(taskDate).doc();
         const work = edit ? isWork : addWorkClicked;
@@ -101,12 +100,10 @@ function TaskForm(props) {
     function isChecked(e) {
         //e.preventDefault();
          setCheck(!check)
-        // let checkBox = document.getElementById("want-reminder");
         let reminder = document.getElementById("rem-interval")
         if (check === true){
             console.log('dfsdf');
             reminder.style.display = "block";
-            // checkBox.value = checked;
         } else {
             reminder.style.display = 'none';
         }
@@ -148,7 +145,7 @@ function TaskForm(props) {
                 
                 <div className="task-form">
                 <label>Duration: </label>
-                <input type="number" id="task-duration" step='0.25' min="0" placeholder='E.g. 2.25' onChange={e => setTaskDur(e.target.value)} required></input>
+                <input type="number" id="task-duration" defaultValue={taskDur} step='0.25' min="0" placeholder='E.g. 2.25' onChange={e => setTaskDur(e.target.value)} required></input>
                 </div>
                 
                 <div className="task-form">
