@@ -13,7 +13,6 @@ function TaskForm(props) {
     const [taskDur, setTaskDur] = useState(0); 
     const [isWork, setIsWork] = useState(true); 
     const [check, setCheck] = useState(true);
-    // const [editMode, setEditMode] = useState(false); 
     const { addWorkClicked, setAddWorkClicked, setAddLifeClicked, editTask, edit, setEdit } = props; 
     const { currentUser } = useAuth(); 
     const userTasks = db.collection('users').doc(currentUser.uid); 
@@ -27,6 +26,12 @@ function TaskForm(props) {
             setTaskHrs(getHour(editTask.time)); 
             setTaskMins(getMin(editTask.time)); 
             setTaskDur(editTask.dur); 
+
+            if (editTask.isWork) {
+                document.getElementById('work-radio-edit').checked = true;
+            } else {
+                document.getElementById('life-radio-edit').checked = true;
+            }
         }
     }, []); 
 
@@ -71,10 +76,10 @@ function TaskForm(props) {
     function handleAddTask(e) {
         e.preventDefault();
         const t = parseInt(taskHrs) + parseFloat(taskMins/100); 
-        console.log(taskDur); 
+        // console.log(taskDur); 
         //create a new doc within the relevant collection 
         const ref = userTasks.collection(taskDate).doc();
-        const work = edit ? editTask.isWork : addWorkClicked;
+        const work = edit ? isWork : addWorkClicked;
         // update tasks here
         const newTask = {
                 id: ref.id, //id field necessary to delete task later 
@@ -115,8 +120,8 @@ function TaskForm(props) {
             }}>
 
                 {edit && <div className='task-form'>
-                <input type='radio' name='work-life-button' /> Work
-                <input type='radio' name='work-life-button' /> Life
+                <input type='radio' name='work-life-button' id='work-radio-edit' onChange={e => setIsWork(true)} /> Work
+                <input type='radio' name='work-life-button' id='life-radio-edit' onChange={e => setIsWork(false)} /> Life
                 </div> }
 
                 <div className="task-form">
@@ -148,7 +153,7 @@ function TaskForm(props) {
                 
                 <div className="task-form">
                 {/* <label for='want-reminder'> */}
-                    <input type='checkbox' value='want-reminder' id='want-reminder' onChange= {isChecked}/> Set Reminders 
+                    <input type='checkbox' value='want-reminder' id='want-reminder' onChange={isChecked}/> Set Reminders 
                 {/* //</label>  */}
                 </div>
 
