@@ -55,8 +55,12 @@ function TaskManager() {
 
     function convertTime(num) {
         const s = parseFloat(num).toFixed(2).toString(); 
-        const split = s.split('.'); 
-        return split[0] + ':' + split[1]; 
+        const split = s.split('.');
+        if (split[0] < 10) {
+            return "0" + split[0] + ":" + split[1];
+        } else {
+            return split[0] + ':' + split[1]; 
+        } 
     }
 
     return (
