@@ -54,7 +54,7 @@ function TaskManager() {
     }
 
     function convertTime(num) {
-        const s = num.toString(); 
+        const s = parseFloat(num).toFixed(2).toString(); 
         const split = s.split('.'); 
         return split[0] + ':' + split[1]; 
     }
