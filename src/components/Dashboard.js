@@ -65,6 +65,7 @@ function Dashboard() {
     return (
         <div>
             <h1>{date.toLocaleTimeString()} {convertGreet(date)}, {greetName}!</h1>
+            <h2>Here are your tasks for {date.toLocaleDateString()} ecksdee ecksdee</h2>
             {/* logout button  */}
             {error && <p>{error}</p>}
             <button onClick={handleLogOut}>Log Out</button>

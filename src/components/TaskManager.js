@@ -49,8 +49,16 @@ function TaskManager() {
     }
     function handleEditTask(e, index) {
         e.preventDefault(); 
+        //setEdit(false);
         setEdit(true); 
-        setEditTask(tasks[index]); 
+        setEditTask(tasks[index]);
+        console.log("call edit") 
+    }
+
+    function changeForm(e) {
+        e.preventDefault();
+        setEdit(false);
+        console.log("change form")
     }
 
     function convertTime(num) {
@@ -72,7 +80,7 @@ function TaskManager() {
                 <tr onMouseEnter={e => toggleTaskDesc(e, index, true)} onMouseLeave={e => toggleTaskDesc(e, index, false)}>
                     <td><input type="checkbox" id="completed-check"/></td>
                     <td>{convertTime(task.time)}</td>
-                    <td onClick={e => handleEditTask(e, index)}>{task.name}</td>
+                    <td onClick={e => {changeForm(e); handleEditTask(e, index);}}>{task.name}</td>
                     <td>{task.isWork ? 'WORK' : 'LIFE'}</td>
                     <td><button id="delete-task" onClick={e => deleteTask(e, index)}>Delete</button></td>
                 </tr>
