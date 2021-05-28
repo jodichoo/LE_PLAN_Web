@@ -54,10 +54,6 @@ function TaskManager() {
     }
 
     function convertTime(num) {
-        // console.log(num);
-        // const hour = Math.floor(num); 
-        // const min = (num - hour) * 100; 
-        // return '' + hour + ' : ' + min;
         const s = num.toString(); 
         const split = s.split('.'); 
         return split[0] + ':' + split[1]; 
@@ -70,15 +66,17 @@ function TaskManager() {
                 {tasks.map((task, index) => (
                 <>
                 <tr onMouseEnter={e => toggleTaskDesc(e, index, true)} onMouseLeave={e => toggleTaskDesc(e, index, false)}>
-                    <td><input type="checkbox" onClick={e => deleteTask(e, index)}/></td>
+                    <td><input type="checkbox" id="completed-check"/></td>
                     <td>{convertTime(task.time)}</td>
                     <td onClick={e => handleEditTask(e, index)}>{task.name}</td>
                     <td>{task.isWork ? 'WORK' : 'LIFE'}</td>
+                    <td><button id="delete-task" onClick={e => deleteTask(e, index)}>Delete</button></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td></td>
                     <td className='mouse-desc' id={index} style={{display: 'none'}}>{task.desc}</td>
+                    <td></td>
                     <td></td>
                 </tr>
                 </>
