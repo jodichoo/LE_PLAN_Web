@@ -1,6 +1,8 @@
 function LeftDashboard() {
     return (
-        <div></div>
+        <div className="left-dash">
+            <h1>Calendar</h1>
+        </div>
     )
 }
 
