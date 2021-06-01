@@ -1,59 +1,59 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 .App {
+  min-height: 100vh;
+  min-width: 100%; 
   text-align: center;
-  padding: 20px;
+  /* padding: 20px; */
   font-family: Roboto;
-  margin: auto;
+  /* margin: auto; */
   color: #ededed;
+  background-color:#333333;
 }
 
-body {   
-    background-color:#333333;
-    margin: -19px 0 0 0; /*-19px here to remove white space on the very top of the page*/
-    width: 100vw;  
-    height: 100vh;
+body {    
+  margin: 0; 
+  padding: 0; 
+    /* background-color:#333333; */
+    /* margin: -19px 0 0 0; -19px here to remove white space on the very top of the page */
+    /* width: 100vw;  
+    height: 100vh;  */
 }
 
 .dash {
   height : 100vh;
+  width: 100vw; 
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
-  margin: 0;
-  padding: 0;
+  /* justify-content: center;
+  align-items: flex-start; */
+  /* margin: 0;
+  padding: 0; */
 }
 
 .left-dash {
   justify-content: center;
   align-items: center;
-  width: 15%;
-  margin: 0px auto;
+  flex: 15%;
+  /* margin: 0px auto;  */
 }
 
 .center-dash {
   background-color:white;
   color: black;
-  margin: 0px auto;
-  width: 50%;
+  /* margin: 0px auto; */
+  flex: 60%;
   padding: 2%;
   opacity: 80%;
   justify-content: center;
 }
 
 .right-dash {
-  background-color: rgb(61, 56, 47);
-  width: 35%;
-  margin: 0px auto;
+  flex: 25%;
   justify-content: center;
-  align-items: stretch;
+  align-items: center;
   display: flex;
   flex-direction: column;
-}
-
-.add-task-bar {
-  flex-basis: 25%;
 }
 
 .WL-meter {
@@ -62,10 +62,13 @@ body {
   color:rosybrown;
 }
 
+#landing-page {
+  display: flex;
+  flex-direction: column;
+}
+
 #apology {
-  color: #ededed;
   font-size: 120px;
-  
 }
 
 .signup-login {
