@@ -5,7 +5,7 @@ import TaskForm from './TaskForm';
 
 
 function TaskManager() {
-    const currDate = new Date().toISOString().substring(0, 10);
+    const currDate = new Date().toLocaleDateString('en-CA');
     const [tasks, setTasks] = useState([]); 
     const { currentUser } = useAuth(); 
     const userTasks = db.collection('users').doc(currentUser.uid);

@@ -4,7 +4,7 @@ import { db } from '../firebase';
 
 
 function TaskForm(props) {
-    const currDate = new Date().toISOString().substring(0, 10);
+    const currDate = new Date().toLocaleDateString('en-CA');
     const [taskName, setTaskName] = useState(''); 
     const [taskDesc, setTaskDesc] = useState(''); 
     const [taskDate, setTaskDate] = useState(currDate); 
