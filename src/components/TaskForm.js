@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'; 
 import { useAuth } from '../contexts/AuthContexts';
 import { db } from '../firebase'; 
-
+import moment from 'moment'; 
 
 function TaskForm(props) {
     const currDate = new Date().toLocaleDateString('en-CA');
@@ -10,22 +10,22 @@ function TaskForm(props) {
     const [taskDate, setTaskDate] = useState(currDate); 
     const [taskHrs, setTaskHrs] = useState(0); 
     const [taskMins, setTaskMins] = useState(0); 
-    const [taskDur, setTaskDur] = useState(); 
-    const [isWork, setIsWork] = useState(true); 
+    const [taskDur, setTaskDur] = useState(''); 
     const [check, setCheck] = useState(true);
     const { addWorkClicked, setAddWorkClicked, setAddLifeClicked, editTask, edit, setEdit } = props; 
+    const [isWork, setIsWork] = useState(true); 
     const { currentUser } = useAuth(); 
     const userTasks = db.collection('users').doc(currentUser.uid); 
 
     useEffect(() => {
-        console.log(editTask); 
         if (edit) {
             setTaskName(editTask.name); 
             setTaskDesc(editTask.desc); 
             setTaskDate(editTask.date); 
-            setTaskHrs(getHour(editTask.time)); 
-            setTaskMins(getMin(editTask.time)); 
+            setTaskHrs(editTask.time); 
+            setTaskMins(editTask.time); 
             setTaskDur(editTask.dur); 
+            setIsWork(editTask.isWork)
 
             if (editTask.isWork) {
                 document.getElementById('work-radio-edit').checked = true;
@@ -68,7 +68,7 @@ function TaskForm(props) {
         setTaskDesc(''); 
         setTaskHrs(0); 
         setTaskMins(0); 
-        setTaskDur(0); 
+        setTaskDur(''); 
         setTaskDate(currDate);
         setIsWork(true);  
     }
@@ -90,19 +90,56 @@ function TaskForm(props) {
                 dur: parseFloat(taskDur)
         };
         //write to database here
+        console.log(work); 
+        //add the new task to the database
         ref.set(newTask);
-        if (edit) {
-            userTasks.collection(taskDate).doc(editTask.id).delete(); 
+
+        //update work/lifeTime for the meter
+        const whatday = moment().day() === 0 ? 7 : moment().day();// 1,2,3,4....7
+        const numDays = whatday - 1; // num of times to mathfloor
+        const monDate = moment().subtract(numDays, 'days');
+        if (moment(taskDate, "YYYY-MM-DD").diff(monDate, 'days') < 6) {
+            //change below 
+            handleCounters(work, "+", taskDur);
         }
         initStates();
     }
 
+    function handleEditTask(e) {
+        e.preventDefault(); 
+        const whatday = moment().day() === 0 ? 7 : moment().day();// 1,2,3,4....7
+        const numDays = whatday - 1; // num of times to mathfloor
+        const monDate = moment().subtract(numDays, 'days');
+        userTasks.collection(editTask.date).doc(editTask.id).delete().then(() => {
+            if (moment(editTask.date, "YYYY-MM-DD").diff(monDate, 'days') < 6) {
+                //if editing, delete the previous task + subtract from work/lifeTime for meter
+                console.log('subtract');
+                handleCounters(editTask.isWork, "-", editTask.dur);
+            }
+        })
+    }
+
+    function handleCounters(work, operator, dur) {
+            userTasks.get().then(doc => {
+                if (work) {
+                    const currWork = doc.data().workTime;
+                    userTasks.update({
+                        workTime: eval(currWork.toString() + operator + parseFloat(dur).toString())
+                    });
+                } else {
+                    const currLife = doc.data().lifeTime; 
+                    userTasks.update({
+                        lifeTime: eval(currLife.toString() + operator + parseFloat(dur).toString())
+                    });
+                }
+            })
+    }
+
     function isChecked(e) {
-        //e.preventDefault();
+        e.preventDefault();
          setCheck(!check)
         let reminder = document.getElementById("rem-interval")
         if (check === true){
-            console.log('dfsdf');
             reminder.style.display = "block";
         } else {
             reminder.style.display = 'none';
@@ -113,6 +150,7 @@ function TaskForm(props) {
         <div>
             <h2>{!edit && (addWorkClicked ? 'work' : 'life')}</h2>
             <form onSubmit={e => {
+                edit && handleEditTask(e);
                 handleAddTask(e); 
             }}>
 
@@ -149,9 +187,7 @@ function TaskForm(props) {
                 </div>
                 
                 <div className="task-form">
-                {/* <label for='want-reminder'> */}
                     <input type='checkbox' value='want-reminder' id='want-reminder' onChange={isChecked}/> Set Reminders 
-                {/* //</label>  */}
                 </div>
 
                 <div className="task-form" id="rem-interval" style={{display: 'none'}}>

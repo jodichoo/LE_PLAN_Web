@@ -20,6 +20,19 @@ body {
     height: 100vh;  */
 }
 
+/* .donut {
+  --donut-size: 300px;
+  --donut-border-width: 20px;
+  --donut-spacing: 0;
+  --donut-spacing-color: 255, 255, 255;
+  --donut-spacing-deg: calc(1deg * var(--donut-spacing));
+  border-radius: 50%;
+  height: var(--donut-size);
+  margin: 40px;
+  position: relative;
+  width: var(--donut-size);
+} */
+
 .dash {
   height : 100vh;
   width: 100vw; 

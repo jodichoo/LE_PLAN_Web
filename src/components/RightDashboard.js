@@ -1,5 +1,6 @@
 import { useState } from 'react'; 
 import TaskForm from './TaskForm';
+import Meter from './Meter';
 
 
 function RightDashboard() {
@@ -26,7 +27,7 @@ function RightDashboard() {
         <div className="right-dash">
                 {/* <label for="add-task"><h1 id="add-task">+ Add Task</h1></label> */}
                 <div className="WL-meter">
-                    <h1>METER</h1>
+                    <Meter />
                     {/* <br /><br /><br /><br /> */}
                 </div>
 

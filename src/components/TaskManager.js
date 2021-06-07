@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContexts';
 import { db } from '../firebase'; 
 import TaskForm from './TaskForm'; 
+import moment from 'moment'; 
 
 
 function TaskManager() {
@@ -41,12 +42,37 @@ function TaskManager() {
     function deleteTask(e, index) {
         e.preventDefault(); 
         //delete task from database
-        userTasks.collection(currDate).doc(tasks[index].id).delete(); 
+        userTasks.collection(currDate).doc(tasks[index].id).delete();
+        //update work/life time in database  
+        const isWork = tasks[index].isWork; 
+        const dur = tasks[index].dur; 
+
+        const whatday = moment().day() === 0 ? 7 : moment().day();// 1,2,3,4....7
+        const numDays = whatday - 1; // num of times to mathfloor
+        const monDate = moment().subtract(numDays, 'days');
+
+        if (moment(tasks[index].date, "YYYY-MM-DD").diff(monDate, 'days') < 6) {
+            userTasks.get().then(doc => {
+                if (isWork) {
+                    const currWork = doc.data().workTime; 
+                    userTasks.update({
+                      workTime: currWork - dur  
+                    })
+                } else {
+                    const currLife = doc.data().lifeTime; 
+                    userTasks.update({
+                        lifeTime: currLife - dur  
+                    })
+                }
+            })
+        }
+        
         //update local task variable 
         const first = tasks.slice(0, index); 
         const last = tasks.slice(index + 1, tasks.length); 
         const newTasks = [...first, ...last]; 
     }
+
     function handleEditTask(e, index) {
         e.preventDefault(); 
         //setEdit(false);
