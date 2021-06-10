@@ -17,6 +17,37 @@ function CenterDashboard() {
     const [lifeTime, setLifeTime] = useState(0);  
     const currDate = moment();
 
+    async function handleGetMeterData(monDate) {
+        var workCount = 0;
+        var lifeCount = 0;
+
+        for (var i = 0; i <= 6; i++) {
+            console.log("getting the durations"); 
+            const tempDate = moment(monDate); 
+            tempDate.add(i, 'days'); //set date to next day of the week
+            const str = tempDate.format('YYYY-MM-DD'); //to find tasks in database
+            console.log(i, str);
+            await userTasks.collection(str).get().then(querySnapshot => {
+                querySnapshot.forEach(doc => {
+                    if (doc.exists) {
+                        const isWork = doc.data().isWork; 
+                        const dur = doc.data().dur;
+                        console.log(doc.data().date, isWork, doc.data().name);
+                        if (isWork) {
+                            workCount += dur; 
+                        } else {
+                            lifeCount += dur; 
+                        }
+                    }
+                });
+            })
+            userTasks.update({
+                workTime: workCount, 
+                lifeTime: lifeCount
+            });
+        }
+    }
+
     useEffect(() => {
         userTasks.get().then(doc => {
             if (doc.exists) {
@@ -38,48 +69,19 @@ function CenterDashboard() {
                 setGreetName(username);
             }
         
+        //check if current date is >6 days after the last stored monday date
         if (moment().diff(moment(storedDate, 'YYYY-MM-DD'), 'days') > 6) {
+            //if so, find the monday date of the current week 
             console.log('went here');
             const whatday = currDate.day() === 0 ? 7 : currDate.day();// 1,2,3,4....7
             const numDays = whatday - 1; // num of times to mathfloor
-            const monDate = moment().subtract(numDays, 'days');
-           
-            userTasks.update({ //update storedDate in database to limit reinitialisation
-                storedDate: monDate.format('YYYY-MM-DD')
-            }).then(() => {
-                console.log('updated storedDate'); 
-            });
-
-            var workCount = 0;
-            var lifeCount = 0;
-
-            for (var i = 0; i <= 6; i++) {
-                const tempDate = monDate; 
-                tempDate.add(i, 'days'); //set date to next day of the week
-                const str = tempDate.format('YYYY-MM-DD'); //to find tasks in database
-                userTasks.collection(str).get().then(querySnapshot => {
-                    console.log("")
-                    querySnapshot.forEach(doc => {
-                        if (doc.exists) {
-                            const isWork = doc.data().isWork; 
-                            const dur = doc.data().dur;
-                            if (isWork) {
-                                workCount += dur; 
-                            } else {
-                                lifeCount += dur; 
-                            }
-                        }
-                    });
-                })
-            }
-
-            userTasks.update({
-                workTime: workCount, 
-                lifeTime: lifeCount
-            });
+            const monDate = moment().subtract(numDays, 'days').format('YYYY-MM-DD'); //monday of the current week 
             
-            setWorkTime(workCount); 
-            setLifeTime(lifeCount);
+            userTasks.update({ //update storedDate in database to limit reinitialisation
+                storedDate: monDate
+            }).then(() => {
+                return handleGetMeterData(monDate); 
+            });
         }
         })
         

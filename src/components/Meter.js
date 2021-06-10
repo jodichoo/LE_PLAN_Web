@@ -11,7 +11,6 @@ function Meter() {
     const [lifeTime, setLifeTime] = useState(0); 
 
     useEffect(() => {
-        //order collection by time, then push each item in collection into array 
         userTasks.onSnapshot(doc => {
             const w = doc.data().workTime; 
             const l = doc.data().lifeTime; 
