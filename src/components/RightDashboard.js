@@ -76,6 +76,16 @@ function RightDashboard(props) {
     }
   }, [tasks, time]);
 
+  function renderUpcoming() {
+    if (upTaskIndex >= tasks.length) {
+      setUpTaskIndex(tasks.length - 1); 
+      return;
+    }
+    return tasks.length > 0 && upTaskIndex >= 0
+      ? tasks[upTaskIndex].name
+      : "No Upcoming Tasks"
+  }
+
   function showWorkTaskForm(e) {
     e.preventDefault();
     if (addLifeClicked) {
@@ -102,9 +112,7 @@ function RightDashboard(props) {
 
       <div className="upcoming-task">
         <h1>
-          {tasks.length > 0 && upTaskIndex >= 0
-            ? "Next Task: " + tasks[upTaskIndex].name
-            : "No Upcoming Tasks"}{" "}
+          {renderUpcoming()}{" "}
         </h1>
       </div>
 
