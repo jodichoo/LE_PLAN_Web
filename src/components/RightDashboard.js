@@ -100,6 +100,14 @@ function RightDashboard(props) {
         {/* <br /><br /><br /><br /> */}
       </div>
 
+      <div className="upcoming-task">
+        <h1>
+          {tasks.length > 0 && upTaskIndex >= 0
+            ? "Next Task: " + tasks[upTaskIndex].name
+            : "No Upcoming Tasks"}{" "}
+        </h1>
+      </div>
+
       <div className="add-task-bar">
         <h1 id="add-task">+ Add Task</h1>
         <button id="work-button" onClick={showWorkTaskForm}>
@@ -123,14 +131,6 @@ function RightDashboard(props) {
             setAddLifeClicked={setAddLifeClicked}
           />
         )}
-      </div>
-
-      <div className="upcoming-task">
-        <h1>
-          {tasks.length > 0 && upTaskIndex >= 0
-            ? tasks[upTaskIndex].name
-            : "No Upcoming Tasks"}{" "}
-        </h1>
       </div>
     </div>
   );
