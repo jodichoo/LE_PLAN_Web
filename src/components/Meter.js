@@ -9,7 +9,7 @@ function Meter() {
   const [workTime, setWorkTime] = useState(0);
   const [lifeTime, setLifeTime] = useState(0);
   const [totalTime, setTotalTime] = useState(0);
-  const [hovered, setHovered] = useState("work");
+  const [hovered, setHovered] = useState("Work");
 
   useEffect(() => {
     userTasks.onSnapshot((doc) => {
@@ -27,7 +27,7 @@ function Meter() {
   }
 
   return (
-    <div>
+    <div className='meter'>
     <p>{hovered}</p>
       <DonutChart
         data={[
@@ -46,8 +46,8 @@ function Meter() {
               value: totalTime,
           }
         ]}
-        height={150}
-        width={300}
+        height={100}
+        width={200}
         startAngle={180}
         legend={false}
         colors={['#8a5858','#eddfc2']}

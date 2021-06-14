@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContexts';
 import { db } from '../firebase'; 
 import TaskForm from './TaskForm'; 
 import moment from 'moment'; 
-
+import { BiJoystick, BiPencil } from 'react-icons/bi'; 
 
 function TaskManager(props) {
     const { tasks, setTasks } = props; 
@@ -99,32 +99,49 @@ function TaskManager(props) {
     }
 
     return (
-        <div>
-        <table className='task-table'>
-            <tbody>
-                {tasks.map((task, index) => (
+        <div className='task-manager'>
+            {tasks.map((task, index) => (
                 <>
-                <tr onMouseEnter={e => toggleTaskDesc(e, index, true)} onMouseLeave={e => toggleTaskDesc(e, index, false)}>
-                    <td><input type="checkbox" id="completed-check"/></td>
-                    <td>{convertTime(task.time)}</td>
-                    <td onClick={e => {changeForm(e); handleEditTask(e, index);}}>{task.name}</td>
-                    <td>{task.isWork ? 'WORK' : 'LIFE'}</td>
-                    <td><button id="delete-task" onClick={e => deleteTask(e, index)}>Delete</button></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td className='mouse-desc' id={index} style={{display: 'none'}}>{task.desc}</td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                <div className='task' onMouseEnter={e => toggleTaskDesc(e, index, true)} onMouseLeave={e => toggleTaskDesc(e, index, false)}>
+                    <div className='check'><input type="checkbox" id="completed-check"/></div>
+                    <div className='time'>{convertTime(task.time)}</div>
+                    <div className='name' onClick={e => {changeForm(e); handleEditTask(e, index);}}>{task.name}</div>
+                    <div className='type'>{task.isWork ? <BiPencil /> : <BiJoystick />}</div>
+                    <div className='delete'><button id="delete-task" onClick={e => deleteTask(e, index)}>Delete</button></div>
+                </div>
+                <div className='mouse-desc' id={index} style={{display: 'none'}}>{task.desc}</div>
                 </>
-                ))}
-            </tbody>
-        </table>
-        {edit && <TaskForm editTask={editTask} edit={edit} setEdit={setEdit} />}
-        
+            ))}
+            <div className='edit'>
+                {edit && <TaskForm editTask={editTask} edit={edit} setEdit={setEdit} />}
+            </div>
         </div>
+        // <div>
+        // <table className='task-table'>
+        //     <tbody>
+        //         {tasks.map((task, index) => (
+        //         <>
+        //         <tr onMouseEnter={e => toggleTaskDesc(e, index, true)} onMouseLeave={e => toggleTaskDesc(e, index, false)}>
+        //             <td><input type="checkbox" id="completed-check"/></td>
+        //             <td>{convertTime(task.time)}</td>
+        //             <td onClick={e => {changeForm(e); handleEditTask(e, index);}}>{task.name}</td>
+        //             <td>{task.isWork ? 'WORK' : 'LIFE'}</td>
+        //             {/* <td><button id="delete-task" onClick={e => deleteTask(e, index)}>Delete</button></td> */}
+        //             <td><BsFillTrashFill onClick={e => deleteTask(e, index)}/></td>
+        //         </tr>
+        //         <tr>
+        //             <td></td>
+        //             <td></td>
+        //             <td className='mouse-desc' id={index} style={{display: 'none'}}>{task.desc}</td>
+        //             <td></td>
+        //             <td></td>
+        //         </tr>
+        //         </>
+        //         ))}
+        //     </tbody>
+        // </table>
+        // {edit && <TaskForm editTask={editTask} edit={edit} setEdit={setEdit} />}
+        // </div>
     )
 }
 

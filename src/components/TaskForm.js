@@ -155,50 +155,50 @@ function TaskForm(props) {
     }
 
     return (
-        <div>
-            <h2>{!edit && (addWorkClicked ? 'work' : 'life')}</h2>
+        <div className='task-form'>
+            <p>{!edit && (addWorkClicked ? 'work' : 'life')}</p>
             <form onSubmit={e => {
                 edit && handleEditTask(e);
                 handleAddTask(e); 
             }}>
 
-                {edit && <div className='task-form'>
+                {edit && <div className='task-form-field'>
                 <input type='radio' name='work-life-button' id='work-radio-edit' onChange={e => setIsWork(true)} /> Work
                 <input type='radio' name='work-life-button' id='life-radio-edit' onChange={e => setIsWork(false)} /> Life
                 </div> }
 
-                <div className="task-form">
+                <div className="task-form-field">
                 <label>Task Name: </label>
                 <input id='test' type="text" defaultValue={taskName} onChange={e => setTaskName(e.target.value)} required></input>
                 </div>
                 
-                <div className="task-form">
-                <label>Task Description: </label>
+                <div className="task-form-field">
+                <label>Description: </label>
                 <input type="text" defaultValue={taskDesc} onChange={e => setTaskDesc(e.target.value)}></input>
                 </div>
                 
-                <div className="task-form">
+                <div className="task-form-field">
                 <label>Date: </label>
                 <input type="date" placeholder="yyyy-mm-dd" defaultValue={taskDate} min={currDate}
                 onChange={e => setTaskDate(e.target.value)} requiredPattern="\d{4}-\d{2}-\d{2}" required></input>
                 </div>
                 
-                <div className="task-form">
+                <div className="task-form-field">
                 <label>Time: {taskHrs} : {taskMins}{' '}</label>
                 <input type="range" id="task-time-hour" defaultValue={taskHrs} max="23" min="0" onChange={e => setTaskHrs(e.target.value)} required></input>
                 <input type="range" id="task-time-min"  defaultValue={taskMins} max="59" min="0" onChange={e => setTaskMins(e.target.value)} required></input>
                 </div>
                 
-                <div className="task-form">
+                <div className="task-form-field">
                 <label>Duration: </label>
                 <input type="number" id="task-duration" defaultValue={taskDur} step='0.25' min="0" placeholder='E.g. 2.25' onChange={e => setTaskDur(e.target.value)} required></input>
                 </div>
                 
-                <div className="task-form">
+                <div className="task-form-field">
                     <input type='checkbox' value='want-reminder' id='want-reminder' onChange={isChecked}/> Set Reminders 
                 </div>
 
-                <div className="task-form" id="rem-interval" style={{display: 'none'}}>
+                <div className="task-form-field" id="rem-interval" style={{display: 'none'}}>
                     <input type='checkbox' name='rem-freq' id='10-min'/> 10 min 
                     <input type='checkbox' name='rem-freq' id='30-min'/> 30 min 
                     <input type='checkbox' name='rem-freq' id='1-hour'/> 1 hour before
@@ -209,9 +209,9 @@ function TaskForm(props) {
                     <input type='checkbox' name='rem-freq' id='one-week'/> 2 weeks before
                 </div>
 
-                <div className="task-form">
-                <button  className="task-form" id="submit-task-button">Submit</button>
-                <button  className="task-form" id="cancel-task-button" onClick={removeTaskForm}>Cancel</button>
+                <div className="task-form-field">
+                <button  className="task-form-field" id="submit-task-button">Submit</button>
+                <button  className="task-form-field" id="cancel-task-button" onClick={removeTaskForm}>Cancel</button>
                 </div>
             </form>
         </div>
