@@ -1,52 +1,139 @@
-import { useState } from 'react'; 
-import TaskForm from './TaskForm';
-import Meter from './Meter';
+import { useState, useEffect } from "react";
+import TaskForm from "./TaskForm";
+import Meter from "./Meter";
+import moment from "moment";
 
+function RightDashboard(props) {
+  const [addWorkClicked, setAddWorkClicked] = useState(false);
+  const [addLifeClicked, setAddLifeClicked] = useState(false);
+  const { tasks } = props;
+  const [taskLen, setTaskLen] = useState(tasks.length);
+  const [time, setTime] = useState(moment().format("HH:mm"));
+  const [upTaskIndex, setUpTaskIndex] = useState(0);
 
-function RightDashboard() {
-    const [addWorkClicked, setAddWorkClicked] = useState(false); 
-    const [addLifeClicked, setAddLifeClicked] = useState(false); 
+  useEffect(() => {
+    var timer = setInterval(() => setTime(moment().format("HH:mm:ss")), 1000);
+    // var timer = setInterval(() => setTime(nextTask()), 60000);
+    return function cleanup() {
+      clearInterval(timer);
+    };
+  }, []);
 
-    function showWorkTaskForm(e) {
-        e.preventDefault(); 
-        if (addLifeClicked) {
-            setAddLifeClicked(false); 
-        }
-        setAddWorkClicked(true); 
+//   function nextTask() {
+//       setTime(moment().format("HH:mm"));
+//     if (tasks.length > 0) {
+//         console.log("enter hook")
+//       const arr = time.split(":");
+//       const currTime = parseFloat(arr[0]) + 0.01 * parseFloat(arr[1]);
+//       if (upTaskIndex === tasks.length - 1 && currTime > tasks[upTaskIndex].time) {
+//         console.log("end");
+//         setUpTaskIndex(-1);
+//       }
+
+//       if (currTime > tasks[upTaskIndex].time && upTaskIndex >= 0) {
+//         console.log("sdfsdf");
+//         for (var i = upTaskIndex; i < tasks.length; i++) {
+//           console.log(tasks[i].time);
+//           setUpTaskIndex(i);
+//           if (tasks[i].time > currTime) {
+//             console.log("updating");
+//             setUpTaskIndex(i);
+//             break;
+//           }
+//         }
+//       }
+//     }
+//   }
+  useEffect(() => {
+    if (tasks.length !== taskLen) {
+        setUpTaskIndex(0);
+        setTaskLen(tasks.length);
     }
-
-    function showLifeTaskForm(e) {
-        e.preventDefault(); 
-        if (addWorkClicked) {
-            setAddWorkClicked(false); 
+    
+    if (tasks.length > 0 && upTaskIndex >=0) {
+        console.log("enter hook", upTaskIndex)
+      const arr = time.split(":");
+      const currTime = parseFloat(arr[0]) + 0.01 * parseFloat(arr[1]);
+      
+      if (currTime > tasks[upTaskIndex].time) {
+          console.log(upTaskIndex); //1
+        console.log("sdfsdf");
+        for (var i = upTaskIndex; i < tasks.length; i++) {
+          console.log(tasks[i].time);
+          setUpTaskIndex(i);
+          if (tasks[i].time > currTime) {
+            console.log("updating");
+            // setUpTaskIndex(i);
+            break;
+          }
         }
-        setAddLifeClicked(true);  
+      }
+
+      if (upTaskIndex >= tasks.length - 1 && currTime > tasks[upTaskIndex].time) {
+        console.log("end");
+        setUpTaskIndex(-1);
+      }
     }
+  }, [tasks, time]);
 
-    return (
-        <div className="right-dash">
-                {/* <label for="add-task"><h1 id="add-task">+ Add Task</h1></label> */}
-                <div className="WL-meter">
-                    <Meter />
-                    {/* <br /><br /><br /><br /> */}
-                </div>
+  function showWorkTaskForm(e) {
+    e.preventDefault();
+    if (addLifeClicked) {
+      setAddLifeClicked(false);
+    }
+    setAddWorkClicked(true);
+  }
 
-                <div className="add-task-bar">
-                    <h1 id="add-task">+ Add Task</h1>
-                    <button id="work-button" onClick={showWorkTaskForm}>Work</button>
-                    <button id="life-button" onClick={showLifeTaskForm}>Life</button>
+  function showLifeTaskForm(e) {
+    e.preventDefault();
+    if (addWorkClicked) {
+      setAddWorkClicked(false);
+    }
+    setAddLifeClicked(true);
+  }
 
-                    {addWorkClicked && <TaskForm addWorkClicked={addWorkClicked} setAddWorkClicked={setAddWorkClicked} 
-                        setAddLifeClicked={setAddLifeClicked} />}
-                    {addLifeClicked && <TaskForm  addWorkClicked={addWorkClicked} setAddWorkClicked={setAddWorkClicked} 
-                        setAddLifeClicked={setAddLifeClicked}/>}
-                </div>
+  return (
+    <div className="right-dash">
+      {/* <label for="add-task"><h1 id="add-task">+ Add Task</h1></label> */}
+      <div className="WL-meter">
+        <Meter />
+        {/* <br /><br /><br /><br /> */}
+      </div>
 
-                <div className="upcoming-task">
-                    <h1>Upcoming task</h1>
-                </div>
-        </div>
-    )
+      <div className="add-task-bar">
+        <h1 id="add-task">+ Add Task</h1>
+        <button id="work-button" onClick={showWorkTaskForm}>
+          Work
+        </button>
+        <button id="life-button" onClick={showLifeTaskForm}>
+          Life
+        </button>
+
+        {addWorkClicked && (
+          <TaskForm
+            addWorkClicked={addWorkClicked}
+            setAddWorkClicked={setAddWorkClicked}
+            setAddLifeClicked={setAddLifeClicked}
+          />
+        )}
+        {addLifeClicked && (
+          <TaskForm
+            addWorkClicked={addWorkClicked}
+            setAddWorkClicked={setAddWorkClicked}
+            setAddLifeClicked={setAddLifeClicked}
+          />
+        )}
+      </div>
+
+      <div className="upcoming-task">
+        <h1>
+          {tasks.length > 0 && upTaskIndex >= 0
+            ? tasks[upTaskIndex].name
+            : "No Upcoming Tasks"}{" "}
+        </h1>
+      </div>
+    </div>
+  );
 }
 
-export default RightDashboard; 
+export default RightDashboard;

@@ -5,28 +5,29 @@ import TaskForm from './TaskForm';
 import moment from 'moment'; 
 
 
-function TaskManager() {
+function TaskManager(props) {
+    const { tasks, setTasks } = props; 
     const currDate = new Date().toLocaleDateString('en-CA');
-    const [tasks, setTasks] = useState([]); 
+    // const [tasks, setTasks] = useState([]); 
     const { currentUser } = useAuth(); 
     const userTasks = db.collection('users').doc(currentUser.uid);
     const [editTask, setEditTask] = useState({});
     const [edit, setEdit] = useState(false); 
     
-    useEffect(() => {
-        //get collection of tasks to be displayed 
-        const today = userTasks.collection(currDate); 
-        //order collection by time, then push each item in collection into array 
-        const unsubscribe = today.orderBy('time').onSnapshot((querySnapshot) => {
-            const t = []; 
-            querySnapshot.forEach(doc => {
-                t.push(doc.data());
-            })
-            //set local tasks variable to array t 
-            setTasks(t); 
-        })
-        return unsubscribe;
-    }, [])
+    // useEffect(() => {
+    //     //get collection of tasks to be displayed 
+    //     const today = userTasks.collection(currDate); 
+    //     //order collection by time, then push each item in collection into array 
+    //     const unsubscribe = today.orderBy('time').onSnapshot((querySnapshot) => {
+    //         const t = []; 
+    //         querySnapshot.forEach(doc => {
+    //             t.push(doc.data());
+    //         })
+    //         //set local tasks variable to array t 
+    //         setTasks(t); 
+    //     })
+    //     return unsubscribe;
+    // }, [])
 
     function toggleTaskDesc(e, index, toggle) {
         e.preventDefault(); 

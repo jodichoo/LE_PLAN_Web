@@ -8,68 +8,34 @@ import { db } from '../firebase';
 
 
 function Dashboard() {
-    // const { currentUser, logout, username } = useAuth();
-    // const [error, setError] = useState('');
-    // const history = useHistory();
-    // const userTasks = db.collection('users').doc(currentUser.uid);
-    // const [greetName, setGreetName] = useState('empty'); 
-    // const [date,setDate] = useState(new Date());
-        
-    // useEffect(() => {
-    //     var timer = setInterval(() => setDate(new Date()), 1000 )
-    //         return function cleanup() {
-    //             clearInterval(timer)
-    //         }
-    // }, []);
-
-    // function convertGreet(num) {
-    //     const time = parseInt(num.toLocaleTimeString('en-GB').split(':')[0]);
-    //     console.log(time);
-    //     if (time < 12) {
-    //         return 'Good Morning';
-    //     } else if (time < 17) {
-    //         return "Good Afternoon";
-    //     } else if (time < 24) {
-    //         return 'Good Evening';
-    //     } else {
-    //         return "HAHAHAHAHAAH"
-    //     }
-    // }
-
-    // async function handleLogOut() {
-    //     setError(""); 
-    //     try {
-    //         await logout()
-    //         history.push('/login'); 
-    //     } catch {
-    //         setError('Failed to log out'); 
-    //     }
-    // }
-
-    // //get the username for custom greeting 
-    // useEffect(() => {
-    //     userTasks.get().then(doc => {
-    //         if (doc.exists) {
-    //             const unsubscribe = setGreetName(doc.data().username);
-    //             return unsubscribe; 
-    //         } else {
-    //             const unsubscribe = userTasks.set({
-    //                 username: username
-    //             })
-    //             setGreetName(username);  
-    //             return unsubscribe; 
-    //         }
-    //     })
-    // }, [])
+    const currDate = new Date().toLocaleDateString('en-CA');
+    const [tasks, setTasks] = useState([]); 
+    const { currentUser } = useAuth(); 
+    const userTasks = db.collection('users').doc(currentUser.uid);
+    
+    useEffect(() => {
+        //get collection of tasks to be displayed 
+        const today = userTasks.collection(currDate); 
+        //order collection by time, then push each item in collection into array 
+        const unsubscribe = today.orderBy('time').onSnapshot((querySnapshot) => {
+            const t = []; 
+            querySnapshot.forEach(doc => {
+                t.push(doc.data());
+            })
+            //set local tasks variable to array t 
+            setTasks(t); 
+        })
+        return unsubscribe;
+    }, [])
 
     return (
         <div className="dash">
             {/* Left */}
             <LeftDashboard /> 
             {/* Center */}
-            <CenterDashboard />
+            <CenterDashboard tasks={tasks} setTasks={setTasks}/>
             {/* Right */}
-            <RightDashboard /> 
+            <RightDashboard tasks={tasks}/> 
         </div>
     )
 }
