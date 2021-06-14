@@ -22,8 +22,8 @@ function TaskForm(props) {
             setTaskName(editTask.name); 
             setTaskDesc(editTask.desc); 
             setTaskDate(editTask.date); 
-            setTaskHrs(editTask.time); 
-            setTaskMins(editTask.time); 
+            setTaskHrs(getHour(editTask.time)); 
+            setTaskMins(getMin(editTask.time)); 
             setTaskDur(editTask.dur); 
             setIsWork(editTask.isWork)
 
@@ -36,15 +36,23 @@ function TaskForm(props) {
     }, []); 
 
     function getHour(num) {
-        const str = num.toString();
-        const split = str.split('.');
-        return parseInt(split[0]);
+        if (num === 0) {
+            return num; 
+        } else {
+            const str = num.toString();
+            const split = str.split('.');
+            return parseInt(split[0]);
+        }
     }
 
     function getMin(num) {
-        const str = num.toString();
-        const split = str.split('.');
-        return parseInt(split[1]);
+        if (num === 0) {
+            return num; 
+        } else {
+            const str = num.toString();
+            const split = str.split('.');
+            return parseInt(split[1]);
+        }
     }
 
     function removeTaskForm(e) {
