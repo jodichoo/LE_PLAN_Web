@@ -6,8 +6,8 @@ import moment from "moment";
 function RightDashboard(props) {
   const [addWorkClicked, setAddWorkClicked] = useState(false);
   const [addLifeClicked, setAddLifeClicked] = useState(false);
-  const { tasks, selectedDate } = props;
-  const [taskLen, setTaskLen] = useState(tasks.length);
+  const { todayTasks, selectedDate } = props;
+  const [taskLen, setTaskLen] = useState(todayTasks.length);
   const [time, setTime] = useState(moment().format("HH:mm"));
   const [upTaskIndex, setUpTaskIndex] = useState(0);
 
@@ -45,37 +45,35 @@ function RightDashboard(props) {
 //     }
 //   }
   useEffect(() => {
-    if (selectedDate === moment().format('YYYY-MM-DD')) {
-      if (tasks.length !== taskLen) {
-        setUpTaskIndex(0);
-        setTaskLen(tasks.length);
-      }
-    
-      if (tasks.length > 0 && upTaskIndex >=0) {
-          console.log("enter hook", upTaskIndex)
+    if (todayTasks.length !== taskLen) {
+      setUpTaskIndex(0);
+      setTaskLen(todayTasks.length);
+    }
+
+      if (todayTasks.length > 0 && upTaskIndex >=0) {
+        // console.log("entered 2")
         const arr = time.split(":");
         const currTime = parseFloat(arr[0]) + 0.01 * parseFloat(arr[1]);
         
-        if (currTime > tasks[upTaskIndex].time) {
-            console.log(upTaskIndex); //1
+        if (currTime > todayTasks[upTaskIndex].time) {
+            // console.log('entered 3'); 
           console.log("sdfsdf");
-          for (var i = upTaskIndex; i < tasks.length; i++) {
-            console.log(tasks[i].time);
+          for (var i = upTaskIndex; i < todayTasks.length; i++) {
+            console.log(todayTasks[i].time);
             setUpTaskIndex(i);
-            if (tasks[i].time > currTime) {
+            if (todayTasks[i].time > currTime) {
               console.log("updating");
               // setUpTaskIndex(i);
               break;
             }
           }
-      }
+        }
 
-        if (upTaskIndex >= tasks.length - 1 && currTime > tasks[upTaskIndex].time) {
+        if (upTaskIndex >= todayTasks.length - 1 && currTime > todayTasks[upTaskIndex].time) {
           console.log("end");
           setUpTaskIndex(-1);
         }
       }
-    }
     
     // if (tasks.length !== taskLen) {
     //     setUpTaskIndex(0);
@@ -106,15 +104,15 @@ function RightDashboard(props) {
     //     setUpTaskIndex(-1);
     //   }
     // }
-  }, [tasks, time]);
+  }, [todayTasks, time]);
 
   function renderUpcoming() {
-    if (upTaskIndex >= tasks.length) {
-      setUpTaskIndex(tasks.length - 1); 
+    if (upTaskIndex >= todayTasks.length) {
+      setUpTaskIndex(todayTasks.length - 1); 
       return;
     }
-    return tasks.length > 0 && upTaskIndex >= 0
-      ? `Upcoming Task: ${tasks[upTaskIndex].name}`
+    return todayTasks.length > 0 && upTaskIndex >= 0
+      ? `Upcoming Task: ${todayTasks[upTaskIndex].name}`
       : "No Upcoming Tasks"
   }
 
