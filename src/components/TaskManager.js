@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'; 
+import React, { useState } from 'react'; 
 import { useAuth } from '../contexts/AuthContexts';
 import { db } from '../firebase'; 
 import TaskForm from './TaskForm'; 
@@ -6,28 +6,12 @@ import moment from 'moment';
 import { BiJoystick, BiPencil } from 'react-icons/bi'; 
 
 function TaskManager(props) {
-    const { tasks, setTasks } = props; 
-    const currDate = new Date().toLocaleDateString('en-CA');
+    const { tasks, selectedDate } = props; 
     // const [tasks, setTasks] = useState([]); 
     const { currentUser } = useAuth(); 
     const userTasks = db.collection('users').doc(currentUser.uid);
     const [editTask, setEditTask] = useState({});
     const [edit, setEdit] = useState(false); 
-    
-    // useEffect(() => {
-    //     //get collection of tasks to be displayed 
-    //     const today = userTasks.collection(currDate); 
-    //     //order collection by time, then push each item in collection into array 
-    //     const unsubscribe = today.orderBy('time').onSnapshot((querySnapshot) => {
-    //         const t = []; 
-    //         querySnapshot.forEach(doc => {
-    //             t.push(doc.data());
-    //         })
-    //         //set local tasks variable to array t 
-    //         setTasks(t); 
-    //     })
-    //     return unsubscribe;
-    // }, [])
 
     function toggleTaskDesc(e, index, toggle) {
         e.preventDefault(); 
@@ -43,7 +27,7 @@ function TaskManager(props) {
     function deleteTask(e, index) {
         e.preventDefault(); 
         //delete task from database
-        userTasks.collection(currDate).doc(tasks[index].id).delete();
+        userTasks.collection(selectedDate).doc(tasks[index].id).delete();
         //update work/life time in database  
         const isWork = tasks[index].isWork; 
         const dur = tasks[index].dur; 

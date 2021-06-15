@@ -6,7 +6,7 @@ import { db } from "../firebase";
 import moment from "moment";
 
 function CenterDashboard(props) {
-  const { tasks, setTasks } = props; 
+  const { tasks, setTasks, selectedDate } = props; 
   const { currentUser, logout, username } = useAuth();
   const [error, setError] = useState("");
   const history = useHistory();
@@ -14,8 +14,8 @@ function CenterDashboard(props) {
   const [greetName, setGreetName] = useState("empty");
   const [date, setDate] = useState(new Date());
   var storedDate;
-  const [workTime, setWorkTime] = useState(0);
-  const [lifeTime, setLifeTime] = useState(0);
+  // const [workTime, setWorkTime] = useState(0);
+  // const [lifeTime, setLifeTime] = useState(0);
   const currDate = moment();
 
   async function handleGetMeterData(monDate) {
@@ -58,8 +58,8 @@ function CenterDashboard(props) {
         //account details exist
         setGreetName(doc.data().username);
         storedDate = doc.data().storedDate;
-        setWorkTime(doc.data().workTime);
-        setLifeTime(doc.data().lifeTime);
+        // setWorkTime(doc.data().workTime);
+        // setLifeTime(doc.data().lifeTime);
       } else {
         //account details do not exist, so initialise account details
         console.log("dont exist");
@@ -148,12 +148,13 @@ function CenterDashboard(props) {
         {date.toLocaleTimeString()} {convertGreet(date)}, {greetName}!
       </h1>
       <h2>
-        Here are your tasks for {date.toLocaleDateString()} ecksdee ecksdee
+        {/* Here are your tasks for {date.toLocaleDateString()} ecksdee ecksdee */}
+        Here are your tasks for {selectedDate} ecksdee ecksdee
       </h2>
       {/* logout button  */}
       {error && <p>{error}</p>}
       <button onClick={handleLogOut}>Log Out</button>
-      <TaskManager tasks={tasks} setTasks={setTasks}/>
+      <TaskManager selectedDate={selectedDate} tasks={tasks} setTasks={setTasks}/>
     </div>
   );
 }

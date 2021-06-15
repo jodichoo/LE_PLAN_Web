@@ -4,15 +4,15 @@ import { db } from '../firebase';
 import moment from 'moment'; 
 
 function TaskForm(props) {
+    const { addWorkClicked, setAddWorkClicked, setAddLifeClicked, editTask, edit, setEdit, selectedDate } = props; 
     const currDate = new Date().toLocaleDateString('en-CA');
     const [taskName, setTaskName] = useState(''); 
     const [taskDesc, setTaskDesc] = useState(''); 
-    const [taskDate, setTaskDate] = useState(currDate); 
+    const [taskDate, setTaskDate] = useState(selectedDate); 
     const [taskHrs, setTaskHrs] = useState(0); 
     const [taskMins, setTaskMins] = useState(0); 
     const [taskDur, setTaskDur] = useState(''); 
     const [check, setCheck] = useState(true);
-    const { addWorkClicked, setAddWorkClicked, setAddLifeClicked, editTask, edit, setEdit } = props; 
     const [isWork, setIsWork] = useState(true); 
     const { currentUser } = useAuth(); 
     const userTasks = db.collection('users').doc(currentUser.uid); 

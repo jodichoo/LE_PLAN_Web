@@ -2,20 +2,21 @@ import CenterDashboard from "./CenterDashboard";
 import LeftDashboard from "./LeftDashboard";
 import RightDashboard from "./RightDashboard";
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContexts";
 import { db } from "../firebase";
 import ChromeDinoGame from "react-chrome-dino";
+import moment from 'moment';
 
 function Dashboard() {
-  const currDate = new Date().toLocaleDateString("en-CA");
+  const [selectedDate, setSelectedDate] = useState(moment().format("YYYY-MM-DD")); 
+  // const currDate = new Date().toLocaleDateString("en-CA");
   const [tasks, setTasks] = useState([]);
   const { currentUser } = useAuth();
   const userTasks = db.collection("users").doc(currentUser.uid);
 
   useEffect(() => {
     //get collection of tasks to be displayed
-    const today = userTasks.collection(currDate);
+    const today = userTasks.collection(selectedDate);
     //order collection by time, then push each item in collection into array
     const unsubscribe = today.orderBy("time").onSnapshot((querySnapshot) => {
       const t = [];
@@ -26,17 +27,17 @@ function Dashboard() {
       setTasks(t);
     });
     return unsubscribe;
-  }, []);
+  }, [selectedDate]);
 
   return (
     <div classname="easter-egg">
       <div className="dash">
         {/* Left */}
-        <LeftDashboard />
+        <LeftDashboard selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
         {/* Center */}
-        <CenterDashboard tasks={tasks} setTasks={setTasks} />
+        <CenterDashboard selectedDate={selectedDate} tasks={tasks} setTasks={setTasks} />
         {/* Right */}
-        <RightDashboard tasks={tasks} />
+        <RightDashboard tasks={tasks} selectedDate={selectedDate}/>
       </div>
       <div className="stevie-boy">
         <ChromeDinoGame />

@@ -6,7 +6,7 @@ import moment from "moment";
 function RightDashboard(props) {
   const [addWorkClicked, setAddWorkClicked] = useState(false);
   const [addLifeClicked, setAddLifeClicked] = useState(false);
-  const { tasks } = props;
+  const { tasks, selectedDate } = props;
   const [taskLen, setTaskLen] = useState(tasks.length);
   const [time, setTime] = useState(moment().format("HH:mm"));
   const [upTaskIndex, setUpTaskIndex] = useState(0);
@@ -45,35 +45,67 @@ function RightDashboard(props) {
 //     }
 //   }
   useEffect(() => {
-    if (tasks.length !== taskLen) {
+    if (selectedDate === moment().format('YYYY-MM-DD')) {
+      if (tasks.length !== taskLen) {
         setUpTaskIndex(0);
         setTaskLen(tasks.length);
-    }
+      }
     
-    if (tasks.length > 0 && upTaskIndex >=0) {
-        console.log("enter hook", upTaskIndex)
-      const arr = time.split(":");
-      const currTime = parseFloat(arr[0]) + 0.01 * parseFloat(arr[1]);
-      
-      if (currTime > tasks[upTaskIndex].time) {
-          console.log(upTaskIndex); //1
-        console.log("sdfsdf");
-        for (var i = upTaskIndex; i < tasks.length; i++) {
-          console.log(tasks[i].time);
-          setUpTaskIndex(i);
-          if (tasks[i].time > currTime) {
-            console.log("updating");
-            // setUpTaskIndex(i);
-            break;
+      if (tasks.length > 0 && upTaskIndex >=0) {
+          console.log("enter hook", upTaskIndex)
+        const arr = time.split(":");
+        const currTime = parseFloat(arr[0]) + 0.01 * parseFloat(arr[1]);
+        
+        if (currTime > tasks[upTaskIndex].time) {
+            console.log(upTaskIndex); //1
+          console.log("sdfsdf");
+          for (var i = upTaskIndex; i < tasks.length; i++) {
+            console.log(tasks[i].time);
+            setUpTaskIndex(i);
+            if (tasks[i].time > currTime) {
+              console.log("updating");
+              // setUpTaskIndex(i);
+              break;
+            }
           }
-        }
       }
 
-      if (upTaskIndex >= tasks.length - 1 && currTime > tasks[upTaskIndex].time) {
-        console.log("end");
-        setUpTaskIndex(-1);
+        if (upTaskIndex >= tasks.length - 1 && currTime > tasks[upTaskIndex].time) {
+          console.log("end");
+          setUpTaskIndex(-1);
+        }
       }
     }
+    
+    // if (tasks.length !== taskLen) {
+    //     setUpTaskIndex(0);
+    //     setTaskLen(tasks.length);
+    // }
+    
+    // if (tasks.length > 0 && upTaskIndex >=0) {
+    //     console.log("enter hook", upTaskIndex)
+    //   const arr = time.split(":");
+    //   const currTime = parseFloat(arr[0]) + 0.01 * parseFloat(arr[1]);
+      
+    //   if (currTime > tasks[upTaskIndex].time) {
+    //       console.log(upTaskIndex); //1
+    //     console.log("sdfsdf");
+    //     for (var i = upTaskIndex; i < tasks.length; i++) {
+    //       console.log(tasks[i].time);
+    //       setUpTaskIndex(i);
+    //       if (tasks[i].time > currTime) {
+    //         console.log("updating");
+    //         // setUpTaskIndex(i);
+    //         break;
+    //       }
+    //     }
+    //   }
+
+    //   if (upTaskIndex >= tasks.length - 1 && currTime > tasks[upTaskIndex].time) {
+    //     console.log("end");
+    //     setUpTaskIndex(-1);
+    //   }
+    // }
   }, [tasks, time]);
 
   function renderUpcoming() {
@@ -128,6 +160,7 @@ function RightDashboard(props) {
         </div>
         {addWorkClicked && (
           <TaskForm
+            selectedDate={selectedDate}
             addWorkClicked={addWorkClicked}
             setAddWorkClicked={setAddWorkClicked}
             setAddLifeClicked={setAddLifeClicked}
@@ -135,6 +168,7 @@ function RightDashboard(props) {
         )}
         {addLifeClicked && (
           <TaskForm
+            selectedDate={selectedDate}
             addWorkClicked={addWorkClicked}
             setAddWorkClicked={setAddWorkClicked}
             setAddLifeClicked={setAddLifeClicked}
