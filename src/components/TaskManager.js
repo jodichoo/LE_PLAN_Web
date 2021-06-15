@@ -112,9 +112,14 @@ function TaskManager(props) {
                 <div className='mouse-desc' id={index} style={{display: 'none'}}>{task.desc}</div>
                 </>
             ))}
-            <div className='edit'>
+            {edit && <div className='edit'>
+                <div className='edit-form'>
+                    <TaskForm editTask={editTask} edit={edit} setEdit={setEdit} />
+                </div>
+            </div>}
+            {/* <div className='edit'>
                 {edit && <TaskForm editTask={editTask} edit={edit} setEdit={setEdit} />}
-            </div>
+            </div> */}
         </div>
         // <div>
         // <table className='task-table'>
