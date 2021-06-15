@@ -27,20 +27,20 @@ function LeftDashboard(props) {
   }
 
   function renderDates(date, index) {
-    if (index === 0) {
-      //display option as 'today' 
-      return (
-        <div className='date' onClick={e => {handleDateClicked(e, date)}}>
-          Today
-        </div>
-      )
-    } else {
-      return (
-        <div className='date' onClick={e => {handleDateClicked(e, date)}}>
-          {date}
-        </div>
-      )
+    var bg = '#8a5858'; 
+    var col = 'whitesmoke'; 
+
+    if (selectedDate === date) {
+      bg = '#f3eee9';
+      col = 'black';
     }
+    
+    return (
+      <div className='date' style={{backgroundColor: bg, color: col}} 
+          onClick={e => {handleDateClicked(e, date)}}>
+          {index === 0 ? 'Today' : date}
+      </div>
+    )
   }
 
   return (

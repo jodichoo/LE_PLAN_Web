@@ -86,6 +86,7 @@ input {
 }
 
 .left-dash .dates-container .date {
+  cursor: pointer;
   width: 100%;
   flex: 14.3%;
   display: flex;
