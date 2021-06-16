@@ -27,7 +27,7 @@ function LeftDashboard(props) {
   }
 
   function renderDates(date, index) {
-    var bg = '#8a5858'; 
+    var bg = 'transparent'; 
     var col = 'whitesmoke'; 
 
     if (selectedDate === date) {

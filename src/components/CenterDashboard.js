@@ -1,15 +1,12 @@
 import TaskManager from "./TaskManager";
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContexts";
 import { db } from "../firebase";
 import moment from "moment";
 
 function CenterDashboard(props) {
   const { tasks, setTasks, selectedDate } = props; 
-  const { currentUser, logout, username } = useAuth();
-  const [error, setError] = useState("");
-  const history = useHistory();
+  const { currentUser, username } = useAuth();
   const userTasks = db.collection("users").doc(currentUser.uid);
   const [greetName, setGreetName] = useState("empty");
   const [date, setDate] = useState(new Date());
@@ -112,16 +109,6 @@ function CenterDashboard(props) {
     }
   }
 
-  async function handleLogOut() {
-    setError("");
-    try {
-      await logout();
-      history.push("/login");
-    } catch {
-      setError("Failed to log out");
-    }
-  }
-
   //get the username for custom greeting
   useEffect(() => {
     userTasks.get().then((doc) => {
@@ -151,9 +138,6 @@ function CenterDashboard(props) {
         {/* Here are your tasks for {date.toLocaleDateString()} ecksdee ecksdee */}
         Here are your tasks for {selectedDate} ecksdee ecksdee
       </h2>
-      {/* logout button  */}
-      {error && <p>{error}</p>}
-      <button onClick={handleLogOut}>Log Out</button>
       <TaskManager selectedDate={selectedDate} tasks={tasks} setTasks={setTasks}/>
     </div>
   );

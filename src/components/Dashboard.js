@@ -6,14 +6,17 @@ import { useAuth } from "../contexts/AuthContexts";
 import { db } from "../firebase";
 import ChromeDinoGame from "react-chrome-dino";
 import moment from 'moment';
+import { useHistory } from "react-router-dom";
+
 
 function Dashboard() {
   const currDate = moment().format('YYYY-MM-DD');
   const [selectedDate, setSelectedDate] = useState(currDate); 
-  // const currDate = new Date().toLocaleDateString("en-CA");
+  const [error, setError] = useState(""); 
+  const history = useHistory();
   const [tasks, setTasks] = useState([]);
   const [todayTasks, setTodayTasks] = useState([]); 
-  const { currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
   const userTasks = db.collection("users").doc(currentUser.uid);
 
 
@@ -49,16 +52,30 @@ function Dashboard() {
     return () => unsubscribe();
   }, [selectedDate]);
 
+  async function handleLogOut() {
+    setError("");
+    try {
+      await logout();
+      history.push("/login");
+    } catch {
+      setError("Failed to log out");
+    }
+  }
   
   return (
-    <div classname="easter-egg">
-      <div className="dash">
-        {/* Left */}
-        <LeftDashboard selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
-        {/* Center */}
-        <CenterDashboard selectedDate={selectedDate} tasks={tasks} setTasks={setTasks} />
-        {/* Right */}
-        <RightDashboard todayTasks={todayTasks} selectedDate={selectedDate}/>
+    <div classname="dash">
+      <div className="main-dash">
+        <div className='navbar'>
+          <div className='element'><button onClick={handleLogOut}>Log Out</button></div>
+        </div>
+        <div className='container'>
+          {/* Left */}
+          <LeftDashboard selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
+          {/* Center */}
+          <CenterDashboard selectedDate={selectedDate} tasks={tasks} setTasks={setTasks} />
+          {/* Right */}
+          <RightDashboard todayTasks={todayTasks} selectedDate={selectedDate}/>
+        </div>
       </div>
       <div className="stevie-boy">
         <ChromeDinoGame />
