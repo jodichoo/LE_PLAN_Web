@@ -7,6 +7,7 @@ import { db } from "../firebase";
 import ChromeDinoGame from "react-chrome-dino";
 import moment from 'moment';
 import { useHistory } from "react-router-dom";
+import { BiCalendar } from 'react-icons/bi'; 
 
 
 function Dashboard() {
@@ -18,6 +19,7 @@ function Dashboard() {
   const [todayTasks, setTodayTasks] = useState([]); 
   const { currentUser, logout } = useAuth();
   const userTasks = db.collection("users").doc(currentUser.uid);
+  const [showLeft, setShowLeft] = useState(false); 
 
 
   //get current date's tasks for right dashboard
@@ -62,15 +64,30 @@ function Dashboard() {
     }
   }
   
+  function toggleLeft(e) {
+    e.preventDefault(); 
+    setShowLeft(!showLeft); 
+  }
+
   return (
     <div classname="dash">
       <div className="main-dash">
         <div className='navbar'>
-          <div className='element'><button onClick={handleLogOut}>Log Out</button></div>
+          <div className='left'>
+            <div className='element'>
+              <BiCalendar style={{color: '#eddfc2', fontSize: '30px', cursor: 'pointer'}} onClick={e => toggleLeft(e)}/>
+            </div>
+          </div>
+          <div className='right'>
+            <div className='element'>
+              <button onClick={handleLogOut}>Log Out</button>
+            </div>
+          </div>
         </div>
         <div className='container'>
           {/* Left */}
-          <LeftDashboard selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
+          {showLeft && <LeftDashboard selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>}
+          {/* <LeftDashboard selectedDate={selectedDate} setSelectedDate={setSelectedDate}/> */}
           {/* Center */}
           <CenterDashboard selectedDate={selectedDate} tasks={tasks} setTasks={setTasks} />
           {/* Right */}

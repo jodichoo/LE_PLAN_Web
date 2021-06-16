@@ -2,12 +2,21 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 
 function LeftDashboard(props) {
+  const [currDate, setCurrDate] = useState(moment().format("YYYY-MM-DD"));
   const { selectedDate, setSelectedDate } = props; 
   const [dateArr, setDateArr] = useState([]); 
+  const [dateInput, setDateInput] = useState(selectedDate); 
+
+  useEffect(() => {
+    var timer = setInterval(() => setCurrDate(moment().format("YYYY-MM-DD")), 1000);
+    return function cleanup() {
+      clearInterval(timer);
+    };
+  }, []);
 
   useEffect(() => {
     setDateArr(getDates()); 
-  }, []); 
+  }, [currDate]); 
 
   //get array of dates to be shown 
   function getDates() {
@@ -17,7 +26,6 @@ function LeftDashboard(props) {
       const temp = moment(today).add(i, 'days'); 
       arr.push(temp.format('YYYY-MM-DD')); 
     }
-    console.log(arr);
     return arr; 
   }
 
@@ -26,27 +34,43 @@ function LeftDashboard(props) {
     setSelectedDate(date); 
   }
 
+  function getLabel(date) {
+    const daysArr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]; 
+    //get the day of the week 
+    const dayIndex = moment(date).day(); 
+    return daysArr[dayIndex]; 
+  }
+
   function renderDates(date, index) {
     var bg = 'transparent'; 
     var col = 'whitesmoke'; 
-
+    var rad = 0; 
     if (selectedDate === date) {
-      bg = '#f3eee9';
-      col = 'black';
+      bg = '#f3eee9'; col = 'black'; rad = 30;
     }
-    
     return (
-      <div className='date' style={{backgroundColor: bg, color: col}} 
+      <div className='date' style={{backgroundColor: bg, color: col, borderTopLeftRadius: rad, borderBottomLeftRadius: rad}} 
           onClick={e => {handleDateClicked(e, date)}}>
-          {index === 0 ? 'Today' : date}
+          {index === 0 ? 'Today' : index === 1 ? 'Tomorrow' : getLabel(date)}
       </div>
     )
   }
 
+  function handleCalendarSubmit(e) {
+    e.preventDefault(); 
+    setSelectedDate(dateInput); 
+  }
+
   return (
     <div className="left-dash">
-      <div>
-        <h1>Calendar</h1>
+      <div className='other-date-select'>
+        {/* <h1>Calendar</h1> */}
+        <label>Select a date:</label>
+        <div className='fields'>
+          <input type='date' placeholder="yyyy-mm-dd" defaultValue={selectedDate} min={currDate}
+                  onChange={e => setDateInput(e.target.value)} requiredpattern="\d{4}-\d{2}-\d{2}"></input>
+          <button onClick={e => handleCalendarSubmit(e)}>Go</button>
+        </div>
       </div>
       <div className='dates-container'>
         {dateArr.map((date, index) => (

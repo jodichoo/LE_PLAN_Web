@@ -82,6 +82,11 @@ function TaskManager(props) {
         } 
     }
 
+    const iconsStyle = {
+        color: 'black', 
+        fontSize: '20px'
+    }
+
     return (
         <div className='task-manager'>
             {tasks.map((task, index) => (
@@ -90,7 +95,7 @@ function TaskManager(props) {
                     <div className='check'><input type="checkbox" id="completed-check"/></div>
                     <div className='time'>{convertTime(task.time)}</div>
                     <div className='name' onClick={e => {changeForm(e); handleEditTask(e, index);}}>{task.name}</div>
-                    <div className='type'>{task.isWork ? <BiPencil /> : <BiJoystick />}</div>
+                    <div className='type'>{task.isWork ? <BiPencil style={iconsStyle}/> : <BiJoystick style={iconsStyle}/>}</div>
                     <div className='delete'><button id="delete-task" onClick={e => deleteTask(e, index)}>Delete</button></div>
                 </div>
                 <div className='mouse-desc' id={index} style={{display: 'none'}}>{task.desc}</div>

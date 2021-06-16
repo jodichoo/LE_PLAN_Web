@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import TaskForm from "./TaskForm";
 import Meter from "./Meter";
 import moment from "moment";
+import { BiCalendarPlus } from 'react-icons/bi'; 
 
 function RightDashboard(props) {
   const [addWorkClicked, setAddWorkClicked] = useState(false);
@@ -148,10 +149,11 @@ function RightDashboard(props) {
 
       <div className="add-task-bar">
         <div className='fields'>
-        <h1 id="add-task">+ Add Task</h1>
+        <h1 id="add-task"><BiCalendarPlus style={{verticalAlign:'top'}}/>{' '}Add Task</h1>
         <button id="work-button" onClick={showWorkTaskForm}>
           Work
         </button>
+        {' '}
         <button id="life-button" onClick={showLifeTaskForm}>
           Life
         </button>
