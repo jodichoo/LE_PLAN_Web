@@ -27,23 +27,23 @@ function Login() {
 
     return (
         <div className='signup-login'>
-            <h2>Log In:</h2>
-            {error && <p>{error}</p>}
-            <form className='signup-login-details' onSubmit={handleSubmit}>
-                <div className='signup-login-field'>
-                    <label id='email-label' for="email">Email</label>
-                    {' '}
-                    <input type='email' ref={emailRef} placeholder='Enter email'></input>
-                </div>
-                <div className='signup-login-field'>
-                    <label id='password-label' for="password">Password</label>
-                    {' '}
-                    <input type='password' ref={passwordRef} placeholder='Enter password'></input>
-                </div>
-                <label className='enter-button' for='login-button'>
-                <button disbled={loading} type="submit" id='login-button'>Log In</button></label>
-            </form>
-            Do not have an account? <Link to='/signup'>Sign up here</Link>
+            <div className='form-container'>
+                <div className='header'><h2>Log In:</h2></div>
+                <div className='error'>{error && <p>{error}</p>}</div>
+                <form className='signup-login-details' onSubmit={handleSubmit}>
+                    <div className='signup-login-field'>
+                        <div className='lab'><label id='email-label' for="email">Email</label></div>
+                        <div><input type='email' ref={emailRef} placeholder='Enter email'></input></div>
+                    </div>
+                    <div className='signup-login-field'>
+                        <div className='lab'><label id='password-label' for="password">Password</label></div>
+                        <div><input type='password' ref={passwordRef} placeholder='Enter password'></input></div>
+                    </div>
+                        <label className='enter-button' for='login-button'>
+                        <button disabled={loading} type="submit" id='login-button'>Log In</button></label>
+                </form>
+                <div className='footer'>Do not have an account? <Link to='/signup'>Sign up here</Link></div>
+            </div>
         </div>
     )
 }

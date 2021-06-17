@@ -29,6 +29,9 @@ button {
   color: whitesmoke;
   cursor: pointer;
 }
+button:hover {
+  background-color: #eddfc2;
+}
 
 input {
   border: none;
@@ -275,17 +278,61 @@ nav li {
 /* -------- SIGNUP/LOGIN PAGE -------- */
 
 .signup-login {
-  display: block;
+  height: 100vh;
+  width: 100vw;
+  background-color: #4a2f2f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.signup-login .form-container {
+  border-radius: 25px;
+  background-color: #f3eee9;
+  color: #4a2f2f;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 10px 20px 10px;
+}
+
+.signup-login .form-container .error {
+  padding: 0px 20px 0px 20px; 
+  background-color: pink;
+  border-radius: 10px;
+}
+
+.signup-login .form-container .header {
+  padding: 12px;
+}
+
+.signup-login .form-container .footer {
+  margin-top: 20px;
   padding: 10px;
 }
 
-.signup-login-field {
-  margin: 15px;
+.signup-login .form-container .footer a {
+  text-decoration: none;
+  color: #8a5858;
 }
 
-.enter-button {
-  padding: 20px 32px;
+.signup-login .form-container .signup-login-field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
 }
+
+.signup-login .form-container .signup-login-field .lab {
+  flex: 40%;
+}
+
+.signup-login .form-container .signup-login-field input {
+  flex: 60%;
+  padding: 5px;
+}
+
 
 /* -------- TASK FORM -------- */
 
