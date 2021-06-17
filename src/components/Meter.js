@@ -14,12 +14,14 @@ function Meter() {
 
   useEffect(() => {
     userTasks.onSnapshot((doc) => {
-      const w = doc.data().workTime;
-      const l = doc.data().lifeTime;
-      const t = w + l;
-      setLifeTime(l);
-      setWorkTime(w);
-      setTotalTime(t);
+      if (doc.exists) {
+        const w = doc.data().workTime;
+        const l = doc.data().lifeTime;
+        const t = w + l;
+        setLifeTime(l);
+        setWorkTime(w);
+        setTotalTime(t);
+      }
     });
   }, []);
 

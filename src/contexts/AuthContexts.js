@@ -12,7 +12,7 @@ export function useAuth() {
 export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState();
     const [loading, setLoading] = useState(true); 
-    const [username, setUsername] = useState('Bob'); 
+    const [username, setUsername] = useState('User'); 
     
     //values that is passed down and used throughout all child components 
     const value = {
@@ -25,7 +25,19 @@ export function AuthProvider({ children }) {
 
     function signup(email, password, un) {
         setUsername(un); 
-        return auth.createUserWithEmailAndPassword(email, password); 
+        return auth.createUserWithEmailAndPassword(email, password)
+            .then(response => {
+                const uid = response.user.uid; 
+                const data = {
+                    storedDate: '2021-05-31',
+                    username: un,
+                    workTime: 0, 
+                    lifeTime: 0 
+                }; 
+                db.collection('users').doc(uid).set(data)
+                    .then(() => {console.log('set user data')})
+                    .catch(error => console.log(error)); 
+            }) 
     }
 
     function login(email, password) {

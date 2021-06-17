@@ -11,8 +11,6 @@ function CenterDashboard(props) {
   const [greetName, setGreetName] = useState("empty");
   const [date, setDate] = useState(new Date());
   var storedDate;
-  // const [workTime, setWorkTime] = useState(0);
-  // const [lifeTime, setLifeTime] = useState(0);
   const currDate = moment();
 
   async function handleGetMeterData(monDate) {
@@ -49,27 +47,7 @@ function CenterDashboard(props) {
     }
   }
 
-  useEffect(() => {
-    userTasks.get().then((doc) => {
-      if (doc.exists) {
-        //account details exist
-        setGreetName(doc.data().username);
-        storedDate = doc.data().storedDate;
-        // setWorkTime(doc.data().workTime);
-        // setLifeTime(doc.data().lifeTime);
-      } else {
-        //account details do not exist, so initialise account details
-        console.log("dont exist");
-        userTasks.set({
-          username: username,
-          storedDate: moment().subtract(7, "days").format("YYYY-MM-DD"),
-          workTime: 0, //for work-life meter
-          lifeTime: 0, //for work-life meter
-        });
-        storedDate = moment().subtract(7, "days").format("YYYY-MM-DD");
-        setGreetName(username);
-      }
-
+  function updateMeterData() {
       //check if current date is >6 days after the last stored monday date
       if (moment().diff(moment(storedDate, "YYYY-MM-DD"), "days") > 6) {
         //if so, find the monday date of the current week
@@ -87,7 +65,36 @@ function CenterDashboard(props) {
             return handleGetMeterData(monDate);
           });
       }
-    });
+  }
+
+  useEffect(() => {
+    userTasks.get()
+      .then((doc) => {
+        if (doc.exists) {
+          //account details exist
+          setGreetName(doc.data().username);
+          storedDate = doc.data().storedDate;
+        } 
+        // else {
+        //   //account details do not exist, so initialise account details
+        //   console.log("dont exist");
+        //   userTasks.set({
+        //     username: username,
+        //     storedDate: '2021-05-31',
+        //     workTime: 0, //for work-life meter
+        //     lifeTime: 0, //for work-life meter
+        //   })
+        //     .then(() => {
+        //       storedDate = '2021-05-31'; 
+        //       setGreetName(username);
+        //       console.log('setting storedDate'); 
+        //     });
+        // }
+      })
+        .then(() => {
+          console.log(`stored date is ${storedDate}`);
+          updateMeterData(); 
+        })
 
     var timer = setInterval(() => setDate(new Date()), 1000);
     return function cleanup() {

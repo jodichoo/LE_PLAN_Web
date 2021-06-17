@@ -46,7 +46,7 @@ function LeftDashboard(props) {
     var col = 'whitesmoke'; 
     var rad = 0; 
     if (selectedDate === date) {
-      bg = '#f3eee9'; col = 'black'; rad = 30;
+      bg = '#f3eee9'; col = 'black'; rad = '35px';
     }
     return (
       <div className='date' style={{backgroundColor: bg, color: col, borderTopLeftRadius: rad, borderBottomLeftRadius: rad}} 
