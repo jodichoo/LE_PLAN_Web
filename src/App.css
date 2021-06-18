@@ -10,6 +10,7 @@
   color: black;
   /* background-color: rgb(240, 240, 236); */
   background-color: #f3eee9;
+  overflow: scroll;
 }
 
 body {    
@@ -393,4 +394,22 @@ nav li {
   background-color: whitesmoke;
   padding: 25px;
   border-radius: 10px;
+}
+
+/* -------- RESPONSIVENESS -------- */
+
+@media (max-width: 800px) {
+  .App { 
+    height: 100%;
+    width: 100vw;
+  }
+
+  .main-dash .container {
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .stevie-boy {
+    display: none;
+  }
 }
