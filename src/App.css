@@ -363,8 +363,8 @@ nav li {
   display: flex;
   flex-direction: row;
   align-items: center;
-  border-radius: 18px;
-  border-top: 10px solid #f3eee9;
+  border-radius: 20px;
+  border: 6px solid #f3eee9;
   background-color: whitesmoke;
 }
 

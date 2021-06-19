@@ -95,7 +95,8 @@ function TaskForm(props) {
                 name: taskName,
                 desc: taskDesc,
                 time: t,
-                dur: parseFloat(taskDur)
+                dur: parseFloat(taskDur), 
+                isComplete: false 
         };
         //write to database here
         console.log(work); 

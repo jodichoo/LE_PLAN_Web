@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContexts';
 import { db } from '../firebase'; 
 import TaskForm from './TaskForm'; 
 import moment from 'moment'; 
-import { BiJoystick, BiPencil } from 'react-icons/bi'; 
+import { BiJoystick, BiPencil, BiTrash } from 'react-icons/bi'; 
 
 function TaskManager(props) {
     const { tasks, selectedDate } = props; 
@@ -13,10 +13,9 @@ function TaskManager(props) {
     const [editTask, setEditTask] = useState({});
     const [edit, setEdit] = useState(false); 
 
-    function toggleTaskDesc(e, index, toggle) {
+    function toggleTaskDesc(e, task, toggle) {
         e.preventDefault(); 
-        // console.log(tasks[index].desc);
-        let t = document.getElementById(index);
+        let t = document.getElementById(task.id);
         if (toggle) {
             t.style.display = 'block';
         } else {
@@ -24,19 +23,19 @@ function TaskManager(props) {
         } 
     }
 
-    function deleteTask(e, index) {
+    function deleteTask(e, task) {
         e.preventDefault(); 
         //delete task from database
-        userTasks.collection(selectedDate).doc(tasks[index].id).delete();
+        userTasks.collection(selectedDate).doc(task.id).delete();
         //update work/life time in database  
-        const isWork = tasks[index].isWork; 
-        const dur = tasks[index].dur; 
+        const isWork = task.isWork; 
+        const dur = task.dur; 
 
         const whatday = moment().day() === 0 ? 7 : moment().day();// 1,2,3,4....7
         const numDays = whatday - 1; // num of times to mathfloor
         const monDate = moment().subtract(numDays, 'days');
 
-        if (moment(tasks[index].date, "YYYY-MM-DD").diff(monDate, 'days') < 6) {
+        if (moment(task.date, "YYYY-MM-DD").diff(monDate, 'days') < 6) {
             userTasks.get().then(doc => {
                 if (isWork) {
                     const currWork = doc.data().workTime; 
@@ -51,26 +50,21 @@ function TaskManager(props) {
                 }
             })
         }
-        
-        //update local task variable 
-        const first = tasks.slice(0, index); 
-        const last = tasks.slice(index + 1, tasks.length); 
-        const newTasks = [...first, ...last]; 
     }
 
-    function handleEditTask(e, index) {
+    function handleEditTask(e, task) {
         e.preventDefault(); 
         //setEdit(false);
         setEdit(true); 
-        setEditTask(tasks[index]);
+        setEditTask(task);
         console.log("call edit") 
     }
 
-    function changeForm(e) {
-        e.preventDefault();
-        setEdit(false);
-        console.log("change form")
-    }
+    // function changeForm(e) {
+    //     e.preventDefault();
+    //     setEdit(false);
+    //     console.log("change form")
+    // }
 
     function convertTime(num) {
         const s = parseFloat(num).toFixed(2).toString(); 
@@ -82,60 +76,71 @@ function TaskManager(props) {
         } 
     }
 
-    const iconsStyle = {
-        color: 'black', 
-        fontSize: '20px'
+    function handleCheck(e, task) {
+        e.preventDefault(); 
+        //toggle isComplete for the selected task 
+        userTasks.collection(selectedDate).doc(task.id).update({
+            isComplete: !task.isComplete
+        });
+    }
+
+    function separateTasks(arr) {
+        const len = arr.length; 
+        const completed = []; 
+        const incomplete = [];
+        //go through array of tasks
+        for (var i = 0; i < len; i++) {
+            if (arr[i].isComplete) { //if task is complete, push into complete array
+                completed.push(arr[i]); 
+            } else { //else, push into incomplete array
+                incomplete.push(arr[i]); 
+            }
+        }
+        return [incomplete, completed]; //return separated tasks
+    }
+
+    function renderTask(task, indicator) {
+        var style = indicator === 0 
+            ? { color: 'black', backgroundColor: 'whitesmoke' }
+            : { color: 'whitesmoke', backgroundColor: '#8a5858'}
+
+        const iconsStyle = indicator === 0 
+            ? { color: 'black', fontSize: '20px' }
+            : { color: 'whitesmoke' , fontSize: '20px'}
+        
+        return (
+            <>
+                <div className='task' style={style} onMouseEnter={e => toggleTaskDesc(e, task, true)} 
+                    onMouseLeave={e => toggleTaskDesc(e, task, false)}>
+                    <div className='check'><input type="checkbox" id="completed-check" checked={task.isComplete} 
+                        onChange={e => handleCheck(e, task)}/>
+                    </div>
+                    <div className='time'>{convertTime(task.time)}</div>
+                    <div className='name' onClick={e => {handleEditTask(e, task);}}>{task.name}</div>
+                    <div className='type'>{task.isWork ? <BiPencil style={iconsStyle}/> : <BiJoystick style={iconsStyle}/>}</div>
+                    {/* <div className='delete'><button id="delete-task" onClick={e => deleteTask(e, task)}>Delete</button></div> */}
+                    <div className='delete'><BiTrash style={{...iconsStyle, cursor:'pointer'}} onClick={e => deleteTask(e, task)} /></div>
+
+                </div>
+                <div className='mouse-desc' id={task.id} style={{display: 'none'}}>{task.desc}</div>
+            </>
+        )
     }
 
     return (
         <div className='task-manager'>
-            {tasks.map((task, index) => (
-                <>
-                <div className='task' onMouseEnter={e => toggleTaskDesc(e, index, true)} onMouseLeave={e => toggleTaskDesc(e, index, false)}>
-                    <div className='check'><input type="checkbox" id="completed-check"/></div>
-                    <div className='time'>{convertTime(task.time)}</div>
-                    <div className='name' onClick={e => {changeForm(e); handleEditTask(e, index);}}>{task.name}</div>
-                    <div className='type'>{task.isWork ? <BiPencil style={iconsStyle}/> : <BiJoystick style={iconsStyle}/>}</div>
-                    <div className='delete'><button id="delete-task" onClick={e => deleteTask(e, index)}>Delete</button></div>
-                </div>
-                <div className='mouse-desc' id={index} style={{display: 'none'}}>{task.desc}</div>
-                </>
-            ))}
+
+            {/* incomplete tasks  */}
+            {(separateTasks(tasks)[0].map(task => renderTask(task, 0)))}
+            {/* complete tasks */}
+            {(separateTasks(tasks)[1].map(task => renderTask(task, 1)))}
+
             {edit && <div className='edit'>
                 <div className='edit-form'>
                     <TaskForm editTask={editTask} edit={edit} setEdit={setEdit} />
                 </div>
             </div>}
-            {/* <div className='edit'>
-                {edit && <TaskForm editTask={editTask} edit={edit} setEdit={setEdit} />}
-            </div> */}
         </div>
-        // <div>
-        // <table className='task-table'>
-        //     <tbody>
-        //         {tasks.map((task, index) => (
-        //         <>
-        //         <tr onMouseEnter={e => toggleTaskDesc(e, index, true)} onMouseLeave={e => toggleTaskDesc(e, index, false)}>
-        //             <td><input type="checkbox" id="completed-check"/></td>
-        //             <td>{convertTime(task.time)}</td>
-        //             <td onClick={e => {changeForm(e); handleEditTask(e, index);}}>{task.name}</td>
-        //             <td>{task.isWork ? 'WORK' : 'LIFE'}</td>
-        //             {/* <td><button id="delete-task" onClick={e => deleteTask(e, index)}>Delete</button></td> */}
-        //             <td><BsFillTrashFill onClick={e => deleteTask(e, index)}/></td>
-        //         </tr>
-        //         <tr>
-        //             <td></td>
-        //             <td></td>
-        //             <td className='mouse-desc' id={index} style={{display: 'none'}}>{task.desc}</td>
-        //             <td></td>
-        //             <td></td>
-        //         </tr>
-        //         </>
-        //         ))}
-        //     </tbody>
-        // </table>
-        // {edit && <TaskForm editTask={editTask} edit={edit} setEdit={setEdit} />}
-        // </div>
     )
 }
 
