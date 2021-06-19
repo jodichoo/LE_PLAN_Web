@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 .App {
-  min-height: 100vh;
+  min-height: 100%;
   min-width: 100%; 
   text-align: center;
   font-family: Roboto;
@@ -9,9 +9,9 @@
   background-color: #f3eee9;
 }
 
-body {    
+body {  
+  height: 100%;   
   margin: 0; 
-  padding: 0; 
 }
 
 button {
@@ -39,9 +39,6 @@ input {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  /* border: 1px solid red; */
-  /* flex: 80%; */
-  /* padding-bottom: 0 !important; */
 }
 
 .main-dash .navbar {
@@ -94,13 +91,11 @@ input {
   width: 100%;  
   display: flex;
   flex-direction: row;
-  /* height: 90vh; */
-  /* border: 1px solid red; */
   flex: 91%;
-  /* padding-bottom: 0 !important; */
 }
 
 .dash {
+  flex: 1;
   display: flex;
   flex-direction: column;
   height : 100%;
@@ -109,9 +104,7 @@ input {
 
 .stevie-boy {
   width: 100%; 
-  /* border: 0.5px solid red; */
   align-self:flex-end;
-  /* padding: 0 !important; */
 }
 
 /* -------- LEFT DASHBOARD -------- */
@@ -171,11 +164,18 @@ input {
 .center-dash {
   height: 100%;
   color: black;
-  /* margin: 0px auto; */
   flex: 55%;
-  padding: 2%;
-  /* opacity: 80%; */
+  display: flex;
   justify-content: center;
+}
+
+.center-dash .container {
+  width: 100%;
+  margin: 4%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 /* -------- RIGHT DASHBOARD -------- */
@@ -197,7 +197,7 @@ input {
   color:black;
   flex: 35%;
   background-color: whitesmoke;
-  border-radius: 10%;
+  border-radius: 15px;
 }
 
 .WL-meter .meter {
@@ -222,11 +222,13 @@ input {
 /* -------- ADD TASK BAR -------- */
 
 .add-task-bar {
+  display: flex;
+  flex-direction: column;
   min-width: 80%;
   flex: 50%; 
   text-align: center;
   background-color: whitesmoke;
-  border-radius: 10%;
+  border-radius: 15px;
 }
 
 .add-task-bar .fields {
@@ -331,8 +333,9 @@ nav li {
 /* -------- TASK MANAGER -------- */
 
 .task-manager {
-  margin: 2%;
-  /* height: 100%; */
+  /* margin: 2%; */
+  width: 100%;
+  flex: 1; 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -382,9 +385,20 @@ nav li {
 /* -------- RESPONSIVENESS -------- */
 
 @media (max-width: 800px) {
+  .main-dash {
+    flex: 1; 
+  }
+
+  .main-dash .navbar {
+    flex: none; 
+    height: 10vh; 
+  }
+
   .main-dash .container {
+    flex: 1; 
     flex-direction: column;
     height: 100%;
+    width: 100%;
   }
 
   .stevie-boy {

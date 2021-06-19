@@ -138,14 +138,22 @@ function CenterDashboard(props) {
 
   return (
     <div className="center-dash">
-      <h1>
-        {date.toLocaleTimeString()} {convertGreet(date)}, {greetName}!
-      </h1>
-      <h2>
-        {/* Here are your tasks for {date.toLocaleDateString()} ecksdee ecksdee */}
-        Here are your tasks for {selectedDate} ecksdee ecksdee
-      </h2>
-      <TaskManager selectedDate={selectedDate} tasks={tasks} setTasks={setTasks}/>
+
+      <div className='container'>
+        <div className='heading'>
+          <h1>
+            {date.toLocaleTimeString()} {convertGreet(date)}, {greetName}!
+          </h1>
+          <h2>
+            {/* Here are your tasks for {date.toLocaleDateString()} ecksdee ecksdee */}
+            Here are your tasks for {selectedDate} ecksdee ecksdee
+          </h2>
+        </div>
+
+        <TaskManager selectedDate={selectedDate} tasks={tasks} setTasks={setTasks}/>
+
+      </div>
+      
     </div>
   );
 }
