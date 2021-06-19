@@ -70,7 +70,7 @@ function Dashboard() {
   }
 
   return (
-    <div classname="dash">
+    <div className="dash">
       <div className="main-dash">
         <div className='navbar'>
           <div className='left'>
