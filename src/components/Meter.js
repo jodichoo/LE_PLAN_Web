@@ -10,7 +10,7 @@ function Meter() {
   const [workTime, setWorkTime] = useState(0);
   const [lifeTime, setLifeTime] = useState(0);
   const [totalTime, setTotalTime] = useState(0);
-  const [hovered, setHovered] = useState("Work");
+  const [hovered, setHovered] = useState("");
 
   useEffect(() => {
     userTasks.onSnapshot((doc) => {
@@ -26,11 +26,15 @@ function Meter() {
   }, []);
 
   function enterMeter(item) {
-    return item.label === 'work' ? setHovered('Work') : setHovered('Play');
+    return totalTime === 0 
+      ? setHovered('')
+      : item.label === 'work' 
+        ? setHovered('Work') 
+        : setHovered('Play')
   }
 
   function getValueFormat(values, total) {
-    if (total === 0) {
+    if (!hovered || total === 0) {
       return "";
     } else {
       return `${(values * 2 / total * 100).toFixed(1)}%`;
@@ -69,6 +73,9 @@ function Meter() {
         clickToggle={false}
         onMouseEnter={(item) => {enterMeter(item)}}
       />
+      <div className='meter-caption'>
+        {totalTime === 0 ? <p style={{color: 'grey'}}>No tasks for the week, add some to get started!</p> : <></>}
+      </div>
     </div>
   );
 }
