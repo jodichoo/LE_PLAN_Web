@@ -136,17 +136,27 @@ function CenterDashboard(props) {
     });
   }, []);
 
+  function addressDate(d) {
+    if (d === currDate.format('YYYY-MM-DD')) {
+      return 'today'; 
+    } else if (d === currDate.add(1, 'day').format('YYYY-MM-DD')) {
+      return 'tomorrow'; 
+    } else {
+      return d; 
+    }
+  }
+
   return (
     <div className="center-dash">
 
       <div className='container'>
         <div className='heading'>
           <h1>
-            {date.toLocaleTimeString()} {convertGreet(date)}, {greetName}!
+            {convertGreet(date)}, {greetName}! <br></br>The time is {date.toLocaleTimeString()} 
           </h1>
           <h2>
             {/* Here are your tasks for {date.toLocaleDateString()} ecksdee ecksdee */}
-            Here are your tasks for {selectedDate} ecksdee ecksdee
+            Here are your tasks for {addressDate(selectedDate)}
           </h2>
         </div>
 
