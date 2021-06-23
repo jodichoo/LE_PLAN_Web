@@ -1,10 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+/* Roboto */
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap'); 
+/* Raleway */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap'); 
+/* Quicksand */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&family=Raleway:wght@300&display=swap');
+/* Inconsolata */
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata&family=PT+Serif&display=swap');
 
 .App {
   min-height: 100%;
   min-width: 100%; 
   text-align: center;
-  font-family: Roboto;
+  /* font-family: Roboto; */
+  font-family: Inconsolata, serif;
+
   color: black;
   background-color: #f3eee9;
 }
@@ -191,7 +200,7 @@ input {
 /* -------- METER -------- */
 
 .WL-meter {
-  min-width: 80%;
+  width: 80%;
   text-align: center;
   font-size: 20px;
   color:black;
@@ -202,6 +211,12 @@ input {
 
 .WL-meter .meter {
   padding: 5%;
+}
+
+.WL-meter .meter .meter-caption {
+  width: 100%; 
+  font-size: medium;
+  color: 'grey';
 }
 
 .donutchart-innertext-label {
