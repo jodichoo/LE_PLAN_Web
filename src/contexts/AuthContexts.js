@@ -13,7 +13,8 @@ export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState();
     const [loading, setLoading] = useState(true); 
     const [username, setUsername] = useState('User'); 
-    
+    const [displayName, setDisplayName] = useState('User'); 
+
     //values that is passed down and used throughout all child components 
     const value = {
         currentUser,
@@ -23,11 +24,20 @@ export function AuthProvider({ children }) {
         logout
     }
 
-    function signup(email, password, un) {
-        setUsername(un); 
+    function signup(email, password, un, display) {
+        setDisplayName(display); 
+        setUsername(un);
         return auth.createUserWithEmailAndPassword(email, password)
             .then(response => {
-                const uid = response.user.uid; 
+                const user = response.user; 
+                user.updateProfile({
+                    displayName: display
+                }).then(() => {
+                    console.log('set the display name'); 
+                }).catch((error) => {
+                    console.log(error); 
+                });
+                const uid = user.uid; 
                 const data = {
                     storedDate: '2021-05-31',
                     username: un,
@@ -36,7 +46,12 @@ export function AuthProvider({ children }) {
                 }; 
                 db.collection('users').doc(uid).set(data)
                     .then(() => {console.log('set user data')})
-                    .catch(error => console.log(error)); 
+                    .catch(error => console.log(error));
+
+                db.collection('usernames').doc(un).set({
+                    username: un,
+                }).then(() => {console.log('set username')})
+                    .catch(error => console.log(error));
             }) 
     }
 

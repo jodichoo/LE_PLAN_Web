@@ -152,7 +152,7 @@ function CenterDashboard(props) {
       <div className='container'>
         <div className='heading'>
           <h1>
-            {convertGreet(date)}, {greetName}! <br></br>The time is {date.toLocaleTimeString()} 
+            {convertGreet(date)}, {currentUser.displayName}! <br></br>The time is {date.toLocaleTimeString()} 
           </h1>
           <h2>
             {/* Here are your tasks for {date.toLocaleDateString()} ecksdee ecksdee */}
