@@ -1,6 +1,7 @@
 import CenterDashboard from "./CenterDashboard";
-import LeftDashboard from "./LeftDashboard";
 import RightDashboard from "./RightDashboard";
+import Calendar from "./Calendar";
+import Friends from "./Friends";
 import { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContexts";
 import { db } from "../firebase";
@@ -8,6 +9,8 @@ import ChromeDinoGame from "react-chrome-dino";
 import moment from 'moment';
 import { useHistory } from "react-router-dom";
 import { BiCalendar } from 'react-icons/bi'; 
+import { FaUserFriends } from 'react-icons/fa'
+import { ImExit } from 'react-icons/im'; 
 
 
 function Dashboard() {
@@ -19,7 +22,8 @@ function Dashboard() {
   const [todayTasks, setTodayTasks] = useState([]); 
   const { currentUser, logout } = useAuth();
   const userTasks = db.collection("users").doc(currentUser.uid);
-  const [showLeft, setShowLeft] = useState(false); 
+  const [showCal, setShowCal] = useState(false); 
+  const [showFriends, setShowFriends] = useState(false); 
 
 
   //get current date's tasks for right dashboard
@@ -64,10 +68,23 @@ function Dashboard() {
     }
   }
   
-  function toggleLeft(e) {
-    e.preventDefault(); 
-    setShowLeft(!showLeft); 
+  function toggleCalendar(e) {
+    e.preventDefault();  
+    setShowFriends(false);
+    setShowCal(!showCal);
   }
+
+  function toggleFriends(e) {
+    e.preventDefault(); 
+    setShowCal(false); 
+    setShowFriends(!showFriends);
+  }
+
+  const iconStyle = {
+    color: '#eddfc2', 
+    fontSize: '30px', 
+    cursor: 'pointer'
+  }; 
 
   return (
     <div className="dash">
@@ -75,18 +92,22 @@ function Dashboard() {
         <div className='navbar'>
           <div className='left'>
             <div className='element'>
-              <BiCalendar style={{color: '#eddfc2', fontSize: '30px', cursor: 'pointer'}} onClick={e => toggleLeft(e)}/>
+              <BiCalendar style={iconStyle} onClick={e => toggleCalendar(e)}/>
+            </div>
+            <div className='element'>
+              <FaUserFriends style={iconStyle} onClick={e => {toggleFriends(e)}}/>
             </div>
           </div>
           <div className='right'>
             <div className='element'>
-              <button onClick={handleLogOut}>Log Out</button>
+              <ImExit style={iconStyle} onClick={e => handleLogOut()}/>
             </div>
           </div>
         </div>
         <div className='container'>
           {/* Left */}
-          {showLeft && <LeftDashboard selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>}
+          {showCal && <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>}
+          {showFriends && <Friends />}
           {/* <LeftDashboard selectedDate={selectedDate} setSelectedDate={setSelectedDate}/> */}
           {/* Center */}
           <CenterDashboard selectedDate={selectedDate} tasks={tasks} setTasks={setTasks} />

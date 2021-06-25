@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContexts';
 import { db } from '../firebase'; 
 import TaskForm from './TaskForm'; 
 import moment from 'moment'; 
-import { BiJoystick, BiPencil, BiTrash } from 'react-icons/bi'; 
+import { BiJoystick, BiBriefcaseAlt2, BiTrash } from 'react-icons/bi'; 
 
 function TaskManager(props) {
     const { tasks, selectedDate } = props; 
@@ -117,7 +117,7 @@ function TaskManager(props) {
                     </div>
                     <div className='time'>{convertTime(task.time)}</div>
                     <div className='name' onClick={e => {handleEditTask(e, task);}}>{task.name}</div>
-                    <div className='type'>{task.isWork ? <BiPencil style={iconsStyle}/> : <BiJoystick style={iconsStyle}/>}</div>
+                    <div className='type'>{task.isWork ? <BiBriefcaseAlt2 style={iconsStyle}/> : <BiJoystick style={iconsStyle}/>}</div>
                     {/* <div className='delete'><button id="delete-task" onClick={e => deleteTask(e, task)}>Delete</button></div> */}
                     <div className='delete'><BiTrash style={{...iconsStyle, cursor:'pointer'}} onClick={e => deleteTask(e, task)} /></div>
 

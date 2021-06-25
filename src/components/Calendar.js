@@ -1,7 +1,7 @@
 import moment from "moment";
 import { useEffect, useState } from "react";
 
-function LeftDashboard(props) {
+function Calendar(props) {
   const [currDate, setCurrDate] = useState(moment().format("YYYY-MM-DD"));
   const { selectedDate, setSelectedDate } = props; 
   const [dateArr, setDateArr] = useState([]); 
@@ -81,4 +81,4 @@ function LeftDashboard(props) {
   );
 }
 
-export default LeftDashboard;
+export default Calendar;

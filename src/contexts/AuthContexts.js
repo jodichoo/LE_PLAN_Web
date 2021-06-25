@@ -42,7 +42,8 @@ export function AuthProvider({ children }) {
                     storedDate: '2021-05-31',
                     username: un,
                     workTime: 0, 
-                    lifeTime: 0 
+                    lifeTime: 0,
+                    friends: [] 
                 }; 
                 db.collection('users').doc(uid).set(data)
                     .then(() => {console.log('set user data')})
