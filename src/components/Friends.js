@@ -12,7 +12,8 @@ function Friends(props) {
   const [currUn, setCurrUn] = useState(''); 
   const [friendsList, setFriendsList] = useState([]);
   const [addFriends, setAddFriends] = useState(false);
-  const [friendData, setFriendData] = useState([]); 
+  const [friendData, setFriendData] = useState([]);
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     const dataList = []
@@ -29,8 +30,9 @@ function Friends(props) {
           })
         })
         .then(() => {
+          setLoading(true); 
           setFriendData(dataList); 
-        })
+        }).then(() => setLoading(false))
     }
   }, [friendsList]); 
 
@@ -76,6 +78,7 @@ function Friends(props) {
 
     const styles = {
       wrapper: {
+        flex: '50%',
         display: 'flex', 
         flexDirection: 'row', 
         width: '100%',
@@ -83,17 +86,17 @@ function Friends(props) {
       },
   
       work: {
-        color: 'red',
+        color: '#8a5858',
         height: '100%', 
         flex: `${wFlex}%`,
-        backgroundColor: 'red'
+        backgroundColor: '#8a5858'
       },
       
       play: {
-        color: 'green',
+        color: '#eddfc2',
         height: '100%', 
         flex: `${pFlex}%`,
-        backgroundColor: 'green'
+        backgroundColor: '#eddfc2'
       }
     };
   
@@ -118,7 +121,9 @@ function Friends(props) {
   function renderFriend(friendObj) {
     return (
       <div className='friend'>
-        <p>{friendObj.friend}{' '}{renderMeter(friendObj.work, friendObj.play)}</p>
+        <div className='name'>{friendObj.friend}</div>
+        {renderMeter(friendObj.work, friendObj.play)}
+        {/* <p>{' '}{renderMeter(friendObj.work, friendObj.play)}</p> */}
         {/* {friendObj.work}/{friendObj.play} */}
         
       </div>
@@ -133,22 +138,25 @@ function showAddFriend(e) {
   return (
     <div className="left-dash">
       {/* <button onClick={showAddFriend}>+ Add Friends</button> */}
-      <div style ={{cursor: 'pointer'}} onClick={showAddFriend}>
+      <div className='add-friend-button' onClick={showAddFriend}>
         <HiUserAdd style={{color: 'whitesmoke', fontSize: '20px'}}/>Add Friends
       </div>
       
-      {addFriends && <form onSubmit={handleAddFriend}>
-        {error && <p>{error}</p>}
-        <label>Your Friend's Username: {' '}</label>
-        <input type='text' onChange={e => setFriendsUn(e.target.value)} required></input>
-        <button type='submit'>Add</button>
-      </form>}
+      {addFriends && 
+      <div className='add-friend-form'>
+        <form onSubmit={handleAddFriend}>
+          {error && <p style={{fontSize: 'small', color: '#eddfc2'}}>{error}</p>}
+          <div style={{margin: '4px'}}><label>Your Friend's Username: {' '}</label></div>
+          <input type='text' onChange={e => setFriendsUn(e.target.value)} required></input>
+          <button style={{margin: '5px'}} type='submit'>Add</button>
+        </form>
+      </div>}
       
       <div className='friends-list'>
         <h3>Friends: </h3>
         {friendData.length === 0 
           ? <p>You have no friends :(</p>
-          : friendData.map(renderFriend)}
+          : loading || friendData.map(renderFriend)}
       </div>
     </div>
   );
