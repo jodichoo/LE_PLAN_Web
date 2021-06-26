@@ -102,9 +102,9 @@ function Friends(props) {
   
     return (
       w === 0 && p === 0 
-        ? <p>Noobie</p>
+        ? <div style = {styles.wrapper}>Nothing :(</div>
         : w === 0
-          ? <div styles={styles.wrapper}>
+          ? <div style={styles.wrapper}>
               <div style={styles.play}>p</div>
             </div>
           : p === 0
