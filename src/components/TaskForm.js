@@ -165,7 +165,7 @@ function TaskForm(props) {
 
                 {edit && <div className='task-form-field'>
                 <input type='radio' name='work-life-button' id='work-radio-edit' onChange={e => setIsWork(true)} /> Work
-                <input type='radio' name='work-life-button' id='life-radio-edit' onChange={e => setIsWork(false)} /> Life
+                <input type='radio' name='work-life-button' id='life-radio-edit' onChange={e => setIsWork(false)} /> Play
                 </div> }
 
                 <div className="task-form-field">
