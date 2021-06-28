@@ -155,7 +155,7 @@ function RightDashboard(props) {
         </button>
         {' '}
         <button id="life-button" onClick={showLifeTaskForm}>
-          Life
+          Play
         </button>
         </div>
         {addWorkClicked && (
