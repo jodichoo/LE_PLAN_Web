@@ -89,6 +89,11 @@ input {
   margin-left: 30px; 
 }
 
+.main-dash .navbar .element:hover{
+  transform: scale(1.15); 
+  box-shadow: 0 0 20px 0px rgba(255, 255, 255, 0.12);
+}
+
 .main-dash .navbar .element button {
   background-color: #eddfc2;
   padding: 10px 23px;

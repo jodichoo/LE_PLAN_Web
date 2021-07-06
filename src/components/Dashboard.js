@@ -11,6 +11,8 @@ import { useHistory } from "react-router-dom";
 import { BiCalendar } from 'react-icons/bi'; 
 import { FaUserFriends } from 'react-icons/fa'
 import { ImExit } from 'react-icons/im'; 
+import { CgProfile } from 'react-icons/cg';
+import { BsQuestionCircle } from 'react-icons/bs'; 
 
 
 function Dashboard() {
@@ -97,8 +99,14 @@ function Dashboard() {
             <div className='element'>
               <FaUserFriends style={iconStyle} onClick={e => {toggleFriends(e)}}/>
             </div>
+            <div className='element'>
+              <CgProfile style={iconStyle} onClick={() => alert("Open profile page somewhere")}/>
+            </div>
           </div>
           <div className='right'>
+            <div className='element'>
+              <BsQuestionCircle style={iconStyle} onClick={() => alert("Open some instruction thing")}/>
+            </div>
             <div className='element'>
               <ImExit style={iconStyle} onClick={e => handleLogOut()}/>
             </div>
