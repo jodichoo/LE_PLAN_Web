@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { useAuth } from '../contexts/AuthContexts'; 
 import { HiUserAdd } from 'react-icons/hi';
+import { BiTrash } from 'react-icons/bi'; 
 
 function Friends(props) {
   const { currentUser } = useAuth(); 
@@ -14,6 +15,7 @@ function Friends(props) {
   const [addFriends, setAddFriends] = useState(false);
   const [friendData, setFriendData] = useState([]);
   const [loading, setLoading] = useState(true); 
+  const [showFriendDetails, setShowFriendDetails] = useState(undefined); 
 
   useEffect(() => {
     const dataList = []
@@ -118,15 +120,45 @@ function Friends(props) {
     )
   }
 
+  function toggleFriendDetails(n) {
+    if (showFriendDetails === n) {
+      setShowFriendDetails(undefined); 
+    } else {
+      setShowFriendDetails(n); 
+    }
+  }
+
+  function handleDeleteFriend(friendObj) {
+    alert(`Deleting ${friendObj.friend} from friends list`);
+  }
+
   function renderFriend(friendObj) {
+    //function that decides whether to show the friend details
+    function showDetails(name, cond) {
+      if (cond === name) {
+        return (
+          <div>
+            <div>W: {friendObj.work}h, P: {friendObj.play}h</div>
+            <div style={{backgroundColor:'#8a5858', borderRadius:'6px', display:'flex', alignItems:'center', justifyContent:'space-evenly', cursor:'pointer'}} 
+              onClick={() => handleDeleteFriend(friendObj)}>
+                <BiTrash />Delete {name}
+            </div>
+          </div>
+        )
+      }
+    }
+    
     return (
-      <div className='friend'>
+      <>
+      <div className='friend' style={{cursor: 'pointer'}} onClick={() => toggleFriendDetails(friendObj.friend)}>
         <div className='name'>{friendObj.friend}</div>
         {renderMeter(friendObj.work, friendObj.play)}
         {/* <p>{' '}{renderMeter(friendObj.work, friendObj.play)}</p> */}
         {/* {friendObj.work}/{friendObj.play} */}
         
       </div>
+      {showDetails(friendObj.friend, showFriendDetails)}
+      </>
     )
   }
 
