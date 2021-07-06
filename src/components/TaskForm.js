@@ -174,31 +174,37 @@ function TaskForm(props) {
 
     return (
         <div className='task-form'>
-            <p>{!edit && (addWorkClicked ? 'work' : 'play')}</p>
+            <p>{!edit && (addWorkClicked ? 'Work' : 'Play')}</p>
+            <div className='task-form-container'>
             <form onSubmit={e => {
                 edit && handleEditTask(e);
                 handleAddTask(e); 
             }}>
-
                 {edit && <div className='task-form-field'>
-                <input type='radio' name='work-life-button' id='work-radio-edit' onChange={e => setIsWork(true)} /> Work
-                <input type='radio' name='work-life-button' id='life-radio-edit' onChange={e => setIsWork(false)} /> Play
+                    <input type='radio' name='work-life-button' id='work-radio-edit' onChange={e => setIsWork(true)} /> Work
+                    <input type='radio' name='work-life-button' id='life-radio-edit' onChange={e => setIsWork(false)} /> Play
                 </div> }
 
                 <div className="task-form-field">
-                <label>Task Name: </label>
-                <input id='test' type="text" defaultValue={taskName} onChange={e => setTaskName(e.target.value)} required></input>
+                <div className='form-label'><label>Task Name: </label></div>
+                <div className='form-input'>
+                    <input id='test' type="text" defaultValue={taskName} onChange={e => setTaskName(e.target.value)} required></input>
+                </div>
                 </div>
                 
                 <div className="task-form-field">
-                <label>Description: </label>
-                <input type="text" defaultValue={taskDesc} onChange={e => setTaskDesc(e.target.value)}></input>
+                <div className='form-label'><label>Description: </label></div>
+                <div className='form-input'>
+                    <input type="text" defaultValue={taskDesc} onChange={e => setTaskDesc(e.target.value)}></input>
+                </div>
                 </div>
                 
                 <div className="task-form-field">
-                <label>Date: </label>
-                <input type="date" placeholder="yyyy-mm-dd" defaultValue={taskDate} min={currDate}
-                onChange={e => setTaskDate(e.target.value)} requiredPattern="\d{4}-\d{2}-\d{2}" required></input>
+                <div className='form-label'><label>Date: </label></div>
+                <div className='form-input'>
+                    <input type="date" placeholder="yyyy-mm-dd" defaultValue={taskDate} min={currDate}
+                        onChange={e => setTaskDate(e.target.value)} requiredPattern="\d{4}-\d{2}-\d{2}" required></input>
+                </div>
                 </div>
                 
                 {/* <div className="task-form-field">
@@ -208,17 +214,23 @@ function TaskForm(props) {
                 </div> */}
                 
                 <div className="task-form-field">
-                    <label>Time: </label>
+                <div className='form-label'><label>Time: </label></div>
+                <div className='form-input'>
                     <TimePicker value={taskTime} onChange={setTaskTime} disableClock={true}/>
+                </div>
                 </div>
 
                 <div className="task-form-field">
-                <label>Duration: </label>
-                <input type="number" id="task-duration" defaultValue={taskDur} step='0.25' min="0" placeholder='E.g. 2.25' onChange={e => setTaskDur(e.target.value)} required></input>
+                <div className='form-label'><label>Duration: </label></div>
+                <div className='form-input'>
+                    <input style={{width: "70px"}} type="number" id="task-duration" defaultValue={taskDur} step='0.25' min="0.25" placeholder='E.g. 2.25' onChange={e => setTaskDur(e.target.value)} required>
+                        </input>{" "}h
+                </div>
                 </div>
                 
                 <div className="task-form-field">
-                    <input type='checkbox' value='want-reminder' id='want-reminder' onChange={isChecked}/> Set Reminders 
+                    <div className='form-label'><label>Set Reminders</label></div>
+                    <div className='form-input'><input type='checkbox' value='want-reminder' id='want-reminder' onChange={isChecked}/></div>
                 </div>
 
                 <div className="task-form-field" id="rem-interval" style={{display: 'none'}}>
@@ -233,10 +245,11 @@ function TaskForm(props) {
                 </div>
 
                 <div className="task-form-field">
-                <button  className="task-form-field" id="submit-task-button">Submit</button>
-                <button  className="task-form-field" id="cancel-task-button" onClick={removeTaskForm}>Cancel</button>
+                    <button  className="task-form-field" id="submit-task-button">Submit</button>
+                    <button  className="task-form-field" id="cancel-task-button" onClick={removeTaskForm}>Cancel</button>
                 </div>
             </form>
+            </div>
         </div>
     )
 }
