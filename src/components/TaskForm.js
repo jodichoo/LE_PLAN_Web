@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContexts';
 import { db } from '../firebase'; 
 import moment from 'moment'; 
+import TimePicker from 'react-time-picker';
 
 function TaskForm(props) {
     const { addWorkClicked, setAddWorkClicked, setAddLifeClicked, editTask, edit, setEdit, selectedDate } = props; 
@@ -9,21 +10,23 @@ function TaskForm(props) {
     const [taskName, setTaskName] = useState(''); 
     const [taskDesc, setTaskDesc] = useState(''); 
     const [taskDate, setTaskDate] = useState(selectedDate); 
-    const [taskHrs, setTaskHrs] = useState(0); 
-    const [taskMins, setTaskMins] = useState(0); 
+    // const [taskHrs, setTaskHrs] = useState(0); 
+    // const [taskMins, setTaskMins] = useState(0); 
     const [taskDur, setTaskDur] = useState(''); 
     const [check, setCheck] = useState(true);
     const [isWork, setIsWork] = useState(true); 
     const { currentUser } = useAuth(); 
     const userTasks = db.collection('users').doc(currentUser.uid); 
+    const [taskTime, setTaskTime] = useState(moment().format('HH:mm')); 
 
     useEffect(() => {
         if (edit) {
             setTaskName(editTask.name); 
             setTaskDesc(editTask.desc); 
             setTaskDate(editTask.date); 
-            setTaskHrs(getHour(editTask.time)); 
-            setTaskMins(getMin(editTask.time)); 
+            // setTaskHrs(getHour(editTask.time)); 
+            // setTaskMins(getMin(editTask.time)); 
+            setTaskTime(getTimeInStr(editTask.time));
             setTaskDur(editTask.dur); 
             setIsWork(editTask.isWork)
 
@@ -35,25 +38,35 @@ function TaskForm(props) {
         }
     }, []); 
 
-    function getHour(num) {
+    function getTimeInStr(num) {
         if (num === 0) {
-            return num; 
+            return '00:00'; 
         } else {
-            const str = num.toString();
-            const split = str.split('.');
-            return parseInt(split[0]);
+            const str = num.toFixed(2); 
+            const spl = str.split('.');   
+            return `${spl[0]}:${spl[1]}`; 
         }
     }
 
-    function getMin(num) {
-        if (num === 0) {
-            return num; 
-        } else {
-            const str = num.toString();
-            const split = str.split('.');
-            return parseInt(split[1]);
-        }
-    }
+    // function getHour(num) {
+    //     if (num === 0) {
+    //         return num; 
+    //     } else {
+    //         const str = num.toString();
+    //         const split = str.split('.');
+    //         return parseInt(split[0]);
+    //     }
+    // }
+
+    // function getMin(num) {
+    //     if (num === 0) {
+    //         return num; 
+    //     } else {
+    //         const str = num.toFixed(2);
+    //         const split = str.split('.');
+    //         return parseInt(split[1]);
+    //     }
+    // }
 
     function removeTaskForm(e) {
         e.preventDefault(); 
@@ -74,16 +87,20 @@ function TaskForm(props) {
         }
         setTaskName('');
         setTaskDesc(''); 
-        setTaskHrs(0); 
-        setTaskMins(0); 
+        // setTaskHrs(0); 
+        // setTaskMins(0); 
+        setTaskTime(moment().format('HH:mm')); 
         setTaskDur(''); 
-        setTaskDate(currDate);
+        setTaskDate(selectedDate);
         setIsWork(true);  
     }
 
     function handleAddTask(e) {
         e.preventDefault();
-        const t = parseInt(taskHrs) + parseFloat(taskMins/100); 
+        //convert taskTime from string to float 
+        const spl = taskTime.split(':'); 
+        const t = parseInt(spl[0]) + parseFloat(spl[1] / 100); 
+        // const t = parseInt(taskHrs) + parseFloat(taskMins/100); 
         //create a new doc within the relevant collection 
         const ref = userTasks.collection(taskDate).doc();
         const work = edit ? isWork : addWorkClicked;
@@ -184,12 +201,17 @@ function TaskForm(props) {
                 onChange={e => setTaskDate(e.target.value)} requiredPattern="\d{4}-\d{2}-\d{2}" required></input>
                 </div>
                 
-                <div className="task-form-field">
+                {/* <div className="task-form-field">
                 <label>Time: {taskHrs} : {taskMins}{' '}</label>
                 <input type="range" id="task-time-hour" defaultValue={taskHrs} max="23" min="0" onChange={e => setTaskHrs(e.target.value)} required></input>
                 <input type="range" id="task-time-min"  defaultValue={taskMins} max="59" min="0" onChange={e => setTaskMins(e.target.value)} required></input>
-                </div>
+                </div> */}
                 
+                <div className="task-form-field">
+                    <label>Time: </label>
+                    <TimePicker value={taskTime} onChange={setTaskTime} disableClock={true}/>
+                </div>
+
                 <div className="task-form-field">
                 <label>Duration: </label>
                 <input type="number" id="task-duration" defaultValue={taskDur} step='0.25' min="0" placeholder='E.g. 2.25' onChange={e => setTaskDur(e.target.value)} required></input>
