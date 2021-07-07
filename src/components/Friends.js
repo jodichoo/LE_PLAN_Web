@@ -4,6 +4,7 @@ import { db } from "../firebase";
 import { useAuth } from '../contexts/AuthContexts'; 
 import { HiUserAdd } from 'react-icons/hi';
 import { BiTrash } from 'react-icons/bi'; 
+import ReactTooltip from 'react-tooltip';
 
 function Friends(props) {
   const { currentUser } = useAuth(); 
@@ -71,6 +72,7 @@ function Friends(props) {
             return setError("Friend does not exist!")  
           }
       })
+      setAddFriends(false);
     }
   }
 
@@ -129,7 +131,17 @@ function Friends(props) {
   }
 
   function handleDeleteFriend(friendObj) {
-    alert(`Deleting ${friendObj.friend} from friends list`);
+    const toDelete = friendObj.friend; 
+    const index = friendsList.findIndex(element => element === toDelete); 
+    const newList = [...friendsList.slice(0, index), ...friendsList.slice(index + 1)];
+    const newData = [...friendData.slice(0, index), ...friendData.slice(index + 1)];
+    userTasks.update({
+      friends: newList
+    })
+      .then(() => {
+        setFriendsList(newList); 
+        setFriendData(newData); 
+      });
   }
 
   function renderFriend(friendObj) {
@@ -150,13 +162,14 @@ function Friends(props) {
     
     return (
       <>
-      <div className='friend' style={{cursor: 'pointer'}} onClick={() => toggleFriendDetails(friendObj.friend)}>
+      <div data-tip data-for='delete-friend' className='friend' style={{cursor: 'pointer'}} onClick={() => toggleFriendDetails(friendObj.friend)}>
         <div className='name'>{friendObj.friend}</div>
         {renderMeter(friendObj.work, friendObj.play)}
         {/* <p>{' '}{renderMeter(friendObj.work, friendObj.play)}</p> */}
         {/* {friendObj.work}/{friendObj.play} */}
         
       </div>
+      <ReactTooltip id='delete-friend' type='dark' effect="solid"><span>Click to remove friend இдஇ</span></ReactTooltip>
       {showDetails(friendObj.friend, showFriendDetails)}
       </>
     )
