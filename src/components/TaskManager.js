@@ -4,6 +4,7 @@ import { db } from '../firebase';
 import TaskForm from './TaskForm'; 
 import moment from 'moment'; 
 import { BiJoystick, BiBriefcaseAlt2, BiTrash } from 'react-icons/bi'; 
+import ReactTooltip from 'react-tooltip';
 
 function TaskManager(props) {
     const { tasks, selectedDate } = props; 
@@ -116,12 +117,13 @@ function TaskManager(props) {
                         onChange={e => handleCheck(e, task)}/>
                     </div>
                     <div className='time'>{convertTime(task.time)}</div>
-                    <div className='name' onClick={e => {handleEditTask(e, task);}}>{task.name}</div>
+                    <div className='name' data-tip data-for='edit-task-popup' onClick={e => {handleEditTask(e, task);}}>{task.name}</div>
                     <div className='type'>{task.isWork ? <BiBriefcaseAlt2 style={iconsStyle}/> : <BiJoystick style={iconsStyle}/>}</div>
                     {/* <div className='delete'><button id="delete-task" onClick={e => deleteTask(e, task)}>Delete</button></div> */}
                     <div className='delete'><BiTrash style={{...iconsStyle, cursor:'pointer'}} onClick={e => deleteTask(e, task)} /></div>
 
                 </div>
+                <ReactTooltip id='edit-task-popup' type='dark' effect="solid"><span>Click to edit task ◕‿‿◕</span></ReactTooltip>
                 <div className='mouse-desc' id={task.id} style={{display: 'none'}}>{task.desc}</div>
             </>
         )
