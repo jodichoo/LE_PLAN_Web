@@ -7,12 +7,13 @@ import { useAuth } from "../contexts/AuthContexts";
 import { db } from "../firebase";
 import ChromeDinoGame from "react-chrome-dino";
 import moment from 'moment';
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { BiCalendar } from 'react-icons/bi'; 
 import { FaUserFriends } from 'react-icons/fa'
 import { ImExit } from 'react-icons/im'; 
 import { CgProfile } from 'react-icons/cg';
-import { BsQuestionCircle } from 'react-icons/bs'; 
+import { IoSettingsSharp } from 'react-icons/io5'; 
+
 
 
 function Dashboard() {
@@ -104,8 +105,8 @@ function Dashboard() {
             </div>
           </div>
           <div className='right'>
-            <div className='element'>
-              <BsQuestionCircle style={iconStyle} onClick={() => alert("Open some instruction thing")}/>
+          <div className='element'>
+              <Link to='/settings'><IoSettingsSharp style={iconStyle}/></Link>
             </div>
             <div className='element'>
               <ImExit style={iconStyle} onClick={e => handleLogOut()}/>

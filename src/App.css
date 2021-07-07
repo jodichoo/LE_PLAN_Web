@@ -343,7 +343,13 @@ nav li {
   padding: 20px 10px 20px 10px;
 }
 
-.signup-login .form-container .error {
+/* .signup-login .form-container .error {
+  padding: 0px 20px 0px 20px; 
+  background-color: pink;
+  border-radius: 10px;
+  font-size: small;
+} */
+ .error {
   padding: 0px 20px 0px 20px; 
   background-color: pink;
   border-radius: 10px;
@@ -464,7 +470,20 @@ nav li {
   flex: 10%; 
 }
 
-.task-manager .edit {
+/* .task-manager .edit {
+  top:0; 
+  left: 0; 
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+.edit {
   top:0; 
   left: 0; 
   height: 100vh;
@@ -477,11 +496,36 @@ nav li {
   align-items: center;
 }
 
-.task-manager .edit .edit-form {
+.edit .edit-form {
   min-width: 20%;
   background-color: whitesmoke;
   padding: 25px;
   border-radius: 10px;
+}
+
+/* -------- SETTINGS -------- */
+
+.back {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: #8a5858;
+  padding: 10px 20px 10px 14px;
+  border-radius: 30px;
+  color: whitesmoke;
+  cursor: pointer; 
+}
+
+.toggle-reauth {
+  cursor: pointer
+}
+
+.toggle-reauth:hover {
+  transform: scale(1.15);
 }
 
 /* -------- RESPONSIVENESS -------- */
