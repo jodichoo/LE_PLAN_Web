@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'; 
 import { useAuth } from '../contexts/AuthContexts';
 import { db, auth } from '../firebase'; 
-import { Link, useHistory } from 'react-router-dom'; 
+import { useHistory } from 'react-router-dom'; 
 import firebase from 'firebase/app'; 
 import { IoChevronBackOutline } from 'react-icons/io5'; 
 
