@@ -18,11 +18,9 @@ function CenterDashboard(props) {
     var lifeCount = 0;
 
     for (var i = 0; i <= 6; i++) {
-      console.log("getting the durations");
       const tempDate = moment(monDate);
       tempDate.add(i, "days"); //set date to next day of the week
       const str = tempDate.format("YYYY-MM-DD"); //to find tasks in database
-      console.log(i, str);
       await userTasks
         .collection(str)
         .get()
@@ -31,7 +29,6 @@ function CenterDashboard(props) {
             if (doc.exists) {
               const isWork = doc.data().isWork;
               const dur = doc.data().dur;
-              console.log(doc.data().date, isWork, doc.data().name);
               if (isWork) {
                 workCount += dur;
               } else {
@@ -47,6 +44,54 @@ function CenterDashboard(props) {
     }
   }
 
+
+  async function updateStonks(monDate) {
+    const data = []; 
+    for (var i = 4; i > 0; i--) {
+      // const start = moment(monDate, 'YYYY-MM-DD').subtract(i, 'week'); //i th mondate
+      // console.log('enter outer loop', i, start.format('YYYY-MM-DD')); 
+      var workCount = 0;
+      var lifeCount = 0;
+
+      for (var j = 0; j <= 6; j++) {
+        console.log('enter inner loop'); 
+        const tempDate = moment(monDate, 'YYYY-MM-DD').subtract(i, 'week');
+        tempDate.add(j, "days"); //set date to next day of the week
+        const str = tempDate.format("YYYY-MM-DD"); //to find tasks in database
+        await userTasks
+          .collection(str)
+          .get()
+          .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              if (doc.exists) {
+                const isWork = doc.data().isWork;
+                const dur = doc.data().dur;
+                if (isWork) {
+                  workCount += dur;
+                } else {
+                  lifeCount += dur;
+                }
+              }
+            });
+          });
+          console.log(tempDate.format('YYYY-MM-DD'), workCount, lifeCount); 
+      }
+
+      const dataItem = workCount === 0 && lifeCount === 0 
+        ? -1
+        : 100 * parseFloat(workCount)/ (parseFloat(workCount) + parseFloat(lifeCount))
+      console.log('dataItem', dataItem);
+      // data.push(dataItem);
+      data.push(Math.round(dataItem * 100) / 100);
+    }
+    //update database 
+    userTasks.update({
+      stonksData: data
+    }).then(() => {
+      console.log('updated data'); 
+    });
+  }
+
   function updateMeterData() {
       //check if current date is >6 days after the last stored monday date
       if (moment().diff(moment(storedDate, "YYYY-MM-DD"), "days") > 6) {
@@ -55,7 +100,9 @@ function CenterDashboard(props) {
         const whatday = currDate.day() === 0 ? 7 : currDate.day(); // 1,2,3,4....7
         const numDays = whatday - 1; // num of times to mathfloor
         const monDate = moment().subtract(numDays, "days").format("YYYY-MM-DD"); //monday of the current week
-
+        
+        updateStonks(monDate);
+        
         userTasks
           .update({
             //update storedDate in database to limit reinitialisation

@@ -4,6 +4,7 @@ import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import LandingPage from './components/LandingPage';
 import Settings from './components/Settings'; 
+import Profile from './components/Profile'; 
 import { AuthProvider } from './contexts/AuthContexts';
 import PrivateRoute from './components/PrivateRoute'; 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -19,6 +20,7 @@ function App() {
             <Route path='/signup' component={Signup} />
             <Route path='/login' component={Login} />
             <PrivateRoute path='/dashboard' component={Dashboard} />
+            <PrivateRoute path='/profile' component={Profile} />
             <PrivateRoute path='/settings' component={Settings} />
           </AuthProvider>
         </Switch>

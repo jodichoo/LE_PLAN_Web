@@ -505,6 +505,12 @@ nav li {
 
 /* -------- SETTINGS -------- */
 
+.profile-pic {
+  height: 200px;
+  width: 250px; 
+  border-radius: 100px
+}
+
 .back {
   position: absolute;
   top: 20px;

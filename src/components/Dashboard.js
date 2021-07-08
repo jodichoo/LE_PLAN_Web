@@ -101,7 +101,7 @@ function Dashboard() {
               <FaUserFriends style={iconStyle} onClick={e => {toggleFriends(e)}}/>
             </div>
             <div className='element'>
-              <CgProfile style={iconStyle} onClick={() => alert("Open profile page somewhere")}/>
+              <Link to='/profile'><CgProfile style={iconStyle} /></Link>
             </div>
           </div>
           <div className='right'>
