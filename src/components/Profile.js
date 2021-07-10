@@ -29,30 +29,32 @@ function Profile() {
             <div className='profile-page-container'>
                 <div className='profile'>
                     <div>
-                        <img className="profile-pic"
-                            alt='oops, it broke'
-                            src={currentUser.photoURL} 
-                            onError={(e)=>{e.target.onError = null; 
-                                e.target.src="https://i.stack.imgur.com/l60Hf.png"}}/>
+                        <div className='profile-pic'>
+                            <img style={{width: '100%', height: 'auto'}}
+                                alt='oops, it broke'
+                                src={currentUser.photoURL} 
+                                onError={(e)=>{e.target.onError = null; 
+                                    e.target.src="https://i.stack.imgur.com/l60Hf.png"}}/>
+                        </div>
 
                         <div className='credentials'>
                             <div className='display'>{currentUser.displayName}</div>
-                            <div className='field'>
+                            <div className='profile-field'>
                                 <div className='label'>Username:</div>
                                 <div className='value'>{username}</div>
                             </div>
-                            <div className='field'>
+                            <div className='profile-field'>
                                 <div className='label'>Email:</div> 
                                 <div className='value'>{currentUser.email}</div>
                             </div>
                         </div>
 
-                        <div className='field'>
+                        <div className='profile-field'>
                             <div><BiBriefcaseAlt2 /></div>
                             <div className='label'>Target Work:</div> 
                             <div className='value'>{target[0]}%-{target[1]}%</div>
                         </div>
-                        <div className='field'>
+                        <div className='profile-field'>
                             <div><BiJoystick /></div>
                             <div className='label'>Target Play:</div> 
                             <div className='value'>{100 - target[1]}%-{100-target[0]}%</div>

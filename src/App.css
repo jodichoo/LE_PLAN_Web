@@ -498,13 +498,34 @@ nav li {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* padding-top: 40px */
+}
+
+.settings-container {
+  width: 40vw; 
+  font-size: larger;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center;
+}
+
+.settings-container .display-name {
+  font-size: 50px;
+}
+
+.settings-container .upload-pic {
+  margin: 10px 0 25px 0;
 }
 
 .profile-pic {
-  height: 200px;
-  width: 250px; 
-  border-radius: 100px
+  background-color: whitesmoke;
+  width: 250px;
+  height: 250px;
+  border-radius: 250px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .back {
@@ -542,6 +563,21 @@ nav li {
 .toggle-reauth {
   cursor: pointer; 
   color: grey;
+  margin: 2.5px 0 2.5px 0;
+  text-decoration: underline;
+}
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-form .form-field {
+  margin: 5px 0 5px 0;
+}
+
+.settings-form .form-buttons {
+  margin-top: 10px;
 }
 
 .toggle-reauth:hover {
@@ -565,7 +601,8 @@ nav li {
   /* border: 1px solid blue; */
 }
 
-.profile .credentials {
+.credentials {
+  width: 100%;
   margin-bottom: 50px;
   display: flex;
   flex-direction: column;
@@ -576,12 +613,11 @@ nav li {
   font-size: 50px;
 }
 
-.profile .field {
+.profile-field {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  /* border: 1px solid rebeccapurple; */
 }
 
 .profile .link {

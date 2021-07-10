@@ -35,10 +35,6 @@ function Stonker() {
 
     useEffect(() => {
         setWorkSet(convertToWork()); 
-                setWorkSet(convertToWork()); 
-        setWorkSet(convertToWork()); 
-        setPlaySet(convertToPlay()); 
-                setPlaySet(convertToPlay()); 
         setPlaySet(convertToPlay()); 
     }, [dataSet])
 
