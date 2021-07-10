@@ -10,8 +10,6 @@ function Stonker() {
     // const [loading, setLoading] = useState(true); 
     const [workSet, setWorkSet] = useState([]); 
     const [playSet, setPlaySet] = useState([]); 
-    // var workCount; 
-    // var lifeCount; 
     
     useEffect(() => {
         userTasks.get()
@@ -32,15 +30,21 @@ function Stonker() {
                 console.log(arr);
                 console.log(Math.round(dataItem * 100) / 100);
                 setDataSet(arr); 
-            })
-            .then(() => {
-                setWorkSet(convertToWork()); 
-                setPlaySet(convertToPlay()); 
             });     
     }, []); 
 
+    useEffect(() => {
+        setWorkSet(convertToWork()); 
+                setWorkSet(convertToWork()); 
+        setWorkSet(convertToWork()); 
+        setPlaySet(convertToPlay()); 
+                setPlaySet(convertToPlay()); 
+        setPlaySet(convertToPlay()); 
+    }, [dataSet])
+
     function convertToWork() {
         const arr = dataSet;
+        console.log('converting to work');
         const converted = [];
         for (var i = 0; i < dataSet.length; i++) {
             if (arr[i] < 0) {
@@ -54,6 +58,7 @@ function Stonker() {
 
     function convertToPlay() {
         const arr = dataSet; 
+        console.log('converting to play');
         const converted = []; 
         for (var i = 0; i < dataSet.length; i++) {
             const curr = arr[i]; 
@@ -67,36 +72,45 @@ function Stonker() {
         return converted; 
     }
 
+    function getStonkDimensions() {
+        const container = document.getElementsByClassName('App'); 
+        const w = container[0].getBoundingClientRect().width;
+        const h = container[0].getBoundingClientRect().height;
+        return [h * 0.50, w * 0.4];
+    }
+
     const setting = {
         options: {
+        colors: ['#8a5858', '#eddfc2'],
           chart: {
             id: "stonks"
           },
           xaxis: {
-            categories: ['', '', '', '']
+            categories: ['', '', '', '', '']
           }
         },
         series: [
             {
-              name: "play-stonks",
-              data: playSet
-            },
-            {
                 name: "work-stonks",
                 data: workSet
-            }
+            },
+            {
+                name: "play-stonks",
+                data: playSet,
+              }
           ],
           stroke: {
             curve: 'smooth'
           },
       };
     return (
-        <div>
+        <div className='stonker'>
             <Chart 
                 options={setting.options}
                 series={setting.series}
                 type='line'
-                width='500'
+                height= {getStonkDimensions()[0]}
+                width= {getStonkDimensions()[1]}
             />
         </div>
     )

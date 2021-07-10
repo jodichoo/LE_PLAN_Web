@@ -4,6 +4,7 @@ import { IoChevronBackOutline } from 'react-icons/io5';
 import { useAuth } from '../contexts/AuthContexts';
 import { db, auth } from '../firebase'; 
 import Stonker from './Stonker';
+import { BiJoystick, BiBriefcaseAlt2, BiTrash } from 'react-icons/bi'; 
 
 function Profile() {
     const history = useHistory();
@@ -17,31 +18,53 @@ function Profile() {
             setUsername(doc.data().username); 
             //get target
         });
-        
     }, [])
 
     return (
-        <div style={{width: '100%', height: '100vh', paddingTop: '40px'}}>
+        <div className='setting-profile-screen'>
             <div className='back' onClick={history.goBack}>
                 <IoChevronBackOutline style={{fontSize: '20px'}}/>
                 <text>Back</text>
             </div>
-            <div>
-                <Link style={{textDecoration: 'none', color: 'black'}} to='/settings'>Edit Account Details</Link>
+            <div className='profile-page-container'>
+                <div className='profile'>
+                    <div>
+                        <img className="profile-pic"
+                            alt='oops, it broke'
+                            src={currentUser.photoURL} 
+                            onError={(e)=>{e.target.onError = null; 
+                                e.target.src="https://i.stack.imgur.com/l60Hf.png"}}/>
+
+                        <div className='credentials'>
+                            <div className='display'>{currentUser.displayName}</div>
+                            <div className='field'>
+                                <div className='label'>Username:</div>
+                                <div className='value'>{username}</div>
+                            </div>
+                            <div className='field'>
+                                <div className='label'>Email:</div> 
+                                <div className='value'>{currentUser.email}</div>
+                            </div>
+                        </div>
+
+                        <div className='field'>
+                            <div><BiBriefcaseAlt2 /></div>
+                            <div className='label'>Target Work:</div> 
+                            <div className='value'>{target[0]}%-{target[1]}%</div>
+                        </div>
+                        <div className='field'>
+                            <div><BiJoystick /></div>
+                            <div className='label'>Target Play:</div> 
+                            <div className='value'>{100 - target[1]}%-{100-target[0]}%</div>
+                        </div>
+                    </div>
+                    <br></br>
+                    <div className='link'>
+                        <Link style={{textDecoration: 'none', color: '#8a5858'}} to='/settings'>Edit Account Details</Link>
+                    </div>
+                </div>
+                <Stonker /> 
             </div>
-            <div>
-                <img className="profile-pic"
-                    alt='oops, it broke'
-                    src={currentUser.photoURL} 
-                    onError={(e)=>{e.target.onError = null; 
-                        e.target.src="https://i.stack.imgur.com/l60Hf.png"}}/>
-                <div style={{fontSize:'40px'}}>{currentUser.displayName}</div>
-                <div style={{color: 'grey'}}>Username: {username}</div>
-                <div>{currentUser.email}</div>
-                <div>Target Work: {target[0]}%-{target[1]}%</div>
-                <div>Target Play: {100 - target[1]}%-{100-target[0]}%</div>
-            </div>
-            <Stonker /> 
         </div>
     )
 }

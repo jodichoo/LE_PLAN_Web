@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContexts';
 import { db, auth } from '../firebase'; 
 import { useHistory } from 'react-router-dom'; 
 import firebase from 'firebase/app'; 
-import { IoChevronBackOutline } from 'react-icons/io5'; 
+import { IoChevronBackOutline, IoClose } from 'react-icons/io5';
 
 function Settings() {
     const history = useHistory();
@@ -77,13 +77,15 @@ function Settings() {
         return (
             <div className='edit'>
                 <div className='edit-form'>
-                    <div className='error'>{error && <p>{error}</p>}</div>
-                    Confirm Current Password:
-                    <form onSubmit={toggleUpdate}>
-                    <input type='password' onChange={e => setOldPassword(e.target.value)} required/>
-                    <button type='submit'>Submit</button>
-                    </form>
-                    <button onClick={() => {setError(''); setConfirmPassP(false); setConfirmPassN(false);}}>X</button>
+                    <div className='exit'><IoClose style={{fontSize: '20px', cursor: 'pointer'}} onClick={() => {setError(''); setConfirmPassP(false); setConfirmPassN(false);}}/></div>
+                    <div className='reauth'>
+                        <div className='error'>{error && <p>{error}</p>}</div>
+                        <div className='label'>Confirm Current Password:</div>
+                        <form onSubmit={toggleUpdate}>
+                        <input type='password' onChange={e => setOldPassword(e.target.value)} required/>{' '}
+                        <button type='submit'>Submit</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         )
@@ -117,37 +119,39 @@ function Settings() {
     }
 
     return (
-        <div style={{width: '100%', height: '100vh', paddingTop: '40px'}}>
-            <div className='back' onClick={history.goBack}><IoChevronBackOutline style={{fontSize: '20px'}}/><text>Back</text></div>
-            <div>{success && <p>{success}</p>}</div>
-            <img style= {profilePicStyle} src={currentUser.photoURL} onError={(e)=>{e.target.onError = null; e.target.src="https://i.stack.imgur.com/l60Hf.png"}}/>
-
-            <p>Upload Profile Picture</p>
-                <form onSubmit={handleSetProfilePic}>
-                    <input type='text' value={picUrl} onChange={e => setPicUrl(e.target.value)} placeholder='e.g. pic.png, pic.jpg'required/>{' '}
-                    <button type='submit'>Set Picture</button>
-                </form>
-            <p>Your Username: {username}</p>
-            <p>Your Email: {currentUser.email}</p>
-            <p className='toggle-reauth' onClick={() => setConfirmPassP(true)}>Change Password</p>
-            <div className='error'>{(error && changePass) && <p>{error}</p>}</div>
-            {confirmPassP && toggleAuth()}
-            {changePass && <div>
-                <form onSubmit={handleChangePassword}>
-                New password:{' '}<input type='password' onChange={e => setNewPassword(e.target.value)} required></input>
-                Confirm new password:{' '}<input type='password' onChange={e => setConfPassword(e.target.value)} required></input>
-                <button type='submit'>Submit</button>
-                </form>
-                <button onClick={() => setChangePass(false)}>Cancel</button>
-                </div>} 
-            <p className='toggle-reauth' onClick={() => setConfirmPassN(true)}>Change Display Name</p>
-            {confirmPassN && toggleAuth()}
-            {changeName && <div>
-                <form onSubmit={handleChangeName}>
-                New Display Name:{' '}<input type='text' onChange={e => setNewName(e.target.value)} />
-                <button type='submit'>Submit</button>
-                </form>
-                </div>}
+        <div className='setting-profile-screen'>
+            <div className='back' onClick={history.goBack}><IoChevronBackOutline style={{fontSize: '20px'}}/>Back</div>
+            <div className='settings-container'>
+                <div>{success && <p>{success}</p>}</div>
+                <img style= {profilePicStyle} src={currentUser.photoURL} onError={(e)=>{e.target.onError = null; e.target.src="https://i.stack.imgur.com/l60Hf.png"}}/>
+                <h1>{currentUser.displayName}</h1>
+                <p>Upload Profile Picture</p>
+                    <form onSubmit={handleSetProfilePic}>
+                        <input type='text' value={picUrl} onChange={e => setPicUrl(e.target.value)} placeholder='e.g. pic.png, pic.jpg'required/>{' '}
+                        <button type='submit'>Set Picture</button>
+                    </form>
+                <p>Your Username: {username}</p>
+                <p>Your Email: {currentUser.email}</p>
+                <p className='toggle-reauth' onClick={() => setConfirmPassP(true)}>Change Password</p>
+                <div className='error'>{(error && changePass) && <p>{error}</p>}</div>
+                {confirmPassP && toggleAuth()}
+                {changePass && <div>
+                    <form onSubmit={handleChangePassword}>
+                    New password:{' '}<input type='password' onChange={e => setNewPassword(e.target.value)} required></input>
+                    Confirm new password:{' '}<input type='password' onChange={e => setConfPassword(e.target.value)} required></input>
+                    <button type='submit'>Submit</button>
+                    </form>
+                    <button onClick={() => setChangePass(false)}>Cancel</button>
+                    </div>} 
+                <p className='toggle-reauth' onClick={() => setConfirmPassN(true)}>Change Display Name</p>
+                {confirmPassN && toggleAuth()}
+                {changeName && <div>
+                    <form onSubmit={handleChangeName}>
+                    New Display Name:{' '}<input type='text' onChange={e => setNewName(e.target.value)} />
+                    <button type='submit'>Submit</button>
+                    </form>
+                    </div>}
+            </div>
         </div>
     )
 }
