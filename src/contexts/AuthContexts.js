@@ -31,15 +31,18 @@ export function AuthProvider({ children }) {
             .then(response => {
                 const user = response.user; 
                 user.updateProfile({
-                    displayName: display
+                    displayName: display,
+                    photoURL: 'https://i.stack.imgur.com/l60Hf.png'
                 }).then(() => {
-                    console.log('set the display name'); 
+                    console.log('set the display name and photo url'); 
                 }).catch((error) => {
                     console.log(error); 
                 });
                 const uid = user.uid; 
                 const data = {
                     storedDate: '2021-05-31',
+                    displayName: display, 
+                    photoURL: 'https://i.stack.imgur.com/l60Hf.png',
                     username: un,
                     workTime: 0, 
                     lifeTime: 0,

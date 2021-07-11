@@ -38,9 +38,16 @@ function Settings() {
                 photoURL: picUrl
             })
                 .then(() => {
-                    setError(''); 
-                    setSuccess('Successfully changed profile picture!');
-                    setPicUrl('');
+                    // setError(''); 
+                    // setSuccess('Successfully changed profile picture!');
+                    // setPicUrl('');
+                    userTasks.update({
+                        photoURL: picUrl 
+                    }).then(() => {
+                        setError(''); 
+                        setSuccess('Successfully changed profile picture!');
+                        setPicUrl('');
+                    })
                 })
                 .catch(error => {
                     setError('Failed to set profile picture, please try again');
@@ -64,9 +71,9 @@ function Settings() {
             setError('');
             currentUser.updatePassword(newPassword)
                 .then(() => {
-                setChangePass(false);
-                setSuccess('Successfully changed password!')
-                console.log('update successful'); 
+                    setChangePass(false);
+                    setSuccess('Successfully changed password!')
+                    console.log('update successful'); 
                 })
                 .catch(error => {
                     setError('Failed to change password');
@@ -80,10 +87,16 @@ function Settings() {
             displayName: newName
         })
             .then(() => {
-                setSuccess('Successfully changed display name!');
+                userTasks.update({
+                    displayName: newName
+                }).then(() => { 
+                    setSuccess('Successfully changed display name!');
+                }).then(() => {
+                    setChangeName(false); 
+                })
             })
             .catch(error => {
-                setError('Failed to set profile picture, please check the image url');
+                setError('Failed to set display name, please try again');
             });
     }
 
