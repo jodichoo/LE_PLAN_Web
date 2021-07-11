@@ -5,6 +5,7 @@ import { useAuth } from '../contexts/AuthContexts';
 import { HiUserAdd } from 'react-icons/hi';
 import { BiTrash } from 'react-icons/bi'; 
 import ReactTooltip from 'react-tooltip';
+import FriendProfile from "./FriendProfile";
 
 function Friends(props) {
   const { currentUser } = useAuth(); 
@@ -15,8 +16,8 @@ function Friends(props) {
   const [friendsList, setFriendsList] = useState([]);
   const [addFriends, setAddFriends] = useState(false);
   const [friendData, setFriendData] = useState([]);
-  const [loading, setLoading] = useState(true); 
-  const [showFriendDetails, setShowFriendDetails] = useState(undefined); 
+  const [loading, setLoading] = useState(true);  
+  const [selected, setSelected] = useState(undefined); 
 
   useEffect(() => {
     const dataList = []
@@ -28,7 +29,9 @@ function Friends(props) {
             dataList.push({
               friend: name,
               work: doc.data().workTime, 
-              play: doc.data().lifeTime
+              play: doc.data().lifeTime,
+              pic: doc.data().photoURL, 
+              displayName: doc.data().displayName
             })
           })
         })
@@ -122,55 +125,23 @@ function Friends(props) {
     )
   }
 
-  function toggleFriendDetails(n) {
-    if (showFriendDetails === n) {
-      setShowFriendDetails(undefined); 
+  function toggleSelected(n) {
+    if (selected === n) {
+      setSelected(undefined); 
     } else {
-      setShowFriendDetails(n); 
+      setSelected(n); 
     }
   }
 
-  function handleDeleteFriend(friendObj) {
-    const toDelete = friendObj.friend; 
-    const index = friendsList.findIndex(element => element === toDelete); 
-    const newList = [...friendsList.slice(0, index), ...friendsList.slice(index + 1)];
-    const newData = [...friendData.slice(0, index), ...friendData.slice(index + 1)];
-    userTasks.update({
-      friends: newList
-    })
-      .then(() => {
-        setFriendsList(newList); 
-        setFriendData(newData); 
-      });
-  }
-
-  function renderFriend(friendObj) {
-    //function that decides whether to show the friend details
-    function showDetails(name, cond) {
-      if (cond === name) {
-        return (
-          <div>
-            <div>W: {friendObj.work}h, P: {friendObj.play}h</div>
-            <div style={{backgroundColor:'#8a5858', borderRadius:'6px', display:'flex', alignItems:'center', justifyContent:'space-evenly', cursor:'pointer'}} 
-              onClick={() => handleDeleteFriend(friendObj)}>
-                <BiTrash />Delete {name}
-            </div>
-          </div>
-        )
-      }
-    }
-    
+  function renderFriend(friendObj) { 
     return (
       <>
-      <div data-tip data-for='delete-friend' className='friend' style={{cursor: 'pointer'}} onClick={() => toggleFriendDetails(friendObj.friend)}>
+      <div data-tip data-for='delete-friend' className='friend' style={{cursor: 'pointer'}} onClick={() => toggleSelected(friendObj)}>
         <div className='name'>{friendObj.friend}</div>
         {renderMeter(friendObj.work, friendObj.play)}
-        {/* <p>{' '}{renderMeter(friendObj.work, friendObj.play)}</p> */}
-        {/* {friendObj.work}/{friendObj.play} */}
         
       </div>
-      <ReactTooltip id='delete-friend' type='dark' effect="solid"><span>Click to remove friend இдஇ</span></ReactTooltip>
-      {showDetails(friendObj.friend, showFriendDetails)}
+      <ReactTooltip id='delete-friend' type='dark' effect="solid"><span>Click to open/close friend profile</span></ReactTooltip>
       </>
     )
   }
@@ -182,7 +153,6 @@ function showAddFriend(e) {
 
   return (
     <div className="left-dash">
-      {/* <button onClick={showAddFriend}>+ Add Friends</button> */}
       <div className='add-friend-button' onClick={showAddFriend}>
         <HiUserAdd style={{color: 'whitesmoke', fontSize: '20px'}}/>Add Friends
       </div>
@@ -197,6 +167,8 @@ function showAddFriend(e) {
         </form>
       </div>}
       
+      <FriendProfile selected={selected} setSelected={setSelected} renderMeter={renderMeter} setFriendsList={setFriendsList} setFriendData={setFriendData} friendData={friendData} friendsList={friendsList}/> 
+
       <div className='friends-list'>
         <h3>Friends: </h3>
         {friendData.length === 0 

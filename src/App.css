@@ -178,11 +178,12 @@ input {
 /* -------- FRIENDS -------- */
 
 .left-dash .add-friend-button {
-  width: 88%;
   cursor: pointer;
-  padding-top: 3%;
-  padding-bottom: 3%;
+  padding: 3% 5% 4% 5%;
   margin: 5px;
+  border: 1px solid whitesmoke;
+  border-radius: 70px;
+  background-color: transparent;
 }
 
 .left-dash .add-friend-form {
@@ -208,6 +209,56 @@ input {
 .left-dash .friends-list .friend .name {
   flex: 50%;
   overflow: auto;
+}
+
+.friend-profile {
+  width: 100%;
+  padding: 15px 0 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.friend-img {
+  background-color: whitesmoke;
+  width: 12vw; 
+  height: 12vw; 
+  border-radius: 200px;
+  overflow: hidden; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.friend-display-name {
+  font-size: x-large;
+  margin-top: 5px;
+}
+
+.friend-un {
+  font-size: large;
+  color: #eddfc2;
+}
+
+.friend-profile .meter-container {
+  margin: 10px 0 20px 0;
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+}
+
+.friend-profile .delete {
+  border: 1px solid whitesmoke;
+  padding: 7px 13px 0px 13px;
+  border-radius: 40px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.friend-profile .delete:hover {
+  color: #8a5858; 
+  border: 1px solid #8a5858;
 }
 
 /* -------- CENTER DASHBOARD -------- */
