@@ -17,6 +17,7 @@ function Profile() {
         userTasks.get().then(doc => {
             setUsername(doc.data().username); 
             //get target
+            setTarget(doc.data().targetWorkRange);
         });
     }, [])
 
@@ -28,7 +29,6 @@ function Profile() {
             </div>
             <div className='profile-page-container'>
                 <div className='profile'>
-                    <div>
                         <div className='profile-pic'>
                             <img style={{width: '100%', height: 'auto'}}
                                 alt='oops, it broke'
@@ -48,18 +48,16 @@ function Profile() {
                                 <div className='value'>{currentUser.email}</div>
                             </div>
                         </div>
-
-                        <div className='profile-field'>
-                            <div><BiBriefcaseAlt2 /></div>
-                            <div className='label'>Target Work:</div> 
+                        {target === undefined 
+                            ? <div style={{width: '80%', color: 'gray'}}>No target set yet, set a target range in the settings page!</div>
+                            : <><div className='profile-field'>
+                                <div className='label'><BiBriefcaseAlt2 />Target Work:</div> 
                             <div className='value'>{target[0]}%-{target[1]}%</div>
-                        </div>
+                            </div>
                         <div className='profile-field'>
-                            <div><BiJoystick /></div>
-                            <div className='label'>Target Play:</div> 
+                            <div className='label'><BiJoystick />Target Play:</div> 
                             <div className='value'>{100 - target[1]}%-{100-target[0]}%</div>
-                        </div>
-                    </div>
+                        </div></>}
                     <br></br>
                     <div className='link'>
                         <Link style={{textDecoration: 'none', color: '#8a5858'}} to='/settings'>Edit Account Details</Link>

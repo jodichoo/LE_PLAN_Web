@@ -647,9 +647,12 @@ nav li {
 }
 
 .profile {
-  height: 100%;
+  flex: 0.4; 
+  display: flex;
+  flex-direction: column;
   font-size: larger;
-  /* border: 1px solid blue; */
+  align-items: center;
+  justify-content: center;
 }
 
 .credentials {
@@ -671,6 +674,13 @@ nav li {
   justify-content: space-evenly;
 }
 
+.profile-field .label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
 .profile .link {
   text-decoration: underline;
   font-size: medium;
@@ -685,7 +695,7 @@ nav li {
 
 .stonker {
   height: 100%;
-  /* border: 1px solid green; */
+  flex: 0.6;
   display: flex;
   justify-content: center;
   align-items: center;
