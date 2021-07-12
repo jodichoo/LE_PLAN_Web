@@ -4,6 +4,7 @@ import { db, auth } from '../firebase';
 import { useHistory } from 'react-router-dom'; 
 import firebase from 'firebase/app'; 
 import { IoChevronBackOutline, IoClose } from 'react-icons/io5';
+import TargetPicker from './TargetPicker';
 
 function Settings() {
     const history = useHistory();
@@ -21,9 +22,16 @@ function Settings() {
     const [changeName, setChangeName] = useState(false);
     const [newName, setNewName] = useState('');
     const [picUrl, setPicUrl] = useState(''); 
+    const [range, setRange] = useState([25, 75]); 
     
     useEffect(() => {
         userTasks.get().then(doc => setUsername(doc.data().username));
+        userTasks.get().then(doc => {
+            setUsername(doc.data().username);
+            if (doc.data().targetWorkRange !== undefined) {
+                setRange(doc.data().targetWorkRange);
+            }
+        });
     }, []); 
 
     function handleSetProfilePic(e) {
@@ -139,6 +147,16 @@ function Settings() {
         });
     }
 
+    function handleSetTarget() {
+        // console.log('set target', range);
+        userTasks
+            .set({
+                targetWorkRange: range
+            }, { merge: true})
+            .then(() => {
+                setSuccess('Successfully changed target range');
+            });
+    }
 
     return (
         <div className='setting-profile-screen'>
@@ -155,11 +173,20 @@ function Settings() {
                 <div className='upload-pic'>
                     Upload Profile Picture
                     <div className='error'>{(error && !changePass) && <p>{error}</p>}</div>
-                        <form onSubmit={handleSetProfilePic}>
-                            <input type='text' value={picUrl} onChange={e => setPicUrl(e.target.value)} placeholder='e.g. pic.png, pic.jpg'required/>{' '}
-                            <button type='submit'>Set Picture</button>
-                        </form>
+                    <form onSubmit={handleSetProfilePic}>
+                        <input type='text' value={picUrl} onChange={e => setPicUrl(e.target.value)} placeholder='e.g. pic.png, pic.jpg'required/>{' '}
+                        <button type='submit'>Set Picture</button>
+                    </form>
                 </div>
+                    <div style={{width: '100%', marginBottom: '40px'}}>
+                        Set Target Work Range: 
+                        <div style={{display: 'flex', flexDirection: 'row', width: '100%', marginTop: '5px', alignItems: 'center'}}>
+                        <TargetPicker range={range} setRange={setRange}/>
+                        <div style={{flex: 0.2}}><button onClick={handleSetTarget}>Set</button></div>
+                        </div>
+                    </div>
+                
+
                 <div className='credentials'>
                     <div className='profile-field'>
                         <div className='label'>Your Username:</div>
