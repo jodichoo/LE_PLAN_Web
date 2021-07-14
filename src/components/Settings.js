@@ -25,16 +25,32 @@ function Settings() {
     const [newName, setNewName] = useState('');
     const [picUrl, setPicUrl] = useState(''); 
     const [range, setRange] = useState([25, 75]); 
+    const [bio, setBio] = useState("");
+    const [changeBio, setChangeBio] = useState(false);
+    const [newBio, setNewBio] = useState("");
     
     useEffect(() => {
         userTasks.get().then(doc => setUsername(doc.data().username));
         userTasks.get().then(doc => {
             setUsername(doc.data().username);
+            setBio(doc.data().bio);
             if (doc.data().targetWorkRange !== undefined) {
                 setRange(doc.data().targetWorkRange);
             }
         });
     }, []); 
+
+    function handleChangeBio() {
+        userTasks
+        .update({
+          bio: newBio,
+        })
+        .then(() => {
+          setBio(newBio);
+          setChangeBio(false);
+          setSuccess("Successfully changed your bio!");
+        });
+    }
 
     function handleSetProfilePic(e) {
         e.preventDefault(); 
@@ -182,6 +198,8 @@ function Settings() {
                 </div>
 
                 <div className='display-name'>{currentUser.displayName}</div>
+                {console.log('render')}
+                <div style={{fontStyle: 'italic'}}>{bio}</div>
 
                 <div className='upload-pic'>
                     Upload Profile Picture
@@ -232,6 +250,16 @@ function Settings() {
                     <button type='submit'>Submit</button>
                     </form>
                     </div>}
+                <div className='toggle-reauth' onClick={() => {setChangeBio(true)}}>Change Bio</div>
+                {changeBio && <div>
+                New Bio:
+                <input
+                  type='text'
+                  onChange={(e) => setNewBio(e.target.value)}
+                />
+                <button onClick={handleChangeBio}>Submit</button>
+                <button onClick={() => setChangeBio(false)}>Cancel</button>
+              </div>}
             </div>
         </div>
     )

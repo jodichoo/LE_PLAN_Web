@@ -40,6 +40,7 @@
     background-color: whitesmoke;
     width: 250px;
     height: 250px;
+    border: 1px solid gray;
     border-radius: 250px;
     overflow: hidden;
     display: flex;

@@ -13,11 +13,12 @@ function Profile() {
     const userTasks = db.collection("users").doc(currentUser.uid);
     const [username, setUsername] = useState(''); 
     const [target, setTarget] = useState([0, 100]); 
+    const [bio, setBio] = useState("");
 
     useEffect(() => {
         userTasks.get().then(doc => {
             setUsername(doc.data().username); 
-            //get target
+            setBio(doc.data().bio);
             setTarget(doc.data().targetWorkRange);
         });
     }, [])
@@ -42,6 +43,7 @@ function Profile() {
 
                         <div className='credentials'>
                             <div className='display'>{currentUser.displayName}</div>
+                            <div style={{fontStyle: 'italic'}}>{bio}</div>
                             <div className='profile-field'>
                                 <div className='label'>Username:</div>
                                 <div className='value'>{username}</div>
