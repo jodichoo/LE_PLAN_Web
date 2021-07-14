@@ -74,7 +74,7 @@ function Meter() {
         onMouseEnter={(item) => {enterMeter(item)}}
       />
       <div className='meter-caption'>
-        {totalTime === 0 ? <p style={{color: 'grey'}}>No tasks for the week, add some to get started!</p> : <></>}
+        {totalTime === 0 ? <p>No tasks for the week, add some to get started!</p> : <></>}
       </div>
     </div>
   );

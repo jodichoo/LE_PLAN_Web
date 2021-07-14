@@ -44,7 +44,7 @@
   .WL-meter .meter .meter-caption {
     width: 100%; 
     font-size: medium;
-    color: 'grey';
+    font-weight: 300;
   }
   
   .donutchart-innertext-label {
