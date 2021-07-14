@@ -101,6 +101,7 @@ function Stonker() {
       };
     return (
         <div className='stonker'>
+            <div style={{width: '100%', fontSize: '56px', fontWeight: '600', textAlign: 'left', marginBottom: '60px'}}>Weekly Stonks</div>
             <Chart 
                 options={setting.options}
                 series={setting.series}

@@ -1,0 +1,181 @@
+/* -------- SETTINGS -------- */
+
+.setting-profile-screen {
+    min-width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: #f3eee9;  */
+    background-color: whitesmoke;
+    color: black;
+  }
+  
+  .settings-container {
+    width: 40vw; 
+    font-size: larger;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+  }
+  
+  .settings-container .header, .profile-page-container .header {
+    width: 100%;
+    font-size: 56px;
+    font-weight: 600;
+    text-align: left;
+    margin-left: 20px;
+  }
+  
+  .settings-container .display-name {
+    font-size: 50px;
+  }
+  
+  .settings-container .upload-pic {
+    margin: 10px 0 25px 0;
+  }
+  
+  .profile-pic {
+    background-color: whitesmoke;
+    width: 250px;
+    height: 250px;
+    border-radius: 250px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .back {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #8a5858;
+    padding: 10px 20px 10px 14px;
+    border-radius: 30px;
+    color: whitesmoke;
+    cursor: pointer; 
+  }
+  
+  .exit {
+    display: flex;
+    align-content: left;
+    margin-top: -10px;
+    margin-left: -10px;
+    margin-bottom: 5px;
+  }
+  
+  .reauth {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .reauth .label {
+    margin: 10px 0 10px 0;
+  }
+  
+  .toggle-reauth {
+    cursor: pointer; 
+    color: grey;
+    margin: 2.5px 0 2.5px 0;
+    text-decoration: underline;
+  }
+  
+  .settings-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .settings-form .form-field {
+    margin: 5px 0 5px 0;
+  }
+  
+  .settings-form .form-buttons {
+    margin-top: 10px;
+  }
+  
+  .notif {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: small;
+    border: 1px solid black; 
+    padding: 5px 10px 5px 10px;
+    border-radius: 10px;
+    margin: 5px 0 5px 0;
+  }
+
+  .toggle-reauth:hover {
+    transform: scale(1.15);
+  }
+  
+  /* -------- PROFILE -------- */
+  
+  .profile-page-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  
+  .profile {
+    flex: 0.4; 
+    display: flex;
+    flex-direction: column;
+    font-size: larger;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .credentials {
+    width: 100%;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .profile .credentials .display {
+    font-size: 50px;
+  }
+  
+  .profile-field {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+  
+  .profile-field .label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .profile .link {
+    text-decoration: underline;
+    font-size: medium;
+  }
+  
+  .profile .link:hover {
+    transform: scale(1.10);
+  }
+  
+  
+  /* -------- STONKER -------- */
+  
+  .stonker {
+    height: 100%;
+    flex: 0.6;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }

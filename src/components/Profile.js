@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'; 
+import '../styles/Settings-profile.css'; 
 import { Link, useHistory } from 'react-router-dom'; 
 import { IoChevronBackOutline } from 'react-icons/io5';
 import { useAuth } from '../contexts/AuthContexts';
@@ -27,8 +28,10 @@ function Profile() {
                 <IoChevronBackOutline style={{fontSize: '20px'}}/>
                 <text>Back</text>
             </div>
+            
             <div className='profile-page-container'>
                 <div className='profile'>
+                <div className='header'>Profile</div>
                         <div className='profile-pic'>
                             <img style={{width: '100%', height: 'auto'}}
                                 alt='oops, it broke'

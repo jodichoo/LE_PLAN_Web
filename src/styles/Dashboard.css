@@ -1,0 +1,101 @@
+.main-dash {
+    width: 100%;  
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    color: white;
+  }
+  
+  .main-dash .navbar {
+    width: 100%; 
+    flex: 9%;
+    /* background-color: #eddfc2; */
+    /* background-color: #8a5858; */
+    /* background-color: #4a2f2f; */
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+    border-bottom: 0.5px solid white;
+  }
+  
+  .main-dash .navbar .left {
+    flex: 50%; 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  .main-dash .navbar .right {
+    flex: 50%; 
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .main-dash .navbar .element {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 30px;
+    margin-left: 30px; 
+  }
+  
+  .main-dash .navbar .element:hover{
+    transform: scale(1.15); 
+    box-shadow: 0 0 20px 0px rgba(255, 255, 255, 0.12);
+  }
+  
+  .main-dash .navbar .element button {
+    background-color: #eddfc2;
+    padding: 10px 23px;
+    color: #4a2f2f;
+    border-radius: 28px;
+  }
+  
+  .main-dash .container {
+    width: 100%;  
+    display: flex;
+    flex-direction: row;
+    flex: 91%;
+  }
+  
+  .dash {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height : 100%;
+    width: 100%; 
+  }
+  
+  .stevie-boy {
+    width: 100%; 
+    align-self:flex-end;
+  }
+
+  @media (max-width: 800px) {
+    .main-dash {
+      flex: 1; 
+    }
+  
+    .main-dash .navbar {
+      flex: none; 
+      height: 10vh; 
+    }
+  
+    .main-dash .container {
+      flex: 1; 
+      flex-direction: column;
+      height: 100%;
+      width: 100%;
+    }
+  
+    .stevie-boy {
+      display: none;
+    }
+  }

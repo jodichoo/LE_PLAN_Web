@@ -1,0 +1,51 @@
+.task-manager {
+    font-size: medium;
+    /* background-color: teal; */
+    width: 100%;
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .task-manager .task {
+    height: 45px;
+    width: 97%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 20px;
+    border: 6px solid black;
+    background-color: whitesmoke;
+  }
+  
+  .task-manager .task .name {
+    flex: 60%
+  }
+  
+  .task-manager .task .check, .time, .type, .delete {
+    flex: 10%; 
+  }
+  
+  .edit {
+    color: black;
+    top:0; 
+    left: 0; 
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .edit .edit-form {
+    min-width: 20%;
+    background-color: whitesmoke;
+    padding: 25px;
+    border-radius: 10px;
+  }

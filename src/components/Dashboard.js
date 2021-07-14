@@ -1,5 +1,6 @@
 import CenterDashboard from "./CenterDashboard";
 import RightDashboard from "./RightDashboard";
+import '../styles/Dashboard.css';
 import Calendar from "./Calendar";
 import Friends from "./Friends";
 import { useEffect, useState } from "react";
@@ -84,7 +85,8 @@ function Dashboard() {
   }
 
   const iconStyle = {
-    color: '#eddfc2', 
+    // color: '#eddfc2', 
+    color: 'white',
     fontSize: '30px', 
     cursor: 'pointer'
   }; 

@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import '../styles/Signup-login.css'; 
 import { Link, useHistory } from 'react-router-dom'; 
 import { useAuth } from '../contexts/AuthContexts'; 
 import { auth, db } from '../firebase'; 
@@ -65,14 +66,14 @@ function Signup() {
     return (
         <div className='signup-login'>
             <div className='form-container'>
-                <div className='header'><h2>Create an Account With Us!</h2></div>
-                <div className='error'>{error && <p>{error}</p>}</div>
+                <div className='header'>Create an account<br></br>with us!</div>
+                {error && <div className='error'><p>{error}</p></div>}
                 <form className='signup-login-details' onSubmit={handleSubmit}>
 
                     <div className='field-container'>
                         <div className='signup-login-field'>
                             <div className='lab'><label id='displayName-label' for="displayName">Name</label></div>
-                            <div><input type='text' ref={displayNameRef} placeholder='Enter name' required></input></div>
+                            <div className='in'><input type='text' ref={displayNameRef} placeholder='Enter name' required></input></div>
                         </div>
                         <div className='caption'>
                             Name you would want us to refer you by!
@@ -86,7 +87,7 @@ function Signup() {
                                 { approveUn !== undefined && (approveUn ? <GoCheck style={iconStyle} /> : <GoX style={iconStyle} />)}
                             </div>
                             
-                            <div><input type='text' placeholder='Enter username' onBlur={checkUsername} onChange={e => setUsername(e.target.value)} required></input></div>
+                            <div className='in'><input type='text' placeholder='Enter username' onBlur={checkUsername} onChange={e => setUsername(e.target.value)} required></input></div>
                         </div>
                     </div>
                     
@@ -94,7 +95,7 @@ function Signup() {
                         <div className='signup-login-field'>
                             <div className='lab'><label id='email-label' for="email">Email</label></div>
                             
-                            <div><input type='email' ref={emailRef} placeholder='Enter email' required></input></div>
+                            <div className='in'><input type='email' ref={emailRef} placeholder='Enter email' required></input></div>
                         </div>
                     </div>
 
@@ -102,7 +103,7 @@ function Signup() {
                         <div className='signup-login-field'>
                             <div className='lab'><label id='password-label' for="password">Password</label></div>
                             
-                            <div><input type='password' ref={passwordRef} placeholder='Enter password' required></input></div>
+                            <div className='in'><input type='password' ref={passwordRef} placeholder='Enter password' required></input></div>
                         </div>
                     </div>
 
@@ -110,7 +111,7 @@ function Signup() {
                         <div className='signup-login-field'>
                             <div className='lab'><label id='password-confirm-label' for="password-confirm">Confirm Password</label></div>
                             
-                            <div><input type='password' ref={passwordConfirmRef} placeholder='Confirm password' required></input></div>
+                            <div className='in'><input type='password' ref={passwordConfirmRef} placeholder='Confirm password' required></input></div>
                         </div>
                     </div>
 

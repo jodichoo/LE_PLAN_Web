@@ -1,4 +1,5 @@
 import moment from "moment";
+import '../styles/Calendar.css';
 import { useEffect, useState } from "react";
 
 function Calendar(props) {
@@ -42,14 +43,15 @@ function Calendar(props) {
   }
 
   function renderDates(date, index) {
+    var bord = 'none'
     var bg = 'transparent'; 
-    var col = 'whitesmoke'; 
+    var col = 'black'; 
     var rad = 0; 
     if (selectedDate === date) {
-      bg = '#f3eee9'; col = 'black'; rad = '35px';
+      bg = 'black'; col = 'white'; rad = '26px'; bord = '1px solid black'
     }
     return (
-      <div className='date' style={{backgroundColor: bg, color: col, borderTopLeftRadius: rad, borderBottomLeftRadius: rad}} 
+      <div className='date' style={{backgroundColor: bg, color: col, borderTopLeftRadius: rad, borderBottomLeftRadius: rad, border: bord}} 
           onClick={e => {handleDateClicked(e, date)}}>
           {index === 0 ? 'Today' : index === 1 ? 'Tomorrow' : getLabel(date)}
       </div>

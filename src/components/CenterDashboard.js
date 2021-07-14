@@ -1,4 +1,5 @@
 import TaskManager from "./TaskManager";
+import '../styles/CenterDashboard.css';
 import { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContexts";
 import { db } from "../firebase";
@@ -196,20 +197,22 @@ function CenterDashboard(props) {
   return (
     <div className="center-dash">
 
-      <div className='container'>
+      {/* <div className='container'> */}
         <div className='heading'>
-          <h1>
-            {convertGreet(date)}, {currentUser.displayName}! <br></br>The time is {date.toLocaleTimeString()} 
-          </h1>
-          <h2>
-            {/* Here are your tasks for {date.toLocaleDateString()} ecksdee ecksdee */}
-            Here are your tasks for {addressDate(selectedDate)}
-          </h2>
+          <div className='greeting'>
+          {convertGreet(date)}, {currentUser.displayName}! <br></br> 
+          </div>
+          <div className='time-greeting'>
+            The time is {date.toLocaleTimeString()}<br></br>
+          </div>
+          <div className='here-tasks'>
+            Here are your tasks for {addressDate(selectedDate)}:
+          </div>          
         </div>
 
         <TaskManager selectedDate={selectedDate} tasks={tasks} setTasks={setTasks}/>
 
-      </div>
+      {/* </div> */}
       
     </div>
   );

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'; 
+import '../styles/Settings-profile.css'; 
 import { useAuth } from '../contexts/AuthContexts';
 import { db, auth } from '../firebase'; 
 import { useHistory } from 'react-router-dom'; 
 import firebase from 'firebase/app'; 
 import { IoChevronBackOutline, IoClose } from 'react-icons/io5';
+import { GoCheck, GoX } from 'react-icons/go'; 
 import TargetPicker from './TargetPicker';
 
 function Settings() {
@@ -114,7 +116,7 @@ function Settings() {
                 <div className='edit-form'>
                     <div className='exit'><IoClose style={{fontSize: '20px', cursor: 'pointer'}} onClick={() => {setError(''); setConfirmPassP(false); setConfirmPassN(false);}}/></div>
                     <div className='reauth'>
-                        <div className='error'>{error && <p>{error}</p>}</div>
+                        {error && renderNotif(error)}
                         <div className='label'>Confirm Current Password:</div>
                         <form onSubmit={toggleUpdate}>
                         <input type='password' onChange={e => setOldPassword(e.target.value)} required/>{' '}
@@ -158,12 +160,23 @@ function Settings() {
             });
     }
 
+    function renderNotif(t) {
+        const icon = t === success 
+            ? <GoCheck style={{fontSize: '22px', color: 'green'}} />
+            : <GoX style={{fontSize: '22px', color: 'red'}} />
+        return (<div className='notif'>
+                    <div>{icon}</div>
+                    <div>{t}</div>
+                </div>);
+    }
+
     return (
         <div className='setting-profile-screen'>
             <div className='back' onClick={history.goBack}><IoChevronBackOutline style={{fontSize: '20px'}}/>Back</div>
 
             <div className='settings-container'>
-                <div>{success && <p>{success}</p>}</div>
+                <div className='header'>Settings</div>
+                {success && renderNotif(success)}
                 <div className='profile-pic'>
                     <img style={{width: '100%', height: 'auto'}} src={currentUser.photoURL} onError={(e)=>{e.target.onError = null; e.target.src="https://i.stack.imgur.com/l60Hf.png"}}/>
                 </div>
@@ -172,7 +185,7 @@ function Settings() {
 
                 <div className='upload-pic'>
                     Upload Profile Picture
-                    <div className='error'>{(error && !changePass) && <p>{error}</p>}</div>
+                    {(error && !changePass) && renderNotif(error)}
                     <form onSubmit={handleSetProfilePic}>
                         <input type='text' value={picUrl} onChange={e => setPicUrl(e.target.value)} placeholder='e.g. pic.png, pic.jpg'required/>{' '}
                         <button type='submit'>Set Picture</button>
@@ -199,7 +212,7 @@ function Settings() {
                 </div>
                 
                 <div className='toggle-reauth' onClick={() => {setConfirmPassP(true); setError('')}}>Change Password</div>
-                <div className='error'>{(error && changePass) && <p>{error}</p>}</div>
+                {(error && changePass) && renderNotif(error)}
                 {confirmPassP && toggleAuth()}
                 {changePass && <div className='settings-form'>
                         <form onSubmit={handleChangePassword}>

@@ -1,0 +1,50 @@
+.left-dash .other-date-select {
+    width: 96%;
+    margin: 10px 0 15px 0;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: left;
+  }
+  
+  .left-dash .other-date-select input {
+    padding: 4px; 
+    border: 1px solid black; 
+  }
+  
+  .left-dash .other-date-select .fields {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .left-dash .other-date-select .fields button {
+    margin-left: 7px;
+    padding: 5px 5px;
+    /* color: #4a2f2f;  */
+    color: black; 
+    /* background-color: #eddfc2; */
+    background-color: transparent;
+    border: 1px solid black;
+  }
+  
+  .left-dash .dates-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .left-dash .dates-container .date {
+    cursor: pointer;
+    width: 100%;
+    flex: 14.3%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 300;
+  }

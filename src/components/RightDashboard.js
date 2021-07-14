@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import '../styles/RightDashboard.css';
 import TaskForm from "./TaskForm";
 import Meter from "./Meter";
 import moment from "moment";
@@ -137,6 +138,7 @@ function RightDashboard(props) {
     <div className="right-dash">
       {/* <label for="add-task"><h1 id="add-task">+ Add Task</h1></label> */}
       <div className="WL-meter">
+        <div className='header'>Meter</div>
         <Meter />
         {/* <br /><br /><br /><br /> */}
       </div>
@@ -148,16 +150,19 @@ function RightDashboard(props) {
       </div>
 
       <div className="add-task-bar">
-        <div className='fields'>
-        <h1 id="add-task"><BiCalendarPlus style={{verticalAlign:'top'}}/>{' '}Add Task</h1>
-        <button id="work-button" onClick={showWorkTaskForm}>
-          Work
-        </button>
-        {' '}
-        <button id="life-button" onClick={showLifeTaskForm}>
-          Play
-        </button>
+        {/* <div className='fields'> */}
+        <div className='header'><BiCalendarPlus />{' '}Add Task</div>
+        {/* <h1 id="add-task"><BiCalendarPlus style={{verticalAlign:'top'}}/>{' '}Add Task</h1> */}
+        <div className='buttons'>
+          <button id="work-button" onClick={showWorkTaskForm}>
+            Work
+          </button>
+          {' '}
+          <button id="life-button" onClick={showLifeTaskForm}>
+            Play
+          </button>
         </div>
+        {/* </div> */}
         {addWorkClicked && (
           <TaskForm
             selectedDate={selectedDate}

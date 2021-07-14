@@ -1,4 +1,5 @@
 import React, { useState } from 'react'; 
+import '../styles/TaskManager.css'; 
 import { useAuth } from '../contexts/AuthContexts';
 import { db } from '../firebase'; 
 import TaskForm from './TaskForm'; 

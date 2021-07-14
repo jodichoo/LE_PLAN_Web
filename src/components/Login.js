@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import '../styles/Signup-login.css'; 
 import { useHistory } from 'react-router-dom'; 
 import { useAuth } from '../contexts/AuthContexts'; 
 import { Link } from 'react-router-dom'; 
@@ -28,21 +29,21 @@ function Login() {
     return (
         <div className='signup-login'>
             <div className='form-container'>
-                <div className='header'><h2>Log In:</h2></div>
-                <div className='error'>{error && <p>{error}</p>}</div>
+                <div className='header'>Log in</div>
+                {error && <div className='error'><p>{error}</p></div>}
                 <form className='signup-login-details' onSubmit={handleSubmit}>
                     
                     <div className='field-container'>
                         <div className='signup-login-field'>
                             <div className='lab'><label id='email-label' for="email">Email</label></div>
-                            <div><input type='email' ref={emailRef} placeholder='Enter email'></input></div>
+                            <div className='in'><input type='email' ref={emailRef} placeholder='Enter email'></input></div>
                         </div>
                     </div>
 
                     <div className='field-container'>
                         <div className='signup-login-field'>
                             <div className='lab'><label id='password-label' for="password">Password</label></div>
-                            <div><input type='password' ref={passwordRef} placeholder='Enter password'></input></div>
+                            <div className='in'><input type='password' ref={passwordRef} placeholder='Enter password'></input></div>
                         </div>
                     </div>
                     

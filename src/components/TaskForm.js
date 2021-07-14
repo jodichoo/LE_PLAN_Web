@@ -215,9 +215,9 @@ function TaskForm(props) {
                 
                 <div className="task-form-field">
                 <div className='form-label'><label>Time: </label></div>
-                <div className='form-input'>
+                {/* <div className='form-input'> */}
                     <TimePicker value={taskTime} onChange={setTaskTime} disableClock={true}/>
-                </div>
+                {/* </div> */}
                 </div>
 
                 <div className="task-form-field">
@@ -244,9 +244,9 @@ function TaskForm(props) {
                     <input type='checkbox' name='rem-freq' id='one-week'/> 2 weeks before
                 </div>
 
-                <div className="task-form-field">
-                    <button  className="task-form-field" id="submit-task-button">Submit</button>
-                    <button  className="task-form-field" id="cancel-task-button" onClick={removeTaskForm}>Cancel</button>
+                <div className="task-form-field" id='submit-cancel'>
+                    <button>Submit</button>
+                    <button onClick={removeTaskForm}>Cancel</button>
                 </div>
             </form>
             </div>

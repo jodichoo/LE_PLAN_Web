@@ -1,4 +1,5 @@
 import moment from "moment";
+import '../styles/Friends.css';
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { useAuth } from '../contexts/AuthContexts'; 
@@ -89,7 +90,7 @@ function Friends(props) {
         display: 'flex', 
         flexDirection: 'row', 
         width: '100%',
-        border: '1px solid whitesmoke'
+        border: '1px solid black'
       },
   
       work: {
@@ -154,7 +155,7 @@ function showAddFriend(e) {
   return (
     <div className="left-dash">
       <div className='add-friend-button' onClick={showAddFriend}>
-        <HiUserAdd style={{color: 'whitesmoke', fontSize: '20px'}}/>Add Friends
+        <HiUserAdd style={{color: 'black', fontSize: '20px'}}/>Add Friends
       </div>
       
       {addFriends && 
@@ -170,7 +171,7 @@ function showAddFriend(e) {
       <FriendProfile selected={selected} setSelected={setSelected} renderMeter={renderMeter} setFriendsList={setFriendsList} setFriendData={setFriendData} friendData={friendData} friendsList={friendsList}/> 
 
       <div className='friends-list'>
-        <h3>Friends: </h3>
+        <div className='header'>Friends</div>
         {friendData.length === 0 
           ? <p>You have no friends :(</p>
           : loading || friendData.map(renderFriend)}
