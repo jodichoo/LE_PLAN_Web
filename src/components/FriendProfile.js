@@ -38,6 +38,9 @@ function FriendProfile(props) {
                 <div className='friend-display-name'>
                     {selected.displayName}
                 </div>
+                <div style={{fontStyle: 'italic', fontWeight: '300'}}>
+                    {selected.bio}
+                </div>
                 <div className='friend-un'>
                     un: {selected.friend}
                 </div>

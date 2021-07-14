@@ -32,7 +32,8 @@ function Friends(props) {
               work: doc.data().workTime, 
               play: doc.data().lifeTime,
               pic: doc.data().photoURL, 
-              displayName: doc.data().displayName
+              displayName: doc.data().displayName,
+              bio: doc.data().bio
             })
           })
         })
