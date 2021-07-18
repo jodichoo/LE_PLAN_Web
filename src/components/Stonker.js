@@ -10,6 +10,20 @@ function Stonker() {
     // const [loading, setLoading] = useState(true); 
     const [workSet, setWorkSet] = useState([]); 
     const [playSet, setPlaySet] = useState([]); 
+    const [width, setWidth] = useState(window.innerWidth);
+    const [height, setHeight] = useState(window.innerHeight); 
+
+    function handleWindowSizeChange() {
+        setWidth(window.innerWidth);
+        setHeight(window.innerHeight); 
+    }
+
+    useEffect(() => {
+        window.addEventListener('resize', handleWindowSizeChange);
+        return () => {
+            window.removeEventListener('resize', handleWindowSizeChange);
+        }
+    }, []);
     
     useEffect(() => {
         userTasks.get()
@@ -69,10 +83,16 @@ function Stonker() {
     }
 
     function getStonkDimensions() {
-        const container = document.getElementsByClassName('App'); 
-        const w = container[0].getBoundingClientRect().width;
-        const h = container[0].getBoundingClientRect().height;
-        return [h * 0.50, w * 0.4];
+        // const container = document.getElementsByClassName('App'); 
+        // const w = container[0].getBoundingClientRect().width;
+        // const h = container[0].getBoundingClientRect().height;
+        const isMobile = width <= 1024; 
+        if (isMobile) {
+            return [height * 0.5, width * 0.9];
+        } else {
+            return [height * 0.50, width * 0.4];
+        }
+        
     }
 
     const setting = {
@@ -101,7 +121,9 @@ function Stonker() {
       };
     return (
         <div className='stonker'>
-            <div style={{width: '100%', fontSize: '56px', fontWeight: '600', textAlign: 'left', marginBottom: '60px'}}>Weekly Stonks</div>
+            {/* <div style={{width: '100%', fontSize: '56px', fontWeight: '600', textAlign: 'left', marginBottom: '40px'}}>Weekly Stonks</div> */}
+            <div className='header'>Weekly Stonks</div>
+
             <Chart 
                 options={setting.options}
                 series={setting.series}

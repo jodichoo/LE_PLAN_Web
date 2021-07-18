@@ -180,3 +180,42 @@
     justify-content: center;
     align-items: center;
   }
+
+  @media (max-width: 1024px) {
+    .setting-profile-screen {
+      align-items: flex-start;
+      min-width: 100%;
+      min-height: 100%;
+      /* background-color: blue; */
+    }
+
+    .profile-page-container {
+      min-width: 100%;
+      flex-direction: column;
+      margin-top: 70px;
+    }
+
+    .settings-container {
+      width: 90%;
+      margin: 70px 0 30px 0;
+    }
+
+    .profile-page-container .header {
+      margin: 0;
+      width: 90%;
+    }
+
+    .settings-container .header {
+      margin: 0 0 10px 0; 
+      width: 100%;
+    }
+
+    .profile {
+      width: 100%;
+      padding-bottom: 30px;
+    }
+
+    .stonker {
+      width: 100%;
+    }
+  }
