@@ -73,9 +73,8 @@ function Meter() {
         clickToggle={false}
         onMouseEnter={(item) => {enterMeter(item)}}
       />
-      <div className='meter-caption'>
-        {totalTime === 0 ? <p>No tasks for the week, add some to get started!</p> : <></>}
-      </div>
+        {totalTime === 0 && <div className='meter-caption'><p>No tasks for the week, add some to get started!</p></div>}
+      
     </div>
   );
 }

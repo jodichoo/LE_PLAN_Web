@@ -1,13 +1,10 @@
 .signup-login {
-    height: 100vh;
-    width: 100vw;
-    /* background-color: #4a2f2f; */
-    background-color: black;
+    min-height: 100vh;
+    min-width: 100vw;
     color: white; 
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; */
   }
   
   .signup-login .form-container {
@@ -22,12 +19,6 @@
     justify-content: center;
   }
   
-  /* .signup-login .form-container .error {
-    padding: 0px 20px 0px 20px; 
-    background-color: pink;
-    border-radius: 10px;
-    font-size: small;
-  } */
    .error {
     margin: -40px 0 5px 0; 
     width: 100%;

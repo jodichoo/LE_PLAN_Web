@@ -4,7 +4,6 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    /* background-color: teal; */
   }
   
   .right-dash .header {
@@ -39,6 +38,7 @@
     width: 95%;
     height: 95%;
     overflow: auto;
+    margin-bottom: 12px;
   }
   
   .WL-meter .meter .meter-caption {
@@ -79,7 +79,7 @@
   }
   
   .add-task-bar .buttons {
-    margin: 8px 0 0 0;
+    margin: 8px 0 12px 0;
   }
 
   .add-task-bar .buttons button {
@@ -148,4 +148,10 @@
   #submit-cancel button:hover {
     background-color: black;
     color: white;   
+  }
+
+  @media (max-width: 1024px) {
+    .right-dash {
+      flex: 1;
+    }
   }

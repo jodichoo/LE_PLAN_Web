@@ -28,11 +28,9 @@
     margin-top: 20px;
     font-size: 24px;
   }
-  /* .center-dash .container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: teal;
-  } */
+
+  @media (max-width: 1024px) {
+    .center-dash {
+      flex: 10%; 
+    }
+  }
