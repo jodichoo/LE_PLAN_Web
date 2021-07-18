@@ -12,6 +12,20 @@
     /* background-color: teal; */
     text-align: left;
     padding: 10px 15px 15px 15px;
+    animation: drop-down 0.5s ease-in forwards; 
+  }
+
+  @keyframes drop-down {
+    from {
+      opacity: 0; 
+      visibility: hidden; 
+      transform: translateY(-25px); 
+    }
+    to {
+      opacity: 1; 
+      visibility: visible; 
+      transform: translateY(0px); 
+    }
   }
 
   .center-dash .greeting {

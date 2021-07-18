@@ -8,6 +8,18 @@
     justify-content: flex-start;
     align-items: center;
     text-align: center;
+    animation: emerge 0.5s ease-in-out forwards;
+  }
+
+  @keyframes emerge {
+    from {
+      opacity: 0; 
+      visibility: hidden; 
+    }
+    to {
+      opacity: 1; 
+      visibility: visible; 
+    }
   }
   
   .task-manager .task {

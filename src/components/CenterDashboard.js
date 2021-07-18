@@ -196,11 +196,10 @@ function CenterDashboard(props) {
 
   return (
     <div className="center-dash">
-
       {/* <div className='container'> */}
         <div className='heading'>
           <div className='greeting'>
-          {convertGreet(date)}, {currentUser.displayName}! <br></br> 
+          {convertGreet(date)}, <span style={{color: '#eddfc2'}}>{currentUser.displayName}!</span><br></br> 
           </div>
           <div className='time-greeting'>
             The time is {date.toLocaleTimeString()}<br></br>

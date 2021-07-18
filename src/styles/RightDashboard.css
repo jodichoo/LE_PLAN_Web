@@ -4,6 +4,7 @@
     align-items: center;
     display: flex;
     flex-direction: column;
+    animation: slide-left 0.5s ease-in-out forwards; 
   }
   
   .right-dash .header {
@@ -17,6 +18,19 @@
     margin: 5px 0 0 0px;
   }
   
+  @keyframes slide-left {
+    from {
+      opacity: 0; 
+      visibility: hidden;
+      transform: translateX(25px); 
+    }
+    to {
+      opacity: 1; 
+      visibility: visible;
+      transform: translateX(0);
+    }
+  }
+
   /* -------- METER -------- */
   
   .WL-meter {
