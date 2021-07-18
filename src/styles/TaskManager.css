@@ -8,7 +8,6 @@
     justify-content: flex-start;
     align-items: center;
     text-align: center;
-    animation: emerge 0.5s ease-in-out forwards;
   }
 
   @keyframes emerge {
@@ -31,6 +30,7 @@
     border-radius: 20px;
     border: 6px solid rgba(0, 0, 0, 0.9);
     background-color: whitesmoke;
+    animation: emerge 0.4s ease-in-out forwards;
   }
   
   .task-manager .task .name {
