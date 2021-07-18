@@ -132,7 +132,7 @@ function TaskManager(props) {
 
     return (
         <div className='task-manager'>
-            {tasks.length === 0 && <p style={{color: 'grey'}}>There are no tasks, add some from the add task tab on the right!</p>}
+            {tasks.length === 0 && <p style={{color: 'grey', margin: '0 8px 0 8px'}}>There are no tasks, add some from the add task tab on the right!</p>}
             {/* incomplete tasks  */}
             {(separateTasks(tasks)[0].map(task => renderTask(task, 0)))}
             {/* complete tasks */}

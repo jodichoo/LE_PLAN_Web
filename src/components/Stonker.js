@@ -11,7 +11,7 @@ function Stonker() {
     const [workSet, setWorkSet] = useState([]); 
     const [playSet, setPlaySet] = useState([]); 
     const [width, setWidth] = useState(window.innerWidth);
-    const [height, setHeight] = useState(window.innerHeight); 
+    const [height, setHeight] = useState(window.innerHeight);
 
     function handleWindowSizeChange() {
         setWidth(window.innerWidth);
@@ -88,18 +88,21 @@ function Stonker() {
         // const h = container[0].getBoundingClientRect().height;
         const isMobile = width <= 1024; 
         if (isMobile) {
-            return [height * 0.5, width * 0.9];
+            return [Math.round(height * 0.5), Math.round(width * 0.9)];
         } else {
-            return [height * 0.50, width * 0.4];
+            console.log([Math.round(height * 0.5), Math.round(width * 0.4)]);
+            return [Math.round(height * 0.5), Math.round(width * 0.45)];
         }
         
     }
 
     const setting = {
         options: {
+
         colors: ['#8a5858', '#eddfc2'],
           chart: {
-            id: "stonks"
+            id: "stonks",
+            toolbar: false,
           },
           xaxis: {
             categories: ['', '', '', '', '']
@@ -119,18 +122,20 @@ function Stonker() {
             curve: 'smooth'
           },
       };
+
     return (
         <div className='stonker'>
             {/* <div style={{width: '100%', fontSize: '56px', fontWeight: '600', textAlign: 'left', marginBottom: '40px'}}>Weekly Stonks</div> */}
             <div className='header'>Weekly Stonks</div>
-
-            <Chart 
-                options={setting.options}
-                series={setting.series}
-                type='line'
-                height= {getStonkDimensions()[0]}
-                width= {getStonkDimensions()[1]}
-            />
+            <div style={{alignSelf: 'center'}}>
+                <Chart 
+                    options={setting.options}
+                    series={setting.series}
+                    type='line'
+                    height= {getStonkDimensions()[0]}
+                    width= {getStonkDimensions()[1]}
+                />
+            </div>
         </div>
     )
 }
