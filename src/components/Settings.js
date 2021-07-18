@@ -244,21 +244,28 @@ function Settings() {
                     </div>} 
                 <div className='toggle-reauth' onClick={() => {setConfirmPassN(true); setError('')}}>Change Display Name</div>
                 {confirmPassN && toggleAuth()}
-                {changeName && <div>
+                {changeName && <div className='settings-form'>
                     <form onSubmit={handleChangeName}>
-                    New Display Name:{' '}<input type='text' onChange={e => setNewName(e.target.value)} />
-                    <button type='submit'>Submit</button>
+                    <div className='form-field'>New Display Name:{' '}<input type='text' onChange={e => setNewName(e.target.value)} /></div>
+                    <div className='form-buttons'>
+                        <button type='submit'>Submit</button>{' '}
+                        <button onClick={() => setChangeName(false)}>Cancel</button>
+                    </div>
                     </form>
                     </div>}
                 <div className='toggle-reauth' onClick={() => {setChangeBio(true)}}>Change Bio</div>
-                {changeBio && <div>
-                New Bio:
-                <input
-                  type='text'
-                  onChange={(e) => setNewBio(e.target.value)}
-                />
-                <button onClick={handleChangeBio}>Submit</button>
-                <button onClick={() => setChangeBio(false)}>Cancel</button>
+                {changeBio && <div className='settings-form'>
+                    <div className='form-field'>New Bio:{' '}
+                        <input
+                            type='text'
+                            onChange={(e) => setNewBio(e.target.value)}
+                        />
+                    </div>
+                
+                <div className='form-buttons'>
+                    <button onClick={handleChangeBio}>Submit</button>{' '}
+                    <button onClick={() => setChangeBio(false)}>Cancel</button>
+                </div>
               </div>}
             </div>
         </div>

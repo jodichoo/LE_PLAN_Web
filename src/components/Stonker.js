@@ -91,7 +91,7 @@ function Stonker() {
             return [Math.round(height * 0.5), Math.round(width * 0.9)];
         } else {
             console.log([Math.round(height * 0.5), Math.round(width * 0.4)]);
-            return [Math.round(height * 0.5), Math.round(width * 0.45)];
+            return [Math.round(height * 0.5), Math.round(width * 0.4)];
         }
         
     }
