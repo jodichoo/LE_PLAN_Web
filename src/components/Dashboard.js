@@ -107,12 +107,29 @@ function Dashboard() {
             </div>
           </div>
           <div className='right'>
-          <div className='element'>
+            <div className='element'>
               <Link to='/settings'><IoSettingsSharp style={iconStyle}/></Link>
             </div>
             <div className='element'>
               <ImExit style={iconStyle} onClick={e => handleLogOut()}/>
             </div>
+          </div>
+        </div>
+        <div className='mobile-nav'>
+          <div className='element'>
+            <BiCalendar style={iconStyle} onClick={e => toggleCalendar(e)}/>
+          </div>
+          <div className='element'>
+            <FaUserFriends style={iconStyle} onClick={e => {toggleFriends(e)}}/>
+          </div>
+          <div className='element'>
+            <Link to='/profile'><CgProfile style={iconStyle} /></Link>
+          </div>
+          <div className='element'>
+            <Link to='/settings'><IoSettingsSharp style={iconStyle}/></Link>
+          </div>
+          <div className='element'>
+            <ImExit style={iconStyle} onClick={e => handleLogOut()}/>
           </div>
         </div>
         <div className='container'>
