@@ -8,13 +8,15 @@ function LandingPage() {
 
     return (
         <div id='landing-page'> 
-            {home ? <div style={{height: "100px", marginTop: '20px'}}></div> : <img style={{width: 'auto', height: '100px', marginTop: '20px'}} src="https://cdn.discordapp.com/attachments/639487542432890900/867690623191351296/applogo.png" alt='oops'></img>}
+            {home 
+                ? <div className='logo-spacing'></div> 
+                : <img className='small-logo' src="https://cdn.discordapp.com/attachments/639487542432890900/867690623191351296/applogo.png" alt='oops'></img>}
             <div className='nav-bar'>
-                <div className='nav-bar-element' onClick={() => setHome(true)}>HOME</div>
+                <div className='nav-bar-element' style={{borderBottom: home ? '2px solid whitesmoke' : 'none'}} onClick={() => setHome(true)}>HOME</div>
                 <div className='nav-bar-element'>
                     <Link to='/login'>LOG IN</Link>
                 </div>
-                <div className='nav-bar-element' onClick={() => setHome(false)}>CONTACT</div>
+                <div className='nav-bar-element' style={{borderBottom: home ? 'none' : '2px solid whitesmoke'}} onClick={() => setHome(false)}>CONTACT</div>
             </div>
             {home 
             ? <><img className='home-logo' src="https://cdn.discordapp.com/attachments/639487542432890900/867690623191351296/applogo.png" alt='oops'></img>

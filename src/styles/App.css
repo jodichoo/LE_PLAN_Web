@@ -104,12 +104,26 @@ input {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  animation: drop-down 0.4s ease-in-out forwards; 
 }
 
 .home-logo {
   margin: 50px 0 50px 0;
   width: 100px; 
   height: auto;
+  animation: drop-down 0.4s ease-in-out forwards; 
+}
+
+.logo-spacing {
+  height: 100px;
+  margin-top: 20px;
+}
+
+.small-logo {
+  width: auto; 
+  height: 100px; 
+  margin-top: 20px;
+  animation: drop-down 0.4s ease-in-out forwards; 
 }
 
 .nav-bar-element {
@@ -126,7 +140,7 @@ input {
 
 .nav-bar-element:hover {
   transform: scale(1.15);
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid white !important;
   cursor: pointer;
 }
 
@@ -137,19 +151,14 @@ input {
   font-size: 18px; 
   font-weight: 500;
   border: 2px solid whitesmoke; 
+  animation: drop-down 0.4s ease-in-out forwards; 
 }
 
 .sign-up-button:hover {
   font-weight: 600;
   background-color: whitesmoke; 
   color:rgba(0, 0, 0, 0.88);
-  /* color: black; */
   cursor: pointer; 
-}
-
-nav li {
-  display: inline;
-  padding: 20px;
 }
 
 .contact {
@@ -158,6 +167,7 @@ nav li {
   text-align: left;
   font-weight: 300;
   font-size: 20px;
+  animation: drop-down 0.4s ease-in-out forwards; 
 }
 
 .contact .info, .creators {

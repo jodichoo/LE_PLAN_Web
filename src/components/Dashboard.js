@@ -85,7 +85,6 @@ function Dashboard() {
   }
 
   const iconStyle = {
-    // color: '#eddfc2', 
     color: 'white',
     fontSize: '30px', 
     cursor: 'pointer'
