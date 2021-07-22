@@ -19,9 +19,10 @@
 html, body {  
   min-height: 100%;
   margin: 0; 
-  background-image: url('https://wallpaperaccess.com/full/2862102.jpg');
-  background-size: cover;
-  box-shadow:inset 0 0 0 4000px rgba(0, 0, 0, 0.88);
+  /* background-image: url('https://wallpaperaccess.com/full/2862102.jpg'); */
+  /* background-image: url('https://images.squarespace-cdn.com/content/v1/600ab32b90fa23772e2d9402/1611822416820-GI4X5GX8Q4GR0GJ538GZ/site_background.jpg'); */
+  /* background-size: cover;
+  box-shadow:inset 0 0 0 4000px rgba(0, 0, 0, 0.88); */
 }
 
 button {
@@ -84,22 +85,66 @@ input {
 /* -------- LANDING PAGE -------- */
 
 #landing-page {
+  min-height: 100vh;
+  min-width: 100vw;
+  background-image: url('https://images.squarespace-cdn.com/content/v1/600ab32b90fa23772e2d9402/1611822416820-GI4X5GX8Q4GR0GJ538GZ/site_background.jpg');
+  background-size: cover;
+  box-shadow:inset 0 0 0 4000px rgba(0, 0, 0, 0.88);
   display: flex;
   flex-direction: column;
-}
-
-#apology {
-  font-size: 120px;
+  align-items: center;
 }
 
 .nav-bar {
-  position: fixed;
-  background-color: rgb(185, 229, 255);
-  color: #333333;
-  width: 100%;
-  top: 0px;
-  left: 0px;
-  text-align: right;
+  width: 50%;
+  height: 35px;
+  margin-top: 5vh;
+  /* background-color: gray; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-logo {
+  margin: 50px 0 50px 0;
+  width: 100px; 
+  height: auto;
+}
+
+.nav-bar-element {
+  height: 100%; 
+  font-size: 20px;
+  font-weight: 300;
+  margin: 0 20px 0 20px; 
+}
+
+.nav-bar-element a {
+  text-decoration: none;
+  color: whitesmoke;
+}
+
+.nav-bar-element:hover {
+  transform: scale(1.15);
+  border-bottom: 2px solid white;
+  cursor: pointer;
+}
+
+.sign-up-button {
+  text-decoration: none;
+  color: whitesmoke;
+  padding: 20px 30px 20px 30px;
+  font-size: 18px; 
+  font-weight: 500;
+  border: 2px solid whitesmoke; 
+}
+
+.sign-up-button:hover {
+  font-weight: 600;
+  background-color: whitesmoke; 
+  color:rgba(0, 0, 0, 0.88);
+  /* color: black; */
+  cursor: pointer; 
 }
 
 nav li {
@@ -107,3 +152,18 @@ nav li {
   padding: 20px;
 }
 
+.contact {
+  margin-top: 60px;
+  width: 55%; 
+  text-align: left;
+  font-weight: 300;
+  font-size: 20px;
+}
+
+.contact .info, .creators {
+  margin: 10px 0 40px 0;
+}
+
+.contact .creators h3 {
+  font-weight: 500;
+}
