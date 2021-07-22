@@ -19,10 +19,10 @@
 html, body {  
   min-height: 100%;
   margin: 0; 
-  /* background-image: url('https://wallpaperaccess.com/full/2862102.jpg'); */
+  background-image: url('https://wallpaperaccess.com/full/2862102.jpg');
   /* background-image: url('https://images.squarespace-cdn.com/content/v1/600ab32b90fa23772e2d9402/1611822416820-GI4X5GX8Q4GR0GJ538GZ/site_background.jpg'); */
-  /* background-size: cover;
-  box-shadow:inset 0 0 0 4000px rgba(0, 0, 0, 0.88); */
+  background-size: cover;
+  box-shadow:inset 0 0 0 4000px rgba(0, 0, 0, 0.88);
 }
 
 button {
