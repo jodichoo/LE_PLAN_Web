@@ -127,7 +127,7 @@ function Stonker() {
         <div className='stonker'>
             {/* <div style={{width: '100%', fontSize: '56px', fontWeight: '600', textAlign: 'left', marginBottom: '40px'}}>Weekly Stonks</div> */}
             <div className='header'>Weekly Stonks</div>
-            <div style={{alignSelf: 'center'}}>
+            <div style={{alignSelf: 'center', color: 'black'}}>
                 <Chart 
                     options={setting.options}
                     series={setting.series}
