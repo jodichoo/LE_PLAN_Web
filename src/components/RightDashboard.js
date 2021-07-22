@@ -154,11 +154,11 @@ function RightDashboard(props) {
         <div className='header'><BiCalendarPlus />{' '}Add Task</div>
         {/* <h1 id="add-task"><BiCalendarPlus style={{verticalAlign:'top'}}/>{' '}Add Task</h1> */}
         <div className='buttons'>
-          <button id="work-button" onClick={showWorkTaskForm}>
+          <button id="work-button" onClick={showWorkTaskForm} disabled={addWorkClicked}>
             Work
           </button>
           {' '}
-          <button id="life-button" onClick={showLifeTaskForm}>
+          <button id="life-button" onClick={showLifeTaskForm} disabled={addLifeClicked}>
             Play
           </button>
         </div>

@@ -111,6 +111,12 @@
     color: white;   
   }
 
+  .add-task-bar button:disabled {
+    background-color: black;
+    color: white;   
+    cursor: default;
+  }
+
 /* -------- TASK FORM -------- */
 
   .task-form {
@@ -145,8 +151,10 @@
   }
 
   .task-form-field .form-input input {
-    border: 1px solid gray; 
+    padding: 3px 6px 3px 6px;
+    border: 1px solid black; 
     margin: 0 5px 0 5px;
+    background-color: transparent;
   }
 
   #submit-cancel button {

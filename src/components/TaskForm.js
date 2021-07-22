@@ -174,7 +174,7 @@ function TaskForm(props) {
 
     return (
         <div className='task-form'>
-            <p>{!edit && (addWorkClicked ? 'Work' : 'Play')}</p>
+            {/* <p>{!edit && (addWorkClicked ? 'Work' : 'Play')}</p> */}
             <div className='task-form-container'>
             <form onSubmit={e => {
                 edit && handleEditTask(e);
