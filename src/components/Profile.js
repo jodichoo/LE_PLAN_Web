@@ -68,7 +68,7 @@ function Profile() {
                         <Link style={{textDecoration: 'none', color: '#8a5858'}} to='/settings'>Edit Account Details</Link>
                     </div>
                 </div>
-                <Stonker /> 
+                <Stonker target={target}/> 
             </div>
         </div>
     )

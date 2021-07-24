@@ -3,11 +3,11 @@ import { db, auth } from '../firebase';
 import { useAuth } from '../contexts/AuthContexts';
 import { useState, useEffect } from 'react'; 
 
-function Stonker() {
+function Stonker(props) {
     const { currentUser } = useAuth(); 
+    const { target } = props; 
     const userTasks = db.collection("users").doc(currentUser.uid);
     const [dataSet, setDataSet] = useState([]); 
-    // const [loading, setLoading] = useState(true); 
     const [workSet, setWorkSet] = useState([]); 
     const [playSet, setPlaySet] = useState([]); 
     const [width, setWidth] = useState(window.innerWidth);
@@ -98,15 +98,34 @@ function Stonker() {
 
     const setting = {
         options: {
-
-        colors: ['#8a5858', '#eddfc2'],
+            annotations: {
+                yaxis: [
+                  {
+                    y: target[0],
+                    y2: target[1],
+                    borderColor: '#000',
+                    fillColor: 'gray',
+                    label: {
+                      style: {
+                        color: 'whitesmoke',
+                        background: 'black',
+                      },
+                      text: 'Your target work range'
+                    }
+                  }
+                ]
+              },
+          colors: ['#8a5858', '#eddfc2'],
           chart: {
             id: "stonks",
             toolbar: false,
           },
           xaxis: {
             categories: ['', '', '', '', '']
-          }
+          },
+          stroke: {
+            curve: 'smooth'
+          },
         },
         series: [
             {
@@ -118,14 +137,10 @@ function Stonker() {
                 data: playSet,
               }
           ],
-          stroke: {
-            curve: 'smooth'
-          },
       };
 
     return (
         <div className='stonker'>
-            {/* <div style={{width: '100%', fontSize: '56px', fontWeight: '600', textAlign: 'left', marginBottom: '40px'}}>Weekly Stonks</div> */}
             <div className='header'>Weekly Stonks</div>
             <div style={{alignSelf: 'center', color: 'black'}}>
                 <Chart 
