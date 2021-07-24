@@ -199,7 +199,7 @@ function Settings() {
 
                 <div className='display-name'>{currentUser.displayName}</div>
                 {console.log('render')}
-                <div style={{fontStyle: 'italic'}}>{bio}</div>
+                <div style={{fontStyle: 'italic'}}>"{bio}"</div>
 
                 <div className='upload-pic'>
                     Upload Profile Picture

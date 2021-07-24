@@ -89,10 +89,23 @@ input {
   min-width: 100vw;
   background-image: url('https://images.squarespace-cdn.com/content/v1/600ab32b90fa23772e2d9402/1611822416820-GI4X5GX8Q4GR0GJ538GZ/site_background.jpg');
   background-size: cover;
-  box-shadow:inset 0 0 0 4000px rgba(0, 0, 0, 0.88);
+  box-shadow:inset 0 0 0 4000px rgba(0, 0, 0, 0.75);
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.repo {
+  text-decoration: none ;
+  color: gold !important; 
+}
+
+.repo:hover {
+  color:white;
+  text-decoration:none;
+  cursor:pointer;
+  transform: scale(1.15);
+  border-bottom: 2px solid gold !important;
 }
 
 .nav-bar {
@@ -148,7 +161,7 @@ input {
   text-decoration: none;
   color: whitesmoke;
   padding: 20px 30px 20px 30px;
-  font-size: 18px; 
+  font-size: 20px; 
   font-weight: 500;
   border: 2px solid whitesmoke; 
   animation: drop-down 0.4s ease-in-out forwards; 
@@ -159,6 +172,14 @@ input {
   background-color: whitesmoke; 
   color:rgba(0, 0, 0, 0.88);
   cursor: pointer; 
+}
+
+.phrase {
+  color: rgb(214, 191, 62);
+  margin-bottom: 50px;
+  font-size: 20px;
+  font-weight: 500;
+
 }
 
 .contact {

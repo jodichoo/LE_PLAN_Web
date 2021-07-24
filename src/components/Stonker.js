@@ -1,5 +1,5 @@
 import Chart from 'react-apexcharts';
-import { db, auth } from '../firebase'; 
+import { db } from '../firebase'; 
 import { useAuth } from '../contexts/AuthContexts';
 import { useState, useEffect } from 'react'; 
 
@@ -104,7 +104,7 @@ function Stonker(props) {
                     y: target === undefined ? 0 : target[0],
                     y2: target === undefined ? 0 : target[1],
                     borderColor: '#000',
-                    fillColor: 'gray',
+                    fillColor: '#FFFACD',
                     label: {
                       style: {
                         color: 'whitesmoke',
@@ -115,10 +115,15 @@ function Stonker(props) {
                   }
                 ]
               },
-          colors: ['#8a5858', '#eddfc2'],
+          colors: ['#8a5858'],
           chart: {
             id: "stonks",
             toolbar: false,
+          },
+          dataLabels: {
+            style: {
+              colors: ['red', 'blue', 'green']
+            }
           },
           xaxis: {
             categories: ['One month ago', '', '', '', 'This week']
@@ -129,13 +134,9 @@ function Stonker(props) {
         },
         series: [
             {
-                name: "work-stonks",
+                name: "work",
                 data: workSet
             },
-            // {
-            //     name: "play-stonks",
-            //     data: playSet,
-            //   }
           ],
       };
 

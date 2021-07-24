@@ -43,7 +43,7 @@ function Profile() {
 
                         <div className='credentials'>
                             <div className='display'>{currentUser.displayName}</div>
-                            <div style={{fontStyle: 'italic'}}>{bio}</div>
+                            <div style={{fontStyle: 'italic'}}>"{bio}"</div>
                             <div className='profile-field'>
                                 <div className='label'>Username:</div>
                                 <div className='value'>{username}</div>
@@ -59,10 +59,6 @@ function Profile() {
                                 <div className='label'><BiBriefcaseAlt2 style={{color: '#8a5858'}} />Target Work:</div> 
                                 <div className='value'>{target[0]}%-{target[1]}%</div>
                               </div>
-                        //       <div className='profile-field'>
-                        //       <div className='label'><BiJoystick />Target Play:</div> 
-                        //       <div className='value'>{100 - target[1]}%-{100-target[0]}%</div>
-                        //   </div>
                         }
                     <br></br>
                     <div className='link'>
