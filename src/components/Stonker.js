@@ -101,8 +101,8 @@ function Stonker(props) {
             annotations: {
                 yaxis: [
                   {
-                    y: target[0],
-                    y2: target[1],
+                    y: target === undefined ? 0 : target[0],
+                    y2: target === undefined ? 0 : target[1],
                     borderColor: '#000',
                     fillColor: 'gray',
                     label: {
@@ -110,7 +110,7 @@ function Stonker(props) {
                         color: 'whitesmoke',
                         background: 'black',
                       },
-                      text: 'Your target work range'
+                      text: target === undefined ? 'No target range': 'Your target work range'
                     }
                   }
                 ]
