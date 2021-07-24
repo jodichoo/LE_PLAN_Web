@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContexts";
 import { db } from "../firebase";
 import DonutChart from "react-donut-chart";
-import { getByDisplayValue } from "@testing-library/react";
 
 function Meter() {
   const { currentUser } = useAuth();

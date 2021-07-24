@@ -1,10 +1,8 @@
-import moment from "moment";
 import '../styles/Friends.css';
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { useAuth } from '../contexts/AuthContexts'; 
 import { HiUserAdd } from 'react-icons/hi';
-import { BiTrash } from 'react-icons/bi'; 
 import ReactTooltip from 'react-tooltip';
 import FriendProfile from "./FriendProfile";
 

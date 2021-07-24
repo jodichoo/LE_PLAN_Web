@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import Logo from '../assets/logo.png';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Contact from './Contact';
 
 function LandingPage() {

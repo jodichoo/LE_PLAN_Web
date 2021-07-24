@@ -21,7 +21,6 @@ import { RiCactusFill } from 'react-icons/ri';
 function Dashboard() {
   const currDate = moment().format('YYYY-MM-DD');
   const [selectedDate, setSelectedDate] = useState(currDate); 
-  const [error, setError] = useState(""); 
   const history = useHistory();
   const [tasks, setTasks] = useState([]);
   const [todayTasks, setTodayTasks] = useState([]); 
@@ -44,7 +43,7 @@ function Dashboard() {
       setTodayTasks(t);
     });
     return () => unsubscribe();
-  }, [])
+  }, [currDate])
 
 
   //gets and displays tasks based on date selected from left dashboard 
@@ -64,12 +63,11 @@ function Dashboard() {
   }, [selectedDate]);
 
   async function handleLogOut() {
-    setError("");
     try {
       await logout();
       history.push("/login");
     } catch {
-      setError("Failed to log out");
+      alert("Failed to log out, please try again");
     }
   }
   
