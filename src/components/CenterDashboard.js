@@ -7,9 +7,8 @@ import moment from "moment";
 
 function CenterDashboard(props) {
   const { tasks, setTasks, selectedDate } = props; 
-  const { currentUser, username } = useAuth();
+  const { currentUser } = useAuth();
   const userTasks = db.collection("users").doc(currentUser.uid);
-  const [greetName, setGreetName] = useState("empty");
   const [date, setDate] = useState(new Date());
   var storedDate;
   const currDate = moment();
@@ -120,24 +119,8 @@ function CenterDashboard(props) {
       .then((doc) => {
         if (doc.exists) {
           //account details exist
-          setGreetName(doc.data().username);
           storedDate = doc.data().storedDate;
         } 
-        // else {
-        //   //account details do not exist, so initialise account details
-        //   console.log("dont exist");
-        //   userTasks.set({
-        //     username: username,
-        //     storedDate: '2021-05-31',
-        //     workTime: 0, //for work-life meter
-        //     lifeTime: 0, //for work-life meter
-        //   })
-        //     .then(() => {
-        //       storedDate = '2021-05-31'; 
-        //       setGreetName(username);
-        //       console.log('setting storedDate'); 
-        //     });
-        // }
       })
         .then(() => {
           console.log(`stored date is ${storedDate}`);
@@ -163,26 +146,6 @@ function CenterDashboard(props) {
       return "HAHAHAHAHAAH";
     }
   }
-
-  //get the username for custom greeting
-  useEffect(() => {
-    userTasks.get().then((doc) => {
-      if (doc.exists) {
-        //account details exist
-        const unsubscribe = setGreetName(doc.data().username);
-        return unsubscribe;
-      } else {
-        //account details do not exist, so initialise account details
-        const unsubscribe = userTasks.set({
-          username: username,
-          workTime: 0, //for work-life meter
-          lifeTime: 0, //for work-life meter
-        });
-        setGreetName(username);
-        return unsubscribe;
-      }
-    });
-  }, []);
 
   function addressDate(d) {
     if (d === currDate.format('YYYY-MM-DD')) {
