@@ -14,6 +14,7 @@ import { FaUserFriends } from 'react-icons/fa'
 import { ImExit } from 'react-icons/im'; 
 import { CgProfile } from 'react-icons/cg';
 import { IoSettingsSharp } from 'react-icons/io5'; 
+import { RiCactusFill } from 'react-icons/ri'; 
 
 
 
@@ -28,7 +29,7 @@ function Dashboard() {
   const userTasks = db.collection("users").doc(currentUser.uid);
   const [showCal, setShowCal] = useState(false); 
   const [showFriends, setShowFriends] = useState(false); 
-
+  const [showStevie, setShowStevie] = useState(false); 
 
   //get current date's tasks for right dashboard
   useEffect(() => {
@@ -84,6 +85,11 @@ function Dashboard() {
     setShowFriends(!showFriends);
   }
 
+  function toggleStevie(e) { 
+    e.preventDefault(); 
+    setShowStevie(!showStevie); 
+  }
+
   const iconStyle = {
     color: 'white',
     fontSize: '30px', 
@@ -106,6 +112,9 @@ function Dashboard() {
             </div>
           </div>
           <div className='right'>
+            <div className='element'>
+              <RiCactusFill style={iconStyle} onClick={e => toggleStevie(e)}/>
+            </div>
             <div className='element'>
               <Link to='/settings'><IoSettingsSharp style={iconStyle}/></Link>
             </div>
@@ -142,9 +151,12 @@ function Dashboard() {
           <RightDashboard todayTasks={todayTasks} selectedDate={selectedDate}/>
         </div>
       </div>
+
+      {showStevie && 
       <div className="stevie-boy">
         <ChromeDinoGame />
-      </div>
+      </div>}
+
     </div>
   );
 }
