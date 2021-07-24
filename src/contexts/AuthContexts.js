@@ -48,7 +48,8 @@ export function AuthProvider({ children }) {
                     workTime: 0, 
                     lifeTime: 0,
                     friends: [],
-                    bio: 'I am Groot'
+                    bio: 'I am Groot',
+                    firstMobileLogin: true,
                 }; 
                 db.collection('users').doc(uid).set(data)
                     .then(() => {console.log('set user data')})
