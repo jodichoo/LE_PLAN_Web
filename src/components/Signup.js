@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContexts'; 
 import { auth, db } from '../firebase'; 
 import { GoCheck, GoX } from 'react-icons/go'; 
+import { BiArrowBack } from 'react-icons/bi';
 
 function Signup() {
     const [username, setUsername] = useState(""); 
@@ -119,7 +120,13 @@ function Signup() {
                     <label className='enter-button' for='submit-button'>
                     <button disable={loading} type="submit" id='submit-button'>Sign Up</button></label>
                 </form>
-                <div className='footer'>Already have an account? <Link to='/login'>Log In</Link></div>
+                <div className='footer'>
+                    Already have an account? <Link to='/login'>Log In</Link>
+                    <br></br>
+                    <Link to='/'>
+                        <span style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', color: '#eddfc2'}}><BiArrowBack />Back to homepage</span>
+                    </Link>
+                </div>
                 
             </div>
             

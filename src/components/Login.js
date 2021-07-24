@@ -3,6 +3,7 @@ import '../styles/Signup-login.css';
 import { useHistory } from 'react-router-dom'; 
 import { useAuth } from '../contexts/AuthContexts'; 
 import { Link } from 'react-router-dom'; 
+import { BiArrowBack } from 'react-icons/bi';
 
 function Login() {
     const emailRef = useRef(); 
@@ -50,7 +51,13 @@ function Login() {
                         <label className='enter-button' for='login-button'>
                         <button disabled={loading} type="submit" id='login-button'>Log In</button></label>
                 </form>
-                <div className='footer'>Do not have an account? <Link to='/signup'>Sign up here</Link></div>
+                <div className='footer'>
+                    Do not have an account? <Link to='/signup'>Sign up here</Link>
+                    <br></br>
+                    <Link to='/'>
+                        <span style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', color: '#eddfc2'}}><BiArrowBack />Back to homepage</span>
+                    </Link>
+                </div>
             </div>
         </div>
     )
