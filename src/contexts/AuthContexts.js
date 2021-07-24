@@ -41,7 +41,8 @@ export function AuthProvider({ children }) {
                 const uid = user.uid; 
                 const data = {
                     storedDate: '2021-05-31',
-                    displayName: display, 
+                    displayName: display,
+                    dark: true,  
                     photoURL: 'https://i.stack.imgur.com/l60Hf.png',
                     username: un,
                     workTime: 0, 
