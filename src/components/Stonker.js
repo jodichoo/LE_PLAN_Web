@@ -126,7 +126,19 @@ function Stonker(props) {
             }
           },
           xaxis: {
+            labels: {
+                style: {
+                    colors: 'whitesmoke'
+                }
+              },
             categories: ['One month ago', '', '', '', 'This week']
+          },
+          yaxis: {
+              labels: {
+                style: {
+                    colors: 'whitesmoke'
+                }
+              }
           },
           stroke: {
             curve: 'smooth'
