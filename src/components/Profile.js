@@ -5,7 +5,7 @@ import { IoChevronBackOutline } from 'react-icons/io5';
 import { useAuth } from '../contexts/AuthContexts';
 import { db, auth } from '../firebase'; 
 import Stonker from './Stonker';
-import { BiJoystick, BiBriefcaseAlt2, BiTrash } from 'react-icons/bi'; 
+import { BiJoystick, BiBriefcaseAlt2 } from 'react-icons/bi'; 
 
 function Profile() {
     const history = useHistory();
@@ -55,14 +55,15 @@ function Profile() {
                         </div>
                         {target === undefined 
                             ? <div style={{width: '80%', color: 'gray'}}>No target set yet, set a target range in the settings page!</div>
-                            : <><div className='profile-field'>
-                                <div className='label'><BiBriefcaseAlt2 />Target Work:</div> 
-                            <div className='value'>{target[0]}%-{target[1]}%</div>
-                            </div>
-                        <div className='profile-field'>
-                            <div className='label'><BiJoystick />Target Play:</div> 
-                            <div className='value'>{100 - target[1]}%-{100-target[0]}%</div>
-                        </div></>}
+                            : <div className='profile-field'>
+                                <div className='label'><BiBriefcaseAlt2 style={{color: '#8a5858'}} />Target Work:</div> 
+                                <div className='value'>{target[0]}%-{target[1]}%</div>
+                              </div>
+                        //       <div className='profile-field'>
+                        //       <div className='label'><BiJoystick />Target Play:</div> 
+                        //       <div className='value'>{100 - target[1]}%-{100-target[0]}%</div>
+                        //   </div>
+                        }
                     <br></br>
                     <div className='link'>
                         <Link style={{textDecoration: 'none', color: '#8a5858'}} to='/settings'>Edit Account Details</Link>

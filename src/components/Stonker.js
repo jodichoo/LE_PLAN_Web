@@ -121,7 +121,7 @@ function Stonker(props) {
             toolbar: false,
           },
           xaxis: {
-            categories: ['', '', '', '', '']
+            categories: ['One month ago', '', '', '', 'This week']
           },
           stroke: {
             curve: 'smooth'
@@ -132,16 +132,17 @@ function Stonker(props) {
                 name: "work-stonks",
                 data: workSet
             },
-            {
-                name: "play-stonks",
-                data: playSet,
-              }
+            // {
+            //     name: "play-stonks",
+            //     data: playSet,
+            //   }
           ],
       };
 
     return (
         <div className='stonker'>
-            <div className='header'>Weekly Stonks</div>
+            <div className='header'>Weekly Progress</div>
+            <div className='caption'>*This chart shows the percentage of <span style={{color: '#8a5858'}}>work</span> you did relative to all the time you've spent on each event!</div>
             <div style={{alignSelf: 'center', color: 'black'}}>
                 <Chart 
                     options={setting.options}

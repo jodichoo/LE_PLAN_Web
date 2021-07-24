@@ -200,6 +200,13 @@
     /* align-items: center; */
   }
 
+  .stonker .caption {
+    margin: 8px 0 0 0;
+    color: gray; 
+    font-size: medium;
+    font-weight: 300;
+  }
+
   @media (max-width: 1024px) {
     .setting-profile-screen {
       align-items: flex-start;
