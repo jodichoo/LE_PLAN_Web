@@ -3,6 +3,7 @@ import { useAuth } from '../contexts/AuthContexts';
 import { db } from '../firebase'; 
 import moment from 'moment'; 
 import TimePicker from 'react-time-picker';
+import { GoX } from 'react-icons/go'; 
 
 function TaskForm(props) {
     const { addWorkClicked, setAddWorkClicked, setAddLifeClicked, editTask, edit, setEdit, selectedDate } = props; 
@@ -10,22 +11,19 @@ function TaskForm(props) {
     const [taskName, setTaskName] = useState(''); 
     const [taskDesc, setTaskDesc] = useState(''); 
     const [taskDate, setTaskDate] = useState(selectedDate); 
-    // const [taskHrs, setTaskHrs] = useState(0); 
-    // const [taskMins, setTaskMins] = useState(0); 
     const [taskDur, setTaskDur] = useState(''); 
     const [check, setCheck] = useState(true);
     const [isWork, setIsWork] = useState(true); 
     const { currentUser } = useAuth(); 
     const userTasks = db.collection('users').doc(currentUser.uid); 
     const [taskTime, setTaskTime] = useState(moment().format('HH:mm')); 
+    const [error, setError] = useState(''); 
 
     useEffect(() => {
         if (edit) {
             setTaskName(editTask.name); 
             setTaskDesc(editTask.desc); 
             setTaskDate(editTask.date); 
-            // setTaskHrs(getHour(editTask.time)); 
-            // setTaskMins(getMin(editTask.time)); 
             setTaskTime(getTimeInStr(editTask.time));
             setTaskDur(editTask.dur); 
             setIsWork(editTask.isWork)
@@ -48,26 +46,6 @@ function TaskForm(props) {
         }
     }
 
-    // function getHour(num) {
-    //     if (num === 0) {
-    //         return num; 
-    //     } else {
-    //         const str = num.toString();
-    //         const split = str.split('.');
-    //         return parseInt(split[0]);
-    //     }
-    // }
-
-    // function getMin(num) {
-    //     if (num === 0) {
-    //         return num; 
-    //     } else {
-    //         const str = num.toFixed(2);
-    //         const split = str.split('.');
-    //         return parseInt(split[1]);
-    //     }
-    // }
-
     function removeTaskForm(e) {
         e.preventDefault(); 
         if (edit) {
@@ -87,8 +65,6 @@ function TaskForm(props) {
         }
         setTaskName('');
         setTaskDesc(''); 
-        // setTaskHrs(0); 
-        // setTaskMins(0); 
         setTaskTime(moment().format('HH:mm')); 
         setTaskDur(''); 
         setTaskDate(selectedDate);
@@ -97,11 +73,15 @@ function TaskForm(props) {
 
     function handleAddTask(e) {
         e.preventDefault();
+        const trimName = taskName.trim(); 
+        const trimDesc = taskDesc.trim(); 
+        if (trimName.length === 0) {
+            console.log('invalid'); 
+            return setError('Please enter a valid task name'); 
+        }
         //convert taskTime from string to float 
         const spl = taskTime.split(':'); 
         const t = parseInt(spl[0]) + parseFloat(spl[1] / 100); 
-        // const t = parseInt(taskHrs) + parseFloat(taskMins/100); 
-        //create a new doc within the relevant collection 
         const ref = userTasks.collection(taskDate).doc();
         const work = edit ? isWork : addWorkClicked;
         // update tasks here
@@ -109,8 +89,8 @@ function TaskForm(props) {
                 id: ref.id, //id field necessary to delete task later 
                 date: taskDate, 
                 isWork: work, 
-                name: taskName,
-                desc: taskDesc,
+                name: trimName,
+                desc: trimDesc,
                 time: t,
                 dur: parseFloat(taskDur), 
                 isComplete: false 
@@ -174,7 +154,7 @@ function TaskForm(props) {
 
     return (
         <div className='task-form'>
-            {/* <p>{!edit && (addWorkClicked ? 'Work' : 'Play')}</p> */}
+            {error && <div className='form-error'><GoX style={{color: 'red', fontSize: '20px'}} />{error}</div>}
             <div className='task-form-container'>
             <form onSubmit={e => {
                 edit && handleEditTask(e);
@@ -207,17 +187,9 @@ function TaskForm(props) {
                 </div>
                 </div>
                 
-                {/* <div className="task-form-field">
-                <label>Time: {taskHrs} : {taskMins}{' '}</label>
-                <input type="range" id="task-time-hour" defaultValue={taskHrs} max="23" min="0" onChange={e => setTaskHrs(e.target.value)} required></input>
-                <input type="range" id="task-time-min"  defaultValue={taskMins} max="59" min="0" onChange={e => setTaskMins(e.target.value)} required></input>
-                </div> */}
-                
                 <div className="task-form-field">
                 <div className='form-label'><label>Time: </label></div>
-                {/* <div className='form-input'> */}
                     <TimePicker value={taskTime} onChange={setTaskTime} disableClock={true}/>
-                {/* </div> */}
                 </div>
 
                 <div className="task-form-field">
@@ -228,12 +200,12 @@ function TaskForm(props) {
                 </div>
                 </div>
                 
-                <div className="task-form-field">
+                {/* <div className="task-form-field">
                     <div className='form-label'><label>Set Reminders</label></div>
                     <div className='form-input'><input type='checkbox' value='want-reminder' id='want-reminder' onChange={isChecked}/></div>
-                </div>
+                </div> */}
 
-                <div className="task-form-field" id="rem-interval" style={{display: 'none'}}>
+                {/* <div className="task-form-field" id="rem-interval" style={{display: 'none'}}>
                     <input type='checkbox' name='rem-freq' id='10-min'/> 10 min 
                     <input type='checkbox' name='rem-freq' id='30-min'/> 30 min 
                     <input type='checkbox' name='rem-freq' id='1-hour'/> 1 hour before
@@ -242,7 +214,7 @@ function TaskForm(props) {
                     <input type='checkbox' name='rem-freq' id='3-days'/> 3 days before
                     <input type='checkbox' name='rem-freq' id='one-week'/> 1 week before
                     <input type='checkbox' name='rem-freq' id='one-week'/> 2 weeks before
-                </div>
+                </div> */}
 
                 <div className="task-form-field" id='submit-cancel'>
                     <button>Submit</button>

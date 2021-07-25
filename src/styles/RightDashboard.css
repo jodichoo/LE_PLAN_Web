@@ -122,6 +122,13 @@
   .task-form {
     width: 100%;
   }
+
+  .form-error {
+    font-size: small;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   
   .task-form-container {
     display: flex;
