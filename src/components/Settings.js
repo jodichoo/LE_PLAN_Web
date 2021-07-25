@@ -41,15 +41,19 @@ function Settings() {
     }, []); 
 
     function handleChangeBio() {
+        const trimmedBio = newBio.trim(); 
+        if (trimmedBio.length === 0) {
+            return setError("Please enter a valid new bio");
+        }
         userTasks
-        .update({
-          bio: newBio,
-        })
-        .then(() => {
-          setBio(newBio);
-          setChangeBio(false);
-          setSuccess("Successfully changed your bio!");
-        });
+            .update({
+                bio: trimmedBio,
+            })
+            .then(() => {
+                setBio(trimmedBio);
+                setChangeBio(false);
+                setSuccess("Successfully changed your bio!");
+            });
     }
 
     function handleSetProfilePic(e) {
@@ -109,13 +113,19 @@ function Settings() {
 
     function handleChangeName(e) {
         e.preventDefault(); 
+        const trimmedName = newName.trim(); 
+        if (trimmedName.length === 0) {
+            return setError('Please enter a valid display name'); 
+        }
+
         currentUser.updateProfile({
-            displayName: newName
+            displayName: trimmedName
         })
             .then(() => {
                 userTasks.update({
-                    displayName: newName
-                }).then(() => { 
+                    displayName: trimmedName
+                }).then(() => {
+                    setError(''); 
                     setSuccess('Successfully changed display name!');
                 }).then(() => {
                     setChangeName(false); 
@@ -201,9 +211,10 @@ function Settings() {
                 {console.log('render')}
                 <div style={{fontStyle: 'italic'}}>"{bio}"</div>
 
+                {(error && !changePass && !changeName && !changeBio) && renderNotif(error)}
+
                 <div className='upload-pic'>
                     Upload Profile Picture
-                    {(error && !changePass) && renderNotif(error)}
                     <form onSubmit={handleSetProfilePic}>
                         <input type='text' value={picUrl} onChange={e => setPicUrl(e.target.value)} placeholder='e.g. pic.png, pic.jpg'required/>{' '}
                         <button type='submit'>Set Picture</button>
@@ -228,9 +239,11 @@ function Settings() {
                         <div className='value'>{currentUser.email}</div>
                     </div>
                 </div>
-                
+
+                {error && renderNotif(error)}
+
                 <div className='toggle-reauth' onClick={() => {setConfirmPassP(true); setError('')}}>Change Password</div>
-                {(error && changePass) && renderNotif(error)}
+                {/* {(error && changePass) && renderNotif(error)} */}
                 {confirmPassP && toggleAuth()}
                 {changePass && <div className='settings-form'>
                         <form onSubmit={handleChangePassword}>
@@ -243,22 +256,25 @@ function Settings() {
                         </form>
                     </div>} 
                 <div className='toggle-reauth' onClick={() => {setConfirmPassN(true); setError('')}}>Change Display Name</div>
+                {/* {(error && changeName) && renderNotif(error)} */}
                 {confirmPassN && toggleAuth()}
                 {changeName && <div className='settings-form'>
                     <form onSubmit={handleChangeName}>
-                    <div className='form-field'>New Display Name:{' '}<input type='text' onChange={e => setNewName(e.target.value)} /></div>
+                    <div className='form-field'>New Display Name:{' '}<input type='text' onChange={e => setNewName(e.target.value)} required/></div>
                     <div className='form-buttons'>
                         <button type='submit'>Submit</button>{' '}
                         <button onClick={() => setChangeName(false)}>Cancel</button>
                     </div>
                     </form>
                     </div>}
-                <div className='toggle-reauth' onClick={() => {setChangeBio(true)}}>Change Bio</div>
+                <div className='toggle-reauth' onClick={() => {setChangeBio(true); setError('')}}>Change Bio</div>
+                {/* {(error && changeBio) && renderNotif(error)} */}
                 {changeBio && <div className='settings-form'>
                     <div className='form-field'>New Bio:{' '}
                         <input
                             type='text'
                             onChange={(e) => setNewBio(e.target.value)}
+                            required
                         />
                     </div>
                 

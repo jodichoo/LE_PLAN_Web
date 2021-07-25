@@ -32,7 +32,7 @@ function Signup() {
         try {
             setError(""); 
             setLoading(true); 
-            await signup(emailRef.current.value, passwordRef.current.value, username, displayNameRef.current.value); 
+            await signup(emailRef.current.value, passwordRef.current.value, username.trim(), displayNameRef.current.value.trim()); 
             
             history.push('/dashboard'); 
         } catch {
@@ -43,12 +43,13 @@ function Signup() {
 
     function checkUsername() {
         // e.preventDefault();
-        if (username.trim().length === 0) {
+        const trimmedUn = username.trim(); 
+        if (trimmedUn.length === 0) {
             setApproveUn(false); 
             return setError('Please enter a username');
         } else {
             setError('');
-            db.collection('usernames').doc(username).get().then(doc => {
+            db.collection('usernames').doc(trimmedUn).get().then(doc => {
                 if (doc.exists) {
                     console.log('un taken'); 
                     setApproveUn(false); 
