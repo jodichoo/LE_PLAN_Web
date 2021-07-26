@@ -56,7 +56,7 @@ function Profile() {
                         {target === undefined 
                             ? <div style={{width: '80%', color: 'gray'}}>No target set yet, set a target range in the settings page!</div>
                             : <div className='profile-field'>
-                                <div className='label'><BiBriefcaseAlt2 style={{color: '#8a5858'}} />Target Work:</div> 
+                                <div className='label'><BiBriefcaseAlt2 style={{color: '#8a5858'}} />{" "}Target Work:</div> 
                                 <div className='value'>{target[0]}%-{target[1]}%</div>
                               </div>
                         }
