@@ -12,7 +12,6 @@ function TaskForm(props) {
     const [taskDesc, setTaskDesc] = useState(''); 
     const [taskDate, setTaskDate] = useState(selectedDate); 
     const [taskDur, setTaskDur] = useState(''); 
-    const [check, setCheck] = useState(true);
     const [isWork, setIsWork] = useState(true); 
     const { currentUser } = useAuth(); 
     const userTasks = db.collection('users').doc(currentUser.uid); 
@@ -141,17 +140,6 @@ function TaskForm(props) {
             })
     }
 
-    function isChecked(e) {
-        e.preventDefault();
-         setCheck(!check)
-        let reminder = document.getElementById("rem-interval")
-        if (check === true){
-            reminder.style.display = "block";
-        } else {
-            reminder.style.display = 'none';
-        }
-    }
-
     return (
         <div className='task-form'>
             {error && <div className='form-error'><GoX style={{color: 'red', fontSize: '20px'}} />{error}</div>}
@@ -199,22 +187,6 @@ function TaskForm(props) {
                         </input>{" "}h
                 </div>
                 </div>
-                
-                {/* <div className="task-form-field">
-                    <div className='form-label'><label>Set Reminders</label></div>
-                    <div className='form-input'><input type='checkbox' value='want-reminder' id='want-reminder' onChange={isChecked}/></div>
-                </div> */}
-
-                {/* <div className="task-form-field" id="rem-interval" style={{display: 'none'}}>
-                    <input type='checkbox' name='rem-freq' id='10-min'/> 10 min 
-                    <input type='checkbox' name='rem-freq' id='30-min'/> 30 min 
-                    <input type='checkbox' name='rem-freq' id='1-hour'/> 1 hour before
-                    <input type='checkbox' name='rem-freq' id='3-hours'/> 3 hours before
-                    <input type='checkbox' name='rem-freq' id='1-day'/> 1 day before
-                    <input type='checkbox' name='rem-freq' id='3-days'/> 3 days before
-                    <input type='checkbox' name='rem-freq' id='one-week'/> 1 week before
-                    <input type='checkbox' name='rem-freq' id='one-week'/> 2 weeks before
-                </div> */}
 
                 <div className="task-form-field" id='submit-cancel'>
                     <button>Submit</button>

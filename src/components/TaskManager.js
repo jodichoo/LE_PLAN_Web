@@ -62,12 +62,6 @@ function TaskManager(props) {
         console.log("call edit") 
     }
 
-    // function changeForm(e) {
-    //     e.preventDefault();
-    //     setEdit(false);
-    //     console.log("change form")
-    // }
-
     function convertTime(num) {
         const s = parseFloat(num).toFixed(2).toString(); 
         const split = s.split('.');
@@ -120,7 +114,6 @@ function TaskManager(props) {
                     <div className='time'>{convertTime(task.time)}</div>
                     <div className='name' data-tip data-for='edit-task-popup' onClick={e => {handleEditTask(e, task);}}>{task.name}</div>
                     <div className='type'>{task.isWork ? <BiBriefcaseAlt2 style={iconsStyle}/> : <BiJoystick style={iconsStyle}/>}</div>
-                    {/* <div className='delete'><button id="delete-task" onClick={e => deleteTask(e, task)}>Delete</button></div> */}
                     <div className='delete'><BiTrash style={{...iconsStyle, cursor:'pointer'}} onClick={e => deleteTask(e, task)} /></div>
 
                 </div>

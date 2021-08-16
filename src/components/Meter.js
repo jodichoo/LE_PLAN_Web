@@ -67,7 +67,6 @@ function Meter() {
         colors={['#8a5858','#eddfc2']}
         strokeColor={['#ffffff', '#ffffff']}
         colorFunction={(colors, index) => colors[(index % colors.length)]}
-        // formatValues={(values, total) => `${(values * 2 / total * 100).toFixed(1)}%`}
         formatValues={getValueFormat}
         clickToggle={false}
         onMouseEnter={(item) => {enterMeter(item)}}

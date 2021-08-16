@@ -66,7 +66,6 @@ function Calendar(props) {
   return (
     <div className="left-dash">
       <div className='other-date-select'>
-        {/* <h1>Calendar</h1> */}
         <label>Select a date:</label>
         <div className='fields'>
           <input type='date' placeholder="yyyy-mm-dd" defaultValue={selectedDate} min={currDate}

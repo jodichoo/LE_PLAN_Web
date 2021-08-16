@@ -83,9 +83,6 @@ function Stonker(props) {
     }
 
     function getStonkDimensions() {
-        // const container = document.getElementsByClassName('App'); 
-        // const w = container[0].getBoundingClientRect().width;
-        // const h = container[0].getBoundingClientRect().height;
         const isMobile = width <= 1024; 
         if (isMobile) {
             return [Math.round(height * 0.5), Math.round(width * 0.9)];

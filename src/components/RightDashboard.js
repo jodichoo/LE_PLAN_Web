@@ -15,37 +15,11 @@ function RightDashboard(props) {
 
   useEffect(() => {
     var timer = setInterval(() => setTime(moment().format("HH:mm:ss")), 1000);
-    // var timer = setInterval(() => setTime(nextTask()), 60000);
     return function cleanup() {
       clearInterval(timer);
     };
   }, []);
 
-//   function nextTask() {
-//       setTime(moment().format("HH:mm"));
-//     if (tasks.length > 0) {
-//         console.log("enter hook")
-//       const arr = time.split(":");
-//       const currTime = parseFloat(arr[0]) + 0.01 * parseFloat(arr[1]);
-//       if (upTaskIndex === tasks.length - 1 && currTime > tasks[upTaskIndex].time) {
-//         console.log("end");
-//         setUpTaskIndex(-1);
-//       }
-
-//       if (currTime > tasks[upTaskIndex].time && upTaskIndex >= 0) {
-//         console.log("sdfsdf");
-//         for (var i = upTaskIndex; i < tasks.length; i++) {
-//           console.log(tasks[i].time);
-//           setUpTaskIndex(i);
-//           if (tasks[i].time > currTime) {
-//             console.log("updating");
-//             setUpTaskIndex(i);
-//             break;
-//           }
-//         }
-//       }
-//     }
-//   }
   useEffect(() => {
     if (todayTasks.length !== taskLen) {
       setUpTaskIndex(0);
@@ -53,19 +27,16 @@ function RightDashboard(props) {
     }
 
       if (todayTasks.length > 0 && upTaskIndex >=0) {
-        // console.log("entered 2")
         const arr = time.split(":");
         const currTime = parseFloat(arr[0]) + 0.01 * parseFloat(arr[1]);
         
         if (currTime > todayTasks[upTaskIndex].time) {
-            // console.log('entered 3'); 
           console.log("sdfsdf");
           for (var i = upTaskIndex; i < todayTasks.length; i++) {
             console.log(todayTasks[i].time);
             setUpTaskIndex(i);
             if (todayTasks[i].time > currTime) {
               console.log("updating");
-              // setUpTaskIndex(i);
               break;
             }
           }
@@ -76,36 +47,6 @@ function RightDashboard(props) {
           setUpTaskIndex(-1);
         }
       }
-    
-    // if (tasks.length !== taskLen) {
-    //     setUpTaskIndex(0);
-    //     setTaskLen(tasks.length);
-    // }
-    
-    // if (tasks.length > 0 && upTaskIndex >=0) {
-    //     console.log("enter hook", upTaskIndex)
-    //   const arr = time.split(":");
-    //   const currTime = parseFloat(arr[0]) + 0.01 * parseFloat(arr[1]);
-      
-    //   if (currTime > tasks[upTaskIndex].time) {
-    //       console.log(upTaskIndex); //1
-    //     console.log("sdfsdf");
-    //     for (var i = upTaskIndex; i < tasks.length; i++) {
-    //       console.log(tasks[i].time);
-    //       setUpTaskIndex(i);
-    //       if (tasks[i].time > currTime) {
-    //         console.log("updating");
-    //         // setUpTaskIndex(i);
-    //         break;
-    //       }
-    //     }
-    //   }
-
-    //   if (upTaskIndex >= tasks.length - 1 && currTime > tasks[upTaskIndex].time) {
-    //     console.log("end");
-    //     setUpTaskIndex(-1);
-    //   }
-    // }
   }, [todayTasks, time]);
 
   function renderUpcoming() {
@@ -136,11 +77,9 @@ function RightDashboard(props) {
 
   return (
     <div className="right-dash">
-      {/* <label for="add-task"><h1 id="add-task">+ Add Task</h1></label> */}
       <div className="WL-meter">
         <div className='header'>Meter</div>
         <Meter />
-        {/* <br /><br /><br /><br /> */}
       </div>
 
       <div className="upcoming-task">
@@ -150,9 +89,7 @@ function RightDashboard(props) {
       </div>
 
       <div className="add-task-bar">
-        {/* <div className='fields'> */}
         <div className='header'><BiCalendarPlus />{' '}Add Task</div>
-        {/* <h1 id="add-task"><BiCalendarPlus style={{verticalAlign:'top'}}/>{' '}Add Task</h1> */}
         <div className='buttons'>
           <button id="work-button" onClick={showWorkTaskForm} disabled={addWorkClicked}>
             Work
@@ -162,7 +99,6 @@ function RightDashboard(props) {
             Play
           </button>
         </div>
-        {/* </div> */}
         {addWorkClicked && (
           <TaskForm
             selectedDate={selectedDate}

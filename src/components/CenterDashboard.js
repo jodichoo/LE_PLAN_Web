@@ -48,8 +48,6 @@ function CenterDashboard(props) {
   async function updateStonks(monDate) {
     const data = []; 
     for (var i = 4; i > 0; i--) {
-      // const start = moment(monDate, 'YYYY-MM-DD').subtract(i, 'week'); //i th mondate
-      // console.log('enter outer loop', i, start.format('YYYY-MM-DD')); 
       var workCount = 0;
       var lifeCount = 0;
 

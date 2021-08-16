@@ -68,9 +68,6 @@ function Settings() {
                 photoURL: picUrl
             })
                 .then(() => {
-                    // setError(''); 
-                    // setSuccess('Successfully changed profile picture!');
-                    // setPicUrl('');
                     userTasks.update({
                         photoURL: picUrl 
                     }).then(() => {
@@ -176,7 +173,6 @@ function Settings() {
     }
 
     function handleSetTarget() {
-        // console.log('set target', range);
         userTasks
             .set({
                 targetWorkRange: range
@@ -243,7 +239,6 @@ function Settings() {
                 {error && renderNotif(error)}
 
                 <div className='toggle-reauth' onClick={() => {setConfirmPassP(true); setError('')}}>Change Password</div>
-                {/* {(error && changePass) && renderNotif(error)} */}
                 {confirmPassP && toggleAuth()}
                 {changePass && <div className='settings-form'>
                         <form onSubmit={handleChangePassword}>
@@ -256,7 +251,6 @@ function Settings() {
                         </form>
                     </div>} 
                 <div className='toggle-reauth' onClick={() => {setConfirmPassN(true); setError('')}}>Change Display Name</div>
-                {/* {(error && changeName) && renderNotif(error)} */}
                 {confirmPassN && toggleAuth()}
                 {changeName && <div className='settings-form'>
                     <form onSubmit={handleChangeName}>
@@ -268,7 +262,6 @@ function Settings() {
                     </form>
                     </div>}
                 <div className='toggle-reauth' onClick={() => {setChangeBio(true); setError('')}}>Change Bio</div>
-                {/* {(error && changeBio) && renderNotif(error)} */}
                 {changeBio && <div className='settings-form'>
                     <div className='form-field'>New Bio:{' '}
                         <input
