@@ -16,12 +16,16 @@ function Contact() {
       <p>
         <h3>OUR GITHUB REPO:</h3>
         <div>
-          Access LE PLAN Mobile App Repository{' '}
-          <a className="repo" href={"https://github.com/sheehui/LE_PLAN_APP"}>here</a>
+          Access LE PLAN Mobile App Repository{" "}
+          <a className="repo" href={"https://github.com/sheehui/LE_PLAN_APP"}>
+            here
+          </a>
         </div>
         <div>
-          Access LE PLAN Web App Repository{' '}
-          <a className="repo" href={"https://github.com/sheehui/WLBBOT"}>here</a>
+          Access LE PLAN Web App Repository{" "}
+          <a className="repo" href={"https://github.com/sheehui/WLBBOT"}>
+            here
+          </a>
         </div>
       </p>
     </div>
